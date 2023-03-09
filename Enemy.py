@@ -1,8 +1,9 @@
 import Bullet, pygame
 
 class Enemy:
-    def __init__(self, type, health, x, y):
+    def __init__(self, type, direction, health, x, y):
         self.type = type
+        self.direction = direction
         self.health = health
         super.__init__(x,y,"Enemy.png")
     
@@ -21,4 +22,4 @@ class Enemy:
         elif type == 3:
             speed = 15
             damage = 3
-        return Bullet(speed, damage)
+        # return a bullet object with correct direction and starting position with given speed
