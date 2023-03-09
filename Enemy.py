@@ -1,4 +1,4 @@
-import Bullet
+import Bullet, pygame
 
 class Enemy:
     def __init__(self, type, health):

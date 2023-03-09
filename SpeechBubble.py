@@ -1,3 +1,5 @@
+import pygame
+
 class SpeechBubble:
     def __init__(self,text):
         self.text = text
