@@ -7,6 +7,7 @@ class PlayerCharacter:
         self.currentLocatin = currentLocation
 
     def move(): 
+        pass
 
     
         
