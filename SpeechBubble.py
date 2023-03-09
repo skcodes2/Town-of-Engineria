@@ -1,5 +1,4 @@
 class SpeechBubble:
-    text = ""
     def __init__(self,text):
         self.text = text
     
