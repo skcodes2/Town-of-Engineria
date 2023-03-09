@@ -4,8 +4,10 @@ import GameObject
 
 pygame.init()
 
-backgroundImage_LvL1 = pygame.image.load('town.png')
+backgroundImage_LvL1 = pygame.image.load('lvl1background.png')
+#backgroundImage_LvL2 = pygame.image.load("lvl2background.png")
 backgroundImage_Lvl1_rect = backgroundImage_LvL1.get_rect()
+
 
 screen = pygame.display.set_mode(
     (backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
