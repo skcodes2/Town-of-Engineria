@@ -1,8 +1,9 @@
-import pygame
+import pygame, GameObject
 
-class SpeechBubble:
-    def __init__(self,text):
+class SpeechBubble(GameObject):
+    def __init__(self,text, x, y):
         self.text = text
+        super.__init__(x,y,"SpeechBubble.png")
     
     def replaceText(self, text):
         self.text = text

@@ -1,9 +1,10 @@
 import Bullet, pygame
 
 class Enemy:
-    def __init__(self, type, health):
+    def __init__(self, type, health, x, y):
         self.type = type
         self.health = health
+        super.__init__(x,y,"Enemy.png")
     
     def loseHp(self, damage):
         self.health = self.health - damage
