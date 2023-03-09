@@ -1,13 +1,19 @@
-class PlayerCharacter: 
-    def __init__(self,speed,health,money,buildingMaterials,currentLocation):
+import pygame
+
+class Character: 
+    def __init__(self,speed,health,currentLocation):
         self.speed = speed
         self.health = health
-        self.money = money
-        self.buildingMaterials = buildingMaterials
-        self.currentLocatin = currentLocation
+        self.currentLocation = currentLocation
 
-    def move(): 
-        pass
+    def loseHp(self,damage): 
+        self.health = self.health - damage
+
+    
+
+            
+
+
 
     
         
