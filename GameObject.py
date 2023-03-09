@@ -35,7 +35,7 @@ class Character(GameObject):
     def loseHp(self,damage): 
         self.health = self.health - damage
 
-class Enemy:
+class Enemy(GameObject):
     def __init__(self, type, direction, health, x, y):
         self.type = type
         self.direction = direction
