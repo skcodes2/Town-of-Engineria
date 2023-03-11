@@ -35,9 +35,9 @@ standLeft = False;
 
 def checkStand(): 
     if standLeft: 
-        screen.blit(walkingL,tuple(bobby.currentPosition),(404 - 101*walking_next,0,95,76))
+        screen.blit(walkingL,tuple(bobby.currentPosition),(0,0,95,76))
     else:    
-        screen.blit(walkingR,tuple(bobby.currentPosition),(101*walking_next,0,100,76))
+        screen.blit(walkingR,tuple(bobby.currentPosition),(0,0,100,76))
 
 def walkingRight():
     screen.blit(walkingR,tuple(bobby.currentPosition),(101*walking_next,0,100,76))
@@ -52,28 +52,28 @@ def renderLevel1():
     screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
     platForm_group.draw(screen)
 
-
-
-
 def renderLvl2():
     screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
     pygame.display.flip()
-
-
-
 
 def renderBossLvl():
     screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
     pygame.display.flip()
 
+#jumping
+vel_y = 30
+jump = False
+
 # dictionary to keep track of which keys are currently being pressed
 keys_pressed = {}
 running = True
+
+
 # gameloop1
 while running:
     renderLevel1()
 
-    pygame.time.Clock().tick(7)
+    pygame.time.Clock().tick(18)
     if(walking_next>3):
         walking_next=0
     walking_next +=1
@@ -99,7 +99,26 @@ while running:
         walkingRight()
         standLeft = False
 
-    checkStand()
+    userInp = pygame.key.get_pressed()
+    if jump is False and userInp[pygame.K_UP]:
+        jump = True
+
+    if jump: 
+        if standLeft: 
+            walkingLeft()
+        else: 
+            walkingRight()
+
+        bobby.currentPosition[1] -= vel_y
+        vel_y -= 5
+        if vel_y < -30: # or on a platform (implement later)
+            jump = False
+            vel_y = 30
+
+    if len(keys_pressed) == 0 and jump is False: # if no keys are being pressed we don't want to running animation.
+        checkStand()
+
+
     pygame.display.flip()
 
 
