@@ -6,7 +6,7 @@ class GameObject(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(img_path)
         self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        self.rect.topleft = (x, y)
         self.x = x
         self.y = y
 
