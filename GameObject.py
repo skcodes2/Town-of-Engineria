@@ -6,7 +6,7 @@ class GameObject(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(img_path)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+        self.rect.center = (x, y)
         self.x = x
         self.y = y
 
@@ -32,8 +32,8 @@ class SpeechBubble(GameObject):
 
 
 class Character(GameObject):
-    def __init__(self, speed, health, currentLocation, x, y):
-        super.__init__(x, y, "bobby.png")
+    def __init__(self, speed, health, currentLocation, x, y,image_path):
+        super().__init__(x, y, image_path)
         self.speed = speed
         self.health = health
         self.currentLocation = currentLocation
