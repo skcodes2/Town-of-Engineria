@@ -13,7 +13,7 @@ class GameObject(pygame.sprite.Sprite):
 
 class Bullet(GameObject):
     def __init__(self, speed, damage, direction, x, y):
-        super.__init__(x, y, "Bullet.png")
+        super.__init__(x, y, "bullet.png")
         self.speed = speed
         self.damage = damage
         self.direction = direction
@@ -22,7 +22,7 @@ class Bullet(GameObject):
 class SpeechBubble(GameObject):
     def __init__(self, text, x, y):
         self.text = text
-        super.__init__(x, y, "SpeechBubble.png")
+        super.__init__(x, y, "speechbubble.png")
 
     def replaceText(self, text):
         self.text = text
@@ -33,7 +33,7 @@ class SpeechBubble(GameObject):
 
 class Character(GameObject):
     def __init__(self, speed, health, currentLocation, x, y):
-        super.__init__(x, y, "Character.png")
+        super.__init__(x, y, "bobby.png")
         self.speed = speed
         self.health = health
         self.currentLocation = currentLocation
@@ -47,7 +47,7 @@ class Enemy(GameObject):
         self.type = type
         self.direction = direction
         self.health = health
-        super.__init__(x, y, "Enemy.png")
+        super.__init__(x, y, "enemy.png")
 
     def loseHp(self, damage):
         self.health = self.health - damage
