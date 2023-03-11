@@ -12,12 +12,14 @@ backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
 
 platForm_group = pygame.sprite.Group()
 #floor platform 
-platForm_group.add(GameObject.PlatForms(0, 400, "lvl1platformImages/largebrownstone.png"))
+platForm_group.add(GameObject.PlatForms(0, 500, "lvl1platformImages/largebrownstone.png"))
 platForm_group.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_group.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_group.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 #sky platforms
-
+platForm_group.add(GameObject.PlatForms(987, 337, "lvl1platformImages/mediumorangestone.png"))
+platForm_group.add(GameObject.PlatForms(300, 360, "lvl1platformImages/leftcornerbrownstone.png"))
+platForm_group.add(GameObject.PlatForms(340, 360, "lvl1platformImages/rightcornerbrownstone.png"))
 
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
