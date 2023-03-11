@@ -23,20 +23,22 @@ platForm_group.add(GameObject.PlatForms(340, 360, "lvl1platformImages/rightcorne
 
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
-bobby = GameObject.Character(2,5,(0,0),0,0,"bobby.png")
+bobby = GameObject.Character(2,5,0,425,"bobby.png")
 
 #animations
 walking = pygame.image.load("animationImages/walking.png")
 walking_next = 0
 
 
-
+def walkingRight():
+    screen.blit(walking,tuple(bobby.currentPosition),(101*walking_next,0,100,76))
+    pygame.display.flip()
 
 def renderLevel1():
     screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-    screen.blit(walking,bobby.currentLocation,(100*walking_next,0,105,75))
     platForm_group.draw(screen)
-    pygame.display.flip()
+    
+    
 
 
 def renderLvl2():
@@ -50,11 +52,11 @@ def renderBossLvl():
 
 
 running = True
-# gameloop
+# gameloop1
 while running:
     renderLevel1()
-
-    pygame.time.Clock().tick(10)
+    walkingRight()
+    pygame.time.Clock().tick(7)
     if(walking_next>3):
         walking_next=0
     walking_next +=1
@@ -63,6 +65,10 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    key = pygame.key.get_pressed()
+    if key[pygame.K_RIGHT]:
+        bobby.currentPosition[0]+=bobby.speed
     
 
 

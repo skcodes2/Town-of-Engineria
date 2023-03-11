@@ -9,6 +9,7 @@ class GameObject(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
         self.x = x
         self.y = y
+        self.currentPosition = [x,y]
 
 
 class Bullet(GameObject):
@@ -32,11 +33,10 @@ class SpeechBubble(GameObject):
 
 
 class Character(GameObject):
-    def __init__(self, speed, health, currentLocation, x, y,image_path):
+    def __init__(self, speed, health, x, y,image_path):
         super().__init__(x, y, image_path)
         self.speed = speed
         self.health = health
-        self.currentLocation = currentLocation
 
     def loseHp(self, damage):
         self.health = self.health - damage
