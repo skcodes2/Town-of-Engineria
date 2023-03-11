@@ -14,6 +14,7 @@ platForm_group = pygame.sprite.Group()
 platForm_group.add(GameObject.PlatForms(0, 720, "platformImages/largeplatform.png"))
 platForm_group.add(GameObject.PlatForms(1250, 720, "platformImages/iceplatform.png"))
 
+
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
 
