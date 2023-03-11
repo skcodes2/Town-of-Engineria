@@ -23,22 +23,36 @@ platForm_group.add(GameObject.PlatForms(340, 360, "lvl1platformImages/rightcorne
 
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
-bobby = GameObject.Character(2,5,0,425,"bobby.png")
+bobby = GameObject.Character(15,5,0,425,"bobby.png")
 
-#animations
-walking = pygame.image.load("animationImages/walking.png")
+#animations 
+walkingR = pygame.image.load("animationImages/walkingR.png")
+walkingL = pygame.image.load("animationImages/walkingL.png")
 walking_next = 0
 
+# walking 
+standLeft = False; 
+
+def checkStand(): 
+    if standLeft: 
+        screen.blit(walkingL,tuple(bobby.currentPosition),(404 - 101*walking_next,0,95,76))
+    else:    
+        screen.blit(walkingR,tuple(bobby.currentPosition),(101*walking_next,0,100,76))
 
 def walkingRight():
-    screen.blit(walking,tuple(bobby.currentPosition),(101*walking_next,0,100,76))
+    screen.blit(walkingR,tuple(bobby.currentPosition),(101*walking_next,0,100,76))
     pygame.display.flip()
 
+def walkingLeft():
+    screen.blit(walkingL,tuple(bobby.currentPosition),(404 - 101*walking_next,0,95,76))
+    pygame.display.flip()
+
+# rendering levels
 def renderLevel1():
     screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
     platForm_group.draw(screen)
-    
-    
+
+
 
 
 def renderLvl2():
@@ -46,16 +60,19 @@ def renderLvl2():
     pygame.display.flip()
 
 
+
+
 def renderBossLvl():
     screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
     pygame.display.flip()
 
-
+# dictionary to keep track of which keys are currently being pressed
+keys_pressed = {}
 running = True
 # gameloop1
 while running:
     renderLevel1()
-    walkingRight()
+
     pygame.time.Clock().tick(7)
     if(walking_next>3):
         walking_next=0
@@ -65,11 +82,25 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            # Add pressed keys to the dictionary
+            keys_pressed[event.key] = True
+        elif event.type == pygame.KEYUP:
+            # Remove keys from the dictionary when they are released
+            keys_pressed.pop(event.key, None)
 
-    key = pygame.key.get_pressed()
-    if key[pygame.K_RIGHT]:
-        bobby.currentPosition[0]+=bobby.speed
-    
+    # Check which keys are currently pressed
+    if pygame.K_LEFT in keys_pressed:
+        bobby.currentPosition[0] -= bobby.speed
+        walkingLeft()
+        standLeft = True
+    elif pygame.K_RIGHT in keys_pressed: 
+        bobby.currentPosition[0] += bobby.speed
+        walkingRight()
+        standLeft = False
+
+    checkStand()
+    pygame.display.flip()
 
 
 pygame.quit()
