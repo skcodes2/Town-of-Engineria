@@ -32,12 +32,13 @@ class SpeechBubble(GameObject):
 
 
 class Character(GameObject):
-    def __init__(self, speed, health, x, y, image_path, screen):
+    def __init__(self, speed, health, x, y, image_path, screen, platform1):
         super().__init__(x, y, image_path)
         self.speed = speed
         self.jumpingSpeed = 16
         self.health = health
         self.currentPosition = [x, y]
+        self.platform1 = platform1
 
         self.nexImage = 0
         self.screen = screen
@@ -51,18 +52,28 @@ class Character(GameObject):
 
     def playerMovementControl(self, event):
 
+        vertcollisions = pygame.sprite.spritecollide(self,self.platform1,False)
+        for sprite in vertcollisions:
+            if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
+                self.inAir = False
+                self.jumpingSpeed = 16
+        
+        if len(vertcollisions) == 0 and self.inAir is False:
+            self.inAir = True
+            self.jumpingSpeed = 0
+
         if all(key == 0 for key in pygame.key.get_pressed()) and self.inAir is False:
-            self.screen.blit(self.standing, tuple(
+            self.rect = self.screen.blit(self.standing, tuple(
                 self.currentPosition), (0, 0, 100, 76))
         elif event[pygame.K_RIGHT] and self.inAir is False:
-            self.screen.blit(self.walkingR, tuple(
+            self.rect = self.screen.blit(self.walkingR, tuple(
                 self.currentPosition), (101*self.nexImage, 0, 100, 76))
             self.currentPosition[0] += self.speed
             self.nexImage += 1
             if(self.nexImage == 3):
                 self.nexImage = 0
         elif event[pygame.K_LEFT] and self.inAir is False:
-            self.screen.blit(self.walkingL, tuple(
+            self.rect = self.screen.blit(self.walkingL, tuple(
                 self.currentPosition), (101*self.nexImage, 0, 95, 76))
             self.currentPosition[0] -= self.speed
             self.nexImage += 1
@@ -73,33 +84,33 @@ class Character(GameObject):
             self.inAir = True
 
         if self.inAir is True and event[pygame.K_LEFT]:
-            self.screen.blit(self.walkingL, tuple(
+            self.rect = self.screen.blit(self.walkingL, tuple(
                 self.currentPosition), (101*2, 0, 95, 76))
             self.currentPosition[1] -= self.jumpingSpeed
             self.currentPosition[0] -= self.speed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
-                self.inAir = False
-                self.jumpingSpeed = 10
+                self.jumpingSpeed = -10
 
         elif self.inAir is True and event[pygame.K_RIGHT]:
-            self.screen.blit(self.walkingR, tuple(
+            self.rect = self.screen.blit(self.walkingR, tuple(
                 self.currentPosition), (101*2, 0, 100, 76))
             self.currentPosition[1] -= self.jumpingSpeed
             self.currentPosition[0] += self.speed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
-                self.inAir = False
-                self.jumpingSpeed = 10
+                self.jumpingSpeed = -10
         
         elif self.inAir is True:
-            self.screen.blit(self.standing, tuple(
+            self.rect = self.screen.blit(self.standing, tuple(
                 self.currentPosition), (0, 0, 100, 76))
             self.currentPosition[1] -= self.jumpingSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
-                self.inAir = False
-                self.jumpingSpeed = 10
+                self.jumpingSpeed = -10
+        
+        self.rect.width -= 50
+        self.rect.x += 10
 
 
 class Enemy(GameObject):
