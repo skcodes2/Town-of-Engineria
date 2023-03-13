@@ -42,6 +42,8 @@ platForm_group1.add(GameObject.PlatForms(910, 380, "lvl1platformImages/rightcorn
 platForm_group1.add(GameObject.PlatForms(850, 500, "lvl1platformImages/leftcornerbrownstone.png"))
 platForm_group1.add(GameObject.PlatForms(890, 500, "lvl1platformImages/rightcornerbrownstone.png"))
 #sky platform 7
+platForm_group1.add(GameObject.PlatForms(740, 450, "lvl1platformImages/leftcornerorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(780, 450, "lvl1platformImages/rightcornerorangestone.png"))
 
 
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
@@ -54,7 +56,7 @@ bobby = GameObject.Character(17, 5, 0, 425, "characterImages/bobby.png", screen)
 # rendering levels
 def renderLevel1():
     screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-    platForm_group.draw(screen)
+    platForm_group1.draw(screen)
 
 
 def renderLvl2():
