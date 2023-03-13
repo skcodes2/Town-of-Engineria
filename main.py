@@ -52,6 +52,58 @@ screen_rect = screen.get_rect()
 # main character
 bobby = GameObject.Character(17, 5, 0, 425, "characterImages/bobbyR.png", screen, platForm_group1)
 
+#shop buttons: 
+healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
+attackButtonRect = pygame.Rect(screen_rect.width/2 - 100,400,200,50)
+
+font = pygame.font.SysFont(None, 24)
+shield_label = font.render('Upgrade Health', True, (255, 255, 255))
+attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
+
+# rendering the shop
+def renderShop():
+    pygame.display.set_caption("Item Shop")
+    screen.fill((255,255,255))
+    pygame.draw.rect(screen, (0, 0, 255), healthButtonRect)
+    pygame.draw.rect(screen, (255, 0, 0), attackButtonRect)
+    screen.blit(shield_label, (healthButtonRect.x + 10, healthButtonRect.y + 10))
+    screen.blit(attack_label, (attackButtonRect.x + 10, attackButtonRect.y + 10))
+    
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.display.set_caption("Bobby: The Town of Enginerea")
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # event.button == 1 is a left click
+                # check if the mouse click was inside a button
+                if healthButtonRect.collidepoint(event.pos): 
+                    if bobby.money >= 5: 
+                        bobby.health += 1
+                        bobby.money -=5
+                        print(bobby.money)
+                        print(bobby.health)
+                        # play some 'bought' sound effect
+                    elif bobby.money < 5:
+                        # play some 'failure' sound effect. 
+                        pass
+
+                    # execute upgrade shield action here
+                elif attackButtonRect.collidepoint(event.pos): 
+                    if bobby.money >=5: 
+                        bobby.attack +=1
+                        bobby.money -=5
+                        print(bobby.money)
+                        print(bobby.attack)
+                        # play some 'bought' sound effect
+                    elif bobby.money <5: 
+                        # play some 'failure' sound effect. 
+                        pass
+                        
+
+        pygame.display.flip()
+       
+
 
 # rendering levels
 def renderLevel1():
@@ -80,6 +132,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+            renderShop()
+
 
     keys = pygame.key.get_pressed()
     bobby.playerMovementControl(keys)

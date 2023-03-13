@@ -36,6 +36,8 @@ class Character(GameObject):
         super().__init__(x, y, image_path)
         self.speed = speed
         self.jumpingSpeed = 16
+        self.money = 15
+        self.attack = 1
         self.health = health
         self.currentPosition = [x, y]
         self.platform1 = platform1
