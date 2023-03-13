@@ -35,7 +35,7 @@ class Character(GameObject):
     def __init__(self, speed, health, x, y, image_path, screen):
         super().__init__(x, y, image_path)
         self.speed = speed
-        self.jumpingSpeed = 12
+        self.jumpingSpeed = 16
         self.health = health
         self.currentPosition = [x, y]
 
@@ -51,17 +51,17 @@ class Character(GameObject):
 
     def playerMovementControl(self, event):
 
-        if all(key == 0 for key in pygame.key.get_pressed()):
+        if all(key == 0 for key in pygame.key.get_pressed()) and self.inAir is False:
             self.screen.blit(self.standing, tuple(
                 self.currentPosition), (0, 0, 100, 76))
-        elif event[pygame.K_RIGHT]:
+        elif event[pygame.K_RIGHT] and self.inAir is False:
             self.screen.blit(self.walkingR, tuple(
                 self.currentPosition), (101*self.nexImage, 0, 100, 76))
             self.currentPosition[0] += self.speed
             self.nexImage += 1
             if(self.nexImage == 3):
                 self.nexImage = 0
-        elif event[pygame.K_LEFT]:
+        elif event[pygame.K_LEFT] and self.inAir is False:
             self.screen.blit(self.walkingL, tuple(
                 self.currentPosition), (101*self.nexImage, 0, 95, 76))
             self.currentPosition[0] -= self.speed
@@ -71,11 +71,32 @@ class Character(GameObject):
 
         if self.inAir is False and event[pygame.K_UP]:
             self.inAir = True
-        if self.inAir is True:
+
+        if self.inAir is True and event[pygame.K_LEFT]:
+            self.screen.blit(self.walkingL, tuple(
+                self.currentPosition), (101*2, 0, 95, 76))
+            self.currentPosition[1] -= self.jumpingSpeed
+            self.currentPosition[0] -= self.speed
+            self.jumpingSpeed -= 2
+            if self.jumpingSpeed < -10:
+                self.inAir = False
+                self.jumpingSpeed = 10
+
+        elif self.inAir is True and event[pygame.K_RIGHT]:
+            self.screen.blit(self.walkingR, tuple(
+                self.currentPosition), (101*2, 0, 100, 76))
+            self.currentPosition[1] -= self.jumpingSpeed
+            self.currentPosition[0] += self.speed
+            self.jumpingSpeed -= 2
+            if self.jumpingSpeed < -10:
+                self.inAir = False
+                self.jumpingSpeed = 10
+        
+        elif self.inAir is True:
             self.screen.blit(self.standing, tuple(
                 self.currentPosition), (0, 0, 100, 76))
             self.currentPosition[1] -= self.jumpingSpeed
-            self.jumpingSpeed -= 1
+            self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.inAir = False
                 self.jumpingSpeed = 10
