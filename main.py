@@ -12,36 +12,43 @@ backgroundImage_Lvl1_rect = backgroundImage_LvL1.get_rect()
 backgroundImage_LvL2_rect = backgroundImage_LvL2.get_rect()
 backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
 
-platForm_group = pygame.sprite.Group()
+platForm_group1 = pygame.sprite.Group()
 # floor platform
-platForm_group.add(GameObject.PlatForms(0, 500, "lvl1platformImages/largebrownstone.png"))
-platForm_group.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
-platForm_group.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
-platForm_group.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(0, 500, "lvl1platformImages/largebrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 # orange platforms
-platForm_group.add(GameObject.PlatForms(987, 337, "lvl1platformImages/mediumorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/mediumorangestone.png"))
 # sky platform 1
-platForm_group.add(GameObject.PlatForms(135, 430, "lvl1platformImages/leftcornerbrownstone.png"))
-platForm_group.add(GameObject.PlatForms(175, 430, "lvl1platformImages/rightcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(135, 430, "lvl1platformImages/leftcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(175, 430, "lvl1platformImages/rightcornerbrownstone.png"))
 # sky platform 2
-platForm_group.add(GameObject.PlatForms(290, 360, "lvl1platformImages/leftcornerbrownstone.png"))
-platForm_group.add(GameObject.PlatForms(330, 360, "lvl1platformImages/rightcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(290, 360, "lvl1platformImages/leftcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(330, 360, "lvl1platformImages/rightcornerbrownstone.png"))
 # brown platform
-platForm_group.add(GameObject.PlatForms(450, 446, "lvl1platformImages/smallbrownstone.png"))
-platForm_group.add(GameObject.PlatForms(450, 350, "lvl1platformImages/smallbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(450, 446, "lvl1platformImages/smallbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(450, 350, "lvl1platformImages/smallbrownstone.png"))
 #sky platform 3
-platForm_group.add(GameObject.PlatForms(620, 390, "lvl1platformImages/leftcornerorangestone.png"))
-platForm_group.add(GameObject.PlatForms(660, 390, "lvl1platformImages/rightcornerorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(620, 390, "lvl1platformImages/leftcornerorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(660, 390, "lvl1platformImages/rightcornerorangestone.png"))
+#sky platform 4
+platForm_group1.add(GameObject.PlatForms(750, 350, "lvl1platformImages/leftcornerorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(790, 350, "lvl1platformImages/rightcornerorangestone.png"))
+#sky platform 5 
+platForm_group1.add(GameObject.PlatForms(870, 380, "lvl1platformImages/leftcornerorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(910, 380, "lvl1platformImages/rightcornerorangestone.png"))
+#sky platform 6
+platForm_group1.add(GameObject.PlatForms(850, 500, "lvl1platformImages/leftcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(890, 500, "lvl1platformImages/rightcornerbrownstone.png"))
+#sky platform 7
 
 
-
-screen = pygame.display.set_mode(
-    (backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
+screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
 
 # main character
-bobby = GameObject.Character(
-    17, 5, 0, 425, "characterImages/bobby.png", screen)
+bobby = GameObject.Character(17, 5, 0, 425, "characterImages/bobby.png", screen)
 
 
 # rendering levels
