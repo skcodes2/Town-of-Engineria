@@ -50,7 +50,7 @@ screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundIma
 screen_rect = screen.get_rect()
 
 # main character
-bobby = GameObject.Character(17, 5, 0, 425, "characterImages/bobby.png", screen)
+bobby = GameObject.Character(17, 5, 0, 425, "characterImages/bobby.png", screen, platForm_group1)
 
 
 # rendering levels
