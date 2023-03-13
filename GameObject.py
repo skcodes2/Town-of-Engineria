@@ -44,8 +44,11 @@ class Character(GameObject):
         self.screen = screen
         self.walkingR = pygame.image.load("animationImages/walkingR.png")
         self.walkingL = pygame.image.load("animationImages/walkingL.png")
-        self.standing = pygame.image.load("characterImages/bobby.png")
+        self.standingR = pygame.image.load("characterImages/bobbyR.png")
+        self.standingL = pygame.image.load("characterImages/bobbyL.png")
+
         self.inAir = False
+        self.standingLeft = False
 
     def loseHp(self, damage):
         self.health = self.health - damage
@@ -53,12 +56,18 @@ class Character(GameObject):
     def playerMovementControl(self, event):
 
         if all(key == 0 for key in pygame.key.get_pressed()) and self.inAir is False:
-            self.rect = self.screen.blit(self.standing, tuple(
-                self.currentPosition), (0, 0, 100, 76))
+            if self.standingLeft:
+                self.rect = self.screen.blit(self.standingL, tuple(
+                    self.currentPosition), (0, 0, 100, 76))
+            else: 
+                self.rect = self.screen.blit(self.standingR, tuple(
+                    self.currentPosition), (0, 0, 100, 76))
+
         elif event[pygame.K_RIGHT] and self.inAir is False:
             self.rect = self.screen.blit(self.walkingR, tuple(
                 self.currentPosition), (101*self.nexImage, 0, 100, 76))
             self.currentPosition[0] += self.speed
+            self.standingLeft = False
             self.nexImage += 1
             if(self.nexImage == 3):
                 self.nexImage = 0
@@ -66,6 +75,7 @@ class Character(GameObject):
             self.rect = self.screen.blit(self.walkingL, tuple(
                 self.currentPosition), (101*self.nexImage, 0, 95, 76))
             self.currentPosition[0] -= self.speed
+            self.standingLeft = True
             self.nexImage += 1
             if(self.nexImage == 3):
                 self.nexImage = 0
@@ -76,6 +86,7 @@ class Character(GameObject):
         if self.inAir is True and event[pygame.K_LEFT]:
             self.rect = self.screen.blit(self.walkingL, tuple(
                 self.currentPosition), (101*2, 0, 95, 76))
+            self.standingLeft = True
             self.currentPosition[1] -= self.jumpingSpeed
             self.currentPosition[0] -= self.speed
             self.jumpingSpeed -= 2
@@ -85,6 +96,7 @@ class Character(GameObject):
         elif self.inAir is True and event[pygame.K_RIGHT]:
             self.rect = self.screen.blit(self.walkingR, tuple(
                 self.currentPosition), (101*2, 0, 100, 76))
+            self.standingLeft = False
             self.currentPosition[1] -= self.jumpingSpeed
             self.currentPosition[0] += self.speed
             self.jumpingSpeed -= 2
@@ -92,8 +104,12 @@ class Character(GameObject):
                 self.jumpingSpeed = -10
         
         elif self.inAir is True:
-            self.rect = self.screen.blit(self.standing, tuple(
-                self.currentPosition), (0, 0, 100, 76))
+            if self.standingLeft: 
+                self.rect = self.screen.blit(self.standingL, tuple(
+                    self.currentPosition), (0, 0, 100, 76))
+            else: 
+                self.rect = self.screen.blit(self.standingR, tuple(
+                    self.currentPosition), (0, 0, 100, 76))
             self.currentPosition[1] -= self.jumpingSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
