@@ -22,7 +22,7 @@ class Bullet(GameObject):
 class SpeechBubble(GameObject):
     def __init__(self, text, x, y):
         self.text = text
-        super.__init__(x, y, "speechbubble.png")
+        super.__init__(x, y, "speechBubbleImages/speechBubble.png")
 
     def replaceText(self, text):
         self.text = text
