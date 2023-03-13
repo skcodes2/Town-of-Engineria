@@ -52,16 +52,6 @@ class Character(GameObject):
 
     def playerMovementControl(self, event):
 
-        vertcollisions = pygame.sprite.spritecollide(self,self.platform1,False)
-        for sprite in vertcollisions:
-            if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
-                self.inAir = False
-                self.jumpingSpeed = 16
-        
-        if len(vertcollisions) == 0 and self.inAir is False:
-            self.inAir = True
-            self.jumpingSpeed = 0
-
         if all(key == 0 for key in pygame.key.get_pressed()) and self.inAir is False:
             self.rect = self.screen.blit(self.standing, tuple(
                 self.currentPosition), (0, 0, 100, 76))
@@ -111,6 +101,17 @@ class Character(GameObject):
         
         self.rect.width -= 50
         self.rect.x += 10
+
+        vertcollisions = pygame.sprite.spritecollide(self,self.platform1,False)
+        for sprite in vertcollisions:
+            if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
+                self.inAir = False
+                self.jumpingSpeed = 16
+
+        if len(vertcollisions) == 0 and self.inAir is False:
+            self.inAir = True
+            self.jumpingSpeed = 0
+
 
 
 class Enemy(GameObject):
