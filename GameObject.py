@@ -35,7 +35,7 @@ class Character(GameObject):
     def __init__(self, speed, health, x, y, image_path, screen, platform1):
         super().__init__(x, y, image_path)
         self.speed = speed
-        self.jumpingSpeed = 16
+        self.jumpingSpeed = 20
         self.money = 100
         self.attack = 1
         self.health = health
@@ -124,7 +124,7 @@ class Character(GameObject):
         for sprite in vertcollisions:
             if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
                 self.inAir = False
-                self.jumpingSpeed = 16
+                self.jumpingSpeed = 20
 
         if len(vertcollisions) == 0 and self.inAir is False:
             self.inAir = True
