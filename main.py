@@ -100,9 +100,21 @@ def renderShop():
                         # play some 'failure' sound effect. 
                         pass
                         
-
         pygame.display.flip()
        
+# Bobby's stats
+
+bobbyStats = pygame.sprite.Group()
+bobbyStats.add(GameObject.Stats(10,10,"statsImages/heart.png"))
+bobbyStats.add(GameObject.Stats(3,50,"statsImages/strength.png"))
+
+def renderStats():
+    heart = font.render(str(bobby.health), True, (255, 255, 255))
+    strength = font.render(str(bobby.attack), True, (255, 255, 255))
+    bobbyStats.draw(screen)
+    screen.blit(heart, (60, 20))
+    screen.blit(strength, (60,60))
+
 
 
 # rendering levels
@@ -125,8 +137,8 @@ running = True
 # gameloop1
 while running:
     renderLevel1()
-
-    pygame.time.Clock().tick(14)
+    renderStats()
+    pygame.time.Clock().tick(20)
 
     # event loop
     for event in pygame.event.get():

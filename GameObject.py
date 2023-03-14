@@ -36,7 +36,7 @@ class Character(GameObject):
         super().__init__(x, y, image_path)
         self.speed = speed
         self.jumpingSpeed = 16
-        self.money = 15
+        self.money = 100
         self.attack = 1
         self.health = health
         self.currentPosition = [x, y]
@@ -158,5 +158,9 @@ class Enemy(GameObject):
 
 
 class PlatForms(GameObject):
+    def __init__(self, x, y, img_path):
+        super().__init__(x, y, img_path)
+
+class Stats(GameObject):
     def __init__(self, x, y, img_path):
         super().__init__(x, y, img_path)
