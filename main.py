@@ -109,8 +109,6 @@ def renderShop():
                     if bobby.money >= 5:
                         bobby.health += 1
                         bobby.money -=5
-                        print(bobby.money)
-                        print(bobby.health)
                         # play some 'bought' sound effect
                     elif bobby.money < 5:
                         # play some 'failure' sound effect. 
@@ -121,8 +119,6 @@ def renderShop():
                     if bobby.money >=5: 
                         bobby.attack +=1
                         bobby.money -=5
-                        print(bobby.money)
-                        print(bobby.attack)
                         # play some 'bought' sound effect
                     elif bobby.money <5: 
                         # play some 'failure' sound effect. 
