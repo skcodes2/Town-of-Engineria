@@ -84,7 +84,8 @@ bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen
 healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
 attackButtonRect = pygame.Rect(screen_rect.width/2 - 100,400,200,50)
 
-font = pygame.font.SysFont(None, 24)
+print(pygame.font.get_fonts())
+font = pygame.font.SysFont("copperplate", 24)
 shield_label = font.render('Upgrade Health', True, (255, 255, 255))
 attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
 
@@ -135,14 +136,18 @@ def renderShop():
 bobbyStats = pygame.sprite.Group()
 bobbyStats.add(GameObject.Stats(20,20,"statsImages/heart.png"))
 bobbyStats.add(GameObject.Stats(15,60,"statsImages/strength.png"))
+bobbyStats.add(GameObject.Stats(20,105,"statsImages/coin.png"))
+
 
 def renderStats():
     heart = font.render(str(bobby.health), True, (0, 0, 0))
     strength = font.render(str(bobby.attack), True, (0, 0, 0))
+    money = font.render(str(bobby.money), True, (0, 0, 0))
+
     bobbyStats.draw(screen)
     screen.blit(heart, (70, 30))
     screen.blit(strength, (70,70))
-
+    screen.blit(money,(70,115))
 
 
 # rendering levels
