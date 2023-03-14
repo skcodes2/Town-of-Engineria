@@ -84,7 +84,6 @@ bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen
 healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
 attackButtonRect = pygame.Rect(screen_rect.width/2 - 100,400,200,50)
 
-print(pygame.font.get_fonts())
 font = pygame.font.SysFont("copperplate", 24)
 shield_label = font.render('Upgrade Health', True, (255, 255, 255))
 attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
