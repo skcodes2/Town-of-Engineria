@@ -32,7 +32,7 @@ class SpeechBubble(GameObject):
 
 
 class Character(GameObject):
-    def __init__(self, speed, health, x, y, image_path, screen, platform1):
+    def __init__(self, speed, health, x, y, image_path, screen, platform1, platform2):
         super().__init__(x, y, image_path)
         self.speed = speed
         self.jumpingSpeed = 20
@@ -41,6 +41,7 @@ class Character(GameObject):
         self.health = health
         self.currentPosition = [x, y]
         self.platform1 = platform1
+        self.platform2 = platform2
 
         self.nexImage = 0
         self.screen = screen
@@ -117,10 +118,12 @@ class Character(GameObject):
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
         
-        self.rect.width -= 50
-        self.rect.x += 10
+        self.rect.width -= 40
+        self.rect.x += 20
 
         vertcollisions = pygame.sprite.spritecollide(self,self.platform1,False)
+        vertcollisions2 = pygame.sprite.spritecollide(self, self.platform2, False)
+        vertcollisions += vertcollisions2
         for sprite in vertcollisions:
             if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
                 self.inAir = False

@@ -15,7 +15,7 @@ backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
 platForm_group1 = pygame.sprite.Group()
 platForm_floor = pygame.sprite.Group()
 # floor platform
-platForm_group1.add(GameObject.PlatForms(0, 500, "lvl1platformImages/largebrownstone.png"))
+platForm_floor.add(GameObject.PlatForms(0, 500, "lvl1platformImages/largebrownstone.png"))
 platForm_floor.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_floor.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_floor.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
@@ -78,7 +78,7 @@ screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundIma
 screen_rect = screen.get_rect()
 
 # main character
-bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen, platForm_group1)
+bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor)
 
 #shop buttons: 
 healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
