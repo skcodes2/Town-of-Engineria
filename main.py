@@ -50,7 +50,7 @@ screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundIma
 screen_rect = screen.get_rect()
 
 # main character
-bobby = GameObject.Character(17, 5, 0, 425, "characterImages/bobbyR.png", screen, platForm_group1)
+bobby = GameObject.Character(5, 5, 0, 440, "characterImages/bobbyR.png", screen, platForm_group1)
 
 #shop buttons: 
 healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
@@ -78,7 +78,7 @@ def renderShop():
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # event.button == 1 is a left click
                 # check if the mouse click was inside a button
                 if healthButtonRect.collidepoint(event.pos): 
-                    if bobby.money >= 5: 
+                    if bobby.money >= 5:
                         bobby.health += 1
                         bobby.money -=5
                         print(bobby.money)
@@ -109,8 +109,8 @@ bobbyStats.add(GameObject.Stats(10,10,"statsImages/heart.png"))
 bobbyStats.add(GameObject.Stats(3,50,"statsImages/strength.png"))
 
 def renderStats():
-    heart = font.render(str(bobby.health), True, (255, 255, 255))
-    strength = font.render(str(bobby.attack), True, (255, 255, 255))
+    heart = font.render(str(bobby.health), True, (0, 0, 0))
+    strength = font.render(str(bobby.attack), True, (0, 0, 0))
     bobbyStats.draw(screen)
     screen.blit(heart, (60, 20))
     screen.blit(strength, (60,60))
@@ -138,7 +138,7 @@ running = True
 while running:
     renderLevel1()
     renderStats()
-    pygame.time.Clock().tick(20)
+    pygame.time.Clock().tick(50)
 
     # event loop
     for event in pygame.event.get():
