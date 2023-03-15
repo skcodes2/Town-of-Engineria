@@ -49,6 +49,8 @@ class Character(GameObject):
         self.walkingL = pygame.image.load("characterAnimation/walkingL.png")
         self.standingR = pygame.image.load("characterImages/bobbyR.png")
         self.standingL = pygame.image.load("characterImages/bobbyL.png")
+        self.jumpingR = pygame.image.load("characterAnimation/jumpingR.png")
+        self.jumpingL = pygame.image.load("characterAnimation/jumpingL.png")
 
         self.inAir = False
         self.standingLeft = False
@@ -87,8 +89,10 @@ class Character(GameObject):
             self.inAir = True
 
         if self.inAir is True and event[pygame.K_LEFT]:
-            self.rect = self.screen.blit(self.walkingL, tuple(
-                self.currentPosition), (37*2, 0, 65, 60))
+            if self.jumpingSpeed > 0:
+                self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (130, 0, 65, 60))
+            else:
+                self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (60, 0, 65, 60))
             self.standingLeft = True
             self.currentPosition[1] -= self.jumpingSpeed
             self.currentPosition[0] -= self.speed
@@ -97,8 +101,10 @@ class Character(GameObject):
                 self.jumpingSpeed = -10
 
         elif self.inAir is True and event[pygame.K_RIGHT]:
-            self.rect = self.screen.blit(self.walkingR, tuple(
-                self.currentPosition), (40*2, 0, 75, 60))
+            if self.jumpingSpeed > 0:
+                self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (150, 0, 65, 60))
+            else:
+                self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (215, 0, 65, 60))
             self.standingLeft = False
             self.currentPosition[1] -= self.jumpingSpeed
             self.currentPosition[0] += self.speed
@@ -108,11 +114,15 @@ class Character(GameObject):
 
         elif self.inAir is True:
             if self.standingLeft:
-                self.rect = self.screen.blit(self.standingL, tuple(
-                    self.currentPosition), (0, 0, 70, 60))
+                if self.jumpingSpeed > 0:
+                    self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (130, 0, 65, 60))
+                else:
+                    self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (60, 0, 65, 60))
             else:
-                self.rect = self.screen.blit(self.standingR, tuple(
-                    self.currentPosition), (0, 0, 70, 60))
+                if self.jumpingSpeed > 0:
+                    self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (150, 0, 65, 60))
+                else:
+                    self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (215, 0, 65, 60))
             self.currentPosition[1] -= self.jumpingSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
