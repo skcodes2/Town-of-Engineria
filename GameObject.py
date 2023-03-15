@@ -34,7 +34,9 @@ class SpeechBubble(GameObject):
 class Character(GameObject):
     def __init__(self, speed, health, x, y, image_path, screen, platform1, platform2):
         super().__init__(x, y, image_path)
-        self.speed = speed
+        self.defaultSpeed = speed
+        self.leftSpeed = speed
+        self.rightSpeed = speed
         self.jumpingSpeed = 20
         self.money = 100
         self.attack = 1
@@ -71,7 +73,7 @@ class Character(GameObject):
         elif event[pygame.K_RIGHT] and self.inAir is False:
             self.rect = self.screen.blit(self.walkingR, tuple(
                 self.currentPosition), (75*self.nexImage, 0, 76, 60))
-            self.currentPosition[0] += self.speed
+            self.currentPosition[0] += self.rightSpeed
             self.standingLeft = False
             self.nexImage += 1
             if(self.nexImage == 4):
@@ -79,7 +81,7 @@ class Character(GameObject):
         elif event[pygame.K_LEFT] and self.inAir is False:
             self.rect = self.screen.blit(self.walkingL, tuple(
                 self.currentPosition), (74*self.nexImage, 0, 70, 60))
-            self.currentPosition[0] -= self.speed
+            self.currentPosition[0] -= self.leftSpeed
             self.standingLeft = True
             self.nexImage += 1
             if(self.nexImage == 4):
@@ -95,7 +97,7 @@ class Character(GameObject):
                 self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (60, 0, 65, 60))
             self.standingLeft = True
             self.currentPosition[1] -= self.jumpingSpeed
-            self.currentPosition[0] -= self.speed
+            self.currentPosition[0] -= self.leftSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
@@ -107,7 +109,7 @@ class Character(GameObject):
                 self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (215, 0, 65, 60))
             self.standingLeft = False
             self.currentPosition[1] -= self.jumpingSpeed
-            self.currentPosition[0] += self.speed
+            self.currentPosition[0] += self.rightSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
@@ -144,6 +146,30 @@ class Character(GameObject):
         if len(vertcollisions) == 0 and self.inAir is False:
             self.inAir = True
             self.jumpingSpeed = 0
+
+        horizcollisions = pygame.sprite.spritecollide(self, self.platform2, False)
+        isLeftCollided = False
+        isRightCollided = False
+        print(horizcollisions)
+        for sprite in horizcollisions:
+            if self.rect.right >= sprite.rect.left and self.rect.right <= sprite.rect.left + 25 and self.rect.bottom in range(sprite.rect.top + 22, sprite.rect.bottom + 10):
+                self.rightSpeed = 0
+                isRightCollided = True
+            else:
+                if isRightCollided == True:
+                    pass
+                else:
+                    self.rightSpeed = self.defaultSpeed
+
+            if self.rect.left <= sprite.rect.right and self.rect.left >= sprite.rect.right - 25 and self.rect.bottom in range(sprite.rect.top + 22, sprite.rect.bottom + 10):
+                self.leftSpeed = 0
+                isLeftCollided = True
+            else:
+                if isLeftCollided == True:
+                    pass
+                else:
+                    self.leftSpeed = self.defaultSpeed
+
 
 
 class Enemy(GameObject):

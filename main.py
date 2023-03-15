@@ -21,9 +21,9 @@ platForm_floor.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrown
 platForm_floor.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_floor.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 # brown pillar
-platForm_group1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
+platForm_floor.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
 # orange floor platform
-platForm_group1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
+platForm_floor.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # sky platform 1
 platForm_group1.add(GameObject.PlatForms(180, 420, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
