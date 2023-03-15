@@ -41,11 +41,11 @@ platForm_group1.add(GameObject.PlatForms(10, 200, "lvl1platformImages/leftskypla
 # right sky flat platform
 platForm_group1.add(GameObject.PlatForms(640, 180, "lvl1platformImages/rightskyplatform.png"))
 # left side border brown stone for collisions
-platForm_floor.add(GameObject.PlatForms(-1, 498, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, 361, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, 224, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, 87, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, -50, "lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-1, 498,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-1, 361,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-1, 224,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-1, 87,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-1, -50,"lvl1platformImages/brownborderplatform.png"))
 # top side border brown stone for collisions
 platForm_floor.add(GameObject.PlatForms(14, 0, "lvl1platformImages/brownflatplatform.png"))
 platForm_floor.add(GameObject.PlatForms(151, 0, "lvl1platformImages/brownflatplatform.png"))
@@ -71,24 +71,26 @@ bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
-bobbyStats.add(GameObject.Stats(20,20,"statsImages/heart.png"))
-bobbyStats.add(GameObject.Stats(95,20,"statsImages/strength.png"))
-bobbyStats.add(GameObject.Stats(180,22,"statsImages/coin.png"))
+bobbyStats.add(GameObject.Stats(20, 20, "statsImages/heart.png"))
+bobbyStats.add(GameObject.Stats(95, 20, "statsImages/strength.png"))
+bobbyStats.add(GameObject.Stats(180, 22, "statsImages/coin.png"))
 
 # Shop Buttons (RECT) on shop window when P is pressed
-healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
-attackButtonRect = pygame.Rect(screen_rect.width/2 - 100,270,200,50)
+healthButtonRect = pygame.Rect(screen_rect.width/2 - 100, 200, 200, 50)
+attackButtonRect = pygame.Rect(screen_rect.width/2 - 100, 270, 200, 50)
 # set the font of label and the color (WHITE)
 font = pygame.font.SysFont("copperplate", 24)
 shield_label = font.render('Upgrade Health', True, (255, 255, 255))
 attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
 
 # rendering the shop
+
+
 def renderShop():
     # set the caption
     pygame.display.set_caption("Item Shop")
     # fill entire screen white
-    screen.fill((255,255,255))
+    screen.fill((255, 255, 255))
     # draw rectangle of health button
     pygame.draw.rect(screen, (0, 0, 255), healthButtonRect)
     # draw rectangle of attack button
@@ -96,49 +98,55 @@ def renderShop():
     # blit the labels inside rect
     screen.blit(shield_label, (healthButtonRect.x + 40, healthButtonRect.y + 15))
     screen.blit(attack_label, (attackButtonRect.x + 40, attackButtonRect.y + 15))
-    
+
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.display.set_caption("Bobby: The Town of Enginerea")
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # event.button == 1 is a left click
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # event.button == 1 is a left click
                 # check if the mouse click was inside a button
-                if healthButtonRect.collidepoint(event.pos): 
+                if healthButtonRect.collidepoint(event.pos):
                     if bobby.money >= 5:
                         bobby.health += 1
-                        bobby.money -=5
+                        bobby.money -= 5
                         # play some 'bought' sound effect
                     elif bobby.money < 5:
-                        # play some 'failure' sound effect. 
+                        # play some 'failure' sound effect.
                         pass
                     # execute upgrade shield action here
-                elif attackButtonRect.collidepoint(event.pos): 
-                    if bobby.money >=5: 
-                        bobby.attack +=1
-                        bobby.money -=5
+                elif attackButtonRect.collidepoint(event.pos):
+                    if bobby.money >= 5:
+                        bobby.attack += 1
+                        bobby.money -= 5
                         # play some 'bought' sound effect
-                    elif bobby.money <5: 
-                        # play some 'failure' sound effect. 
+                    elif bobby.money < 5:
+                        # play some 'failure' sound effect.
                         pass
         pygame.display.flip()
 
 # rendering levels
+
+
 def renderLevel1():
     screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
     platForm_group1.draw(screen)
     platForm_floor.draw(screen)
 
+
 def renderLevel2():
     screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
     pygame.display.flip()
+
 
 def renderlevel3():
     screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
     pygame.display.flip()
 
 # rendering Bobby's Stats
+
+
 def renderStats():
     heart = font.render(str(bobby.health), True, (0, 0, 0))
     strength = font.render(str(bobby.attack), True, (0, 0, 0))
@@ -146,8 +154,9 @@ def renderStats():
 
     bobbyStats.draw(screen)
     screen.blit(heart, (70, 30))
-    screen.blit(strength, (150,30))
-    screen.blit(money,(227,30))
+    screen.blit(strength, (150, 30))
+    screen.blit(money, (227, 30))
+
 
 running = True
 # gameloop1

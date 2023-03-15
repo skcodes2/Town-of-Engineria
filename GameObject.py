@@ -45,8 +45,8 @@ class Character(GameObject):
 
         self.nexImage = 0
         self.screen = screen
-        self.walkingR = pygame.image.load("animationImages/walkingR.png")
-        self.walkingL = pygame.image.load("animationImages/walkingL.png")
+        self.walkingR = pygame.image.load("characterAnimation/walkingR.png")
+        self.walkingL = pygame.image.load("characterAnimation/walkingL.png")
         self.standingR = pygame.image.load("characterImages/bobbyR.png")
         self.standingL = pygame.image.load("characterImages/bobbyL.png")
 
@@ -62,7 +62,7 @@ class Character(GameObject):
             if self.standingLeft:
                 self.rect = self.screen.blit(self.standingL, tuple(
                     self.currentPosition), (0, 0, 70, 60))
-            else: 
+            else:
                 self.rect = self.screen.blit(self.standingR, tuple(
                     self.currentPosition), (0, 0, 70, 60))
 
@@ -105,24 +105,26 @@ class Character(GameObject):
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
-        
+
         elif self.inAir is True:
-            if self.standingLeft: 
+            if self.standingLeft:
                 self.rect = self.screen.blit(self.standingL, tuple(
                     self.currentPosition), (0, 0, 70, 60))
-            else: 
+            else:
                 self.rect = self.screen.blit(self.standingR, tuple(
                     self.currentPosition), (0, 0, 70, 60))
             self.currentPosition[1] -= self.jumpingSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
-        
+
         self.rect.width -= 40
         self.rect.x += 20
 
-        vertcollisions = pygame.sprite.spritecollide(self,self.platform1,False)
-        vertcollisions2 = pygame.sprite.spritecollide(self, self.platform2, False)
+        vertcollisions = pygame.sprite.spritecollide(
+            self, self.platform1, False)
+        vertcollisions2 = pygame.sprite.spritecollide(
+            self, self.platform2, False)
         vertcollisions += vertcollisions2
         for sprite in vertcollisions:
             if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
@@ -132,7 +134,6 @@ class Character(GameObject):
         if len(vertcollisions) == 0 and self.inAir is False:
             self.inAir = True
             self.jumpingSpeed = 0
-
 
 
 class Enemy(GameObject):
@@ -163,6 +164,7 @@ class Enemy(GameObject):
 class PlatForms(GameObject):
     def __init__(self, x, y, img_path):
         super().__init__(x, y, img_path)
+
 
 class Stats(GameObject):
     def __init__(self, x, y, img_path):
