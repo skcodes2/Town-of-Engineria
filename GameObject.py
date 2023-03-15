@@ -150,7 +150,6 @@ class Character(GameObject):
         horizcollisions = pygame.sprite.spritecollide(self, self.platform2, False)
         isLeftCollided = False
         isRightCollided = False
-        print(horizcollisions)
         for sprite in horizcollisions:
             if self.rect.right >= sprite.rect.left and self.rect.right <= sprite.rect.left + 25 and self.rect.bottom in range(sprite.rect.top + 22, sprite.rect.bottom + 10):
                 self.rightSpeed = 0
