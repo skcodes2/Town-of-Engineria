@@ -22,8 +22,8 @@ platForm_floor.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrown
 # orange platforms
 platForm_group1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/mediumorangestone.png"))
 # sky platform 1
-platForm_group1.add(GameObject.PlatForms(180, 430, "lvl1platformImages/leftcornerbrownstone.png"))
-platForm_group1.add(GameObject.PlatForms(220, 430, "lvl1platformImages/rightcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(180, 430, "lvl1platformImages/leftcornerorangestone.png"))
+platForm_group1.add(GameObject.PlatForms(220, 430, "lvl1platformImages/rightcornerorangestone.png"))
 # sky platform 2
 platForm_group1.add(GameObject.PlatForms(320, 360, "lvl1platformImages/leftcornerbrownstone.png"))
 platForm_group1.add(GameObject.PlatForms(360, 360, "lvl1platformImages/rightcornerbrownstone.png"))
@@ -51,6 +51,7 @@ platForm_group1.add(GameObject.PlatForms(772, 180, "lvl1platformImages/brownston
 platForm_group1.add(GameObject.PlatForms(634, 180, "lvl1platformImages/brownstoneplatform.png"))
 #frame stone for collisions
 #left side
+platForm_floor.add(GameObject.PlatForms(-1, 498, "lvl1platformImages/framestone.png"))
 platForm_floor.add(GameObject.PlatForms(-1, 361, "lvl1platformImages/framestone.png"))
 platForm_floor.add(GameObject.PlatForms(-1, 224, "lvl1platformImages/framestone.png"))
 platForm_floor.add(GameObject.PlatForms(-1, 87, "lvl1platformImages/framestone.png"))
@@ -69,9 +70,11 @@ platForm_floor.add(GameObject.PlatForms(1110, 0, "lvl1platformImages/brownstonep
 platForm_floor.add(GameObject.PlatForms(1185, 13, "lvl1platformImages/framestone.png"))
 platForm_floor.add(GameObject.PlatForms(1185, 150, "lvl1platformImages/framestone.png"))
 platForm_floor.add(GameObject.PlatForms(1185, 198, "lvl1platformImages/framestone.png"))
+platForm_floor.add(GameObject.PlatForms(1185, 336, "lvl1platformImages/framestone.png"))
+platForm_floor.add(GameObject.PlatForms(1185, 473, "lvl1platformImages/framestone.png"))
 #platform on top of brown pillar
-platForm_group1.add(GameObject.PlatForms(510, 270, "lvl1platformImages/leftcornerbrownstone.png"))
-platForm_group1.add(GameObject.PlatForms(550, 270, "lvl1platformImages/rightcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(520, 270, "lvl1platformImages/leftcornerbrownstone.png"))
+platForm_group1.add(GameObject.PlatForms(560, 270, "lvl1platformImages/rightcornerbrownstone.png"))
 
 
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
@@ -127,11 +130,10 @@ def renderShop():
         pygame.display.flip()
        
 # Bobby's stats
-
 bobbyStats = pygame.sprite.Group()
 bobbyStats.add(GameObject.Stats(20,20,"statsImages/heart.png"))
-bobbyStats.add(GameObject.Stats(15,60,"statsImages/strength.png"))
-bobbyStats.add(GameObject.Stats(20,105,"statsImages/coin.png"))
+bobbyStats.add(GameObject.Stats(95,20,"statsImages/strength.png"))
+bobbyStats.add(GameObject.Stats(180,22,"statsImages/coin.png"))
 
 
 def renderStats():
@@ -141,8 +143,8 @@ def renderStats():
 
     bobbyStats.draw(screen)
     screen.blit(heart, (70, 30))
-    screen.blit(strength, (70,70))
-    screen.blit(money,(70,115))
+    screen.blit(strength, (150,30))
+    screen.blit(money,(227,30))
 
 
 # rendering levels
