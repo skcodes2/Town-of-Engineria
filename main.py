@@ -31,7 +31,7 @@ platForm_group1.add(GameObject.PlatForms(320, 360, "lvl1platformImages/brownplat
 # sky platform 3
 platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangeplatform.png"))
 # sky platform 4
-platForm_group1.add(GameObject.PlatForms(830, 380, "lvl1platformImages/orangeplatform.png"))
+platForm_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangeplatform.png"))
 # sky platform 5
 platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
 # platform on top of brown pillar
