@@ -69,9 +69,9 @@ bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
-bobbyStats.add(GameObject.Stats(20, 20, "statsImages/heart.png"))
-bobbyStats.add(GameObject.Stats(95, 20, "statsImages/strength.png"))
-bobbyStats.add(GameObject.Stats(180, 22, "statsImages/coin.png"))
+bobbyStats.add(GameObject.Stats(30, 20, "statsImages/heart.png"))
+bobbyStats.add(GameObject.Stats(105, 20, "statsImages/strength.png"))
+bobbyStats.add(GameObject.Stats(190, 22, "statsImages/coin.png"))
 
 # Shop Buttons (RECT) on shop window when P is pressed
 healthButtonRect = pygame.Rect(screen_rect.width/2 - 100, 200, 200, 50)
@@ -151,9 +151,9 @@ def renderStats():
     money = font.render(str(bobby.money), True, (0, 0, 0))
 
     bobbyStats.draw(screen)
-    screen.blit(heart, (70, 30))
-    screen.blit(strength, (150, 30))
-    screen.blit(money, (227, 30))
+    screen.blit(heart, (75, 30))
+    screen.blit(strength, (155, 30))
+    screen.blit(money, (232, 30))
 
 
 running = True
