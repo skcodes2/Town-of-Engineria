@@ -2,7 +2,7 @@ import pygame
 import GameObject
 
 pygame.init()
-
+# set up images and icons
 pygame.display.set_caption("Bobby: The Town of Enginerea")
 pygame.display.set_icon(pygame.image.load("gameicon.png"))
 backgroundImage_LvL1 = pygame.image.load('backgroundImages/lvl1background.png')
@@ -12,9 +12,9 @@ backgroundImage_Lvl1_rect = backgroundImage_LvL1.get_rect()
 backgroundImage_LvL2_rect = backgroundImage_LvL2.get_rect()
 backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
 
+# floor layout for level 1 (SPRITES)
 platForm_group1 = pygame.sprite.Group()
 platForm_floor = pygame.sprite.Group()
-
 # brown floor platforms
 platForm_floor.add(GameObject.PlatForms(0, 490, "lvl1platformImages/largebrownstone.png"))
 platForm_floor.add(GameObject.PlatForms(324, 545, "lvl1platformImages/largebrownstone.png"))
@@ -25,7 +25,7 @@ platForm_group1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpill
 # orange floor platform
 platForm_group1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # sky platform 1
-platForm_group1.add(GameObject.PlatForms(180, 430, "lvl1platformImages/orangeplatform.png"))
+platForm_group1.add(GameObject.PlatForms(180, 420, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
 platForm_group1.add(GameObject.PlatForms(320, 360, "lvl1platformImages/brownplatform.png"))
 # sky platform 3
@@ -62,29 +62,40 @@ platForm_floor.add(GameObject.PlatForms(1185, 150, "lvl1platformImages/brownbord
 platForm_floor.add(GameObject.PlatForms(1185, 287, "lvl1platformImages/brownborderplatform.png"))
 platForm_floor.add(GameObject.PlatForms(1185, 424, "lvl1platformImages/brownborderplatform.png"))
 platForm_floor.add(GameObject.PlatForms(1185, 561, "lvl1platformImages/brownborderplatform.png"))
-
+# set background images for level 1
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
 
-# main character
+# Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
 bobby = GameObject.Character(5, 5, 30, 450, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor)
 
-# shop buttons: 
-healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
-attackButtonRect = pygame.Rect(screen_rect.width/2 - 100,400,200,50)
+# Bobby's Stats (SPRITE) to set the images
+bobbyStats = pygame.sprite.Group()
+bobbyStats.add(GameObject.Stats(20,20,"statsImages/heart.png"))
+bobbyStats.add(GameObject.Stats(95,20,"statsImages/strength.png"))
+bobbyStats.add(GameObject.Stats(180,22,"statsImages/coin.png"))
 
+# Shop Buttons (RECT) on shop window when P is pressed
+healthButtonRect = pygame.Rect(screen_rect.width/2 - 100,200,200,50)
+attackButtonRect = pygame.Rect(screen_rect.width/2 - 100,270,200,50)
+# set the font of label and the color (WHITE)
 font = pygame.font.SysFont("copperplate", 24)
 shield_label = font.render('Upgrade Health', True, (255, 255, 255))
 attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
 
 # rendering the shop
 def renderShop():
+    # set the caption
     pygame.display.set_caption("Item Shop")
+    # fill entire screen white
     screen.fill((255,255,255))
+    # draw rectangle of health button
     pygame.draw.rect(screen, (0, 0, 255), healthButtonRect)
+    # draw rectangle of attack button
     pygame.draw.rect(screen, (255, 0, 0), attackButtonRect)
-    screen.blit(shield_label, (healthButtonRect.x + 10, healthButtonRect.y + 10))
-    screen.blit(attack_label, (attackButtonRect.x + 10, attackButtonRect.y + 10))
+    # blit the labels inside rect
+    screen.blit(shield_label, (healthButtonRect.x + 40, healthButtonRect.y + 15))
+    screen.blit(attack_label, (attackButtonRect.x + 40, attackButtonRect.y + 15))
     
     running = True
     while running:
@@ -102,7 +113,6 @@ def renderShop():
                     elif bobby.money < 5:
                         # play some 'failure' sound effect. 
                         pass
-
                     # execute upgrade shield action here
                 elif attackButtonRect.collidepoint(event.pos): 
                     if bobby.money >=5: 
@@ -112,16 +122,23 @@ def renderShop():
                     elif bobby.money <5: 
                         # play some 'failure' sound effect. 
                         pass
-                        
         pygame.display.flip()
-       
-# Bobby's stats
-bobbyStats = pygame.sprite.Group()
-bobbyStats.add(GameObject.Stats(20,20,"statsImages/heart.png"))
-bobbyStats.add(GameObject.Stats(95,20,"statsImages/strength.png"))
-bobbyStats.add(GameObject.Stats(180,22,"statsImages/coin.png"))
 
+# rendering levels
+def renderLevel1():
+    screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
+    platForm_group1.draw(screen)
+    platForm_floor.draw(screen)
 
+def renderLevel2():
+    screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
+    pygame.display.flip()
+
+def renderlevel3():
+    screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
+    pygame.display.flip()
+
+# rendering Bobby's Stats
 def renderStats():
     heart = font.render(str(bobby.health), True, (0, 0, 0))
     strength = font.render(str(bobby.attack), True, (0, 0, 0))
@@ -132,42 +149,20 @@ def renderStats():
     screen.blit(strength, (150,30))
     screen.blit(money,(227,30))
 
-
-# rendering levels
-def renderLevel1():
-    screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-    platForm_group1.draw(screen)
-    platForm_floor.draw(screen)
-
-
-def renderLvl2():
-    screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
-    pygame.display.flip()
-
-
-def renderBossLvl():
-    screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
-    pygame.display.flip()
-
-
 running = True
 # gameloop1
 while running:
     renderLevel1()
     renderStats()
     pygame.time.Clock().tick(50)
-
     # event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             renderShop()
-
-
     keys = pygame.key.get_pressed()
     bobby.playerMovementControl(keys)
     pygame.display.flip()
-
 
 pygame.quit()
