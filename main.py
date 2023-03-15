@@ -15,6 +15,8 @@ backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
 # floor layout for level 1 (SPRITES)
 platForm_group1 = pygame.sprite.Group()
 platForm_floor = pygame.sprite.Group()
+# orange floor platform
+platForm_floor.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # brown floor platforms
 platForm_floor.add(GameObject.PlatForms(0, 490, "lvl1platformImages/largebrownstone.png"))
 platForm_floor.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
@@ -22,8 +24,6 @@ platForm_floor.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrown
 platForm_floor.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 # brown pillar
 platForm_floor.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
-# orange floor platform
-platForm_floor.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # sky platform 1
 platForm_group1.add(GameObject.PlatForms(180, 420, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
@@ -41,27 +41,25 @@ platForm_group1.add(GameObject.PlatForms(10, 200, "lvl1platformImages/leftskypla
 # right sky flat platform
 platForm_group1.add(GameObject.PlatForms(640, 180, "lvl1platformImages/rightskyplatform.png"))
 # left side border brown stone for collisions
-platForm_floor.add(GameObject.PlatForms(-1, 498,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, 361,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, 224,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, 87,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(-1, -50,"lvl1platformImages/brownborderplatform.png"))
-# top side border brown stone for collisions
-platForm_floor.add(GameObject.PlatForms(14, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(151, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(288, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(425, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(562, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(699, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(836, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(973, 0, "lvl1platformImages/brownflatplatform.png"))
-platForm_floor.add(GameObject.PlatForms(1110, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-2, -5,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-2, 235,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-2, 300,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(-2, 500,"lvl1platformImages/brownborderplatform.png"))
 # right side border brown stone for collisions
-platForm_floor.add(GameObject.PlatForms(1185, 13, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(1185, 150, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(1185, 287, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(1185, 424, "lvl1platformImages/brownborderplatform.png"))
-platForm_floor.add(GameObject.PlatForms(1185, 561, "lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(1175, -40, "lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(1175, 190, "lvl1platformImages/brownborderplatform.png"))
+platForm_floor.add(GameObject.PlatForms(1175, 431, "lvl1platformImages/brownborderplatform.png"))
+# top side border brown stone for collisions
+platForm_floor.add(GameObject.PlatForms(0, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(137, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(274, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(411, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(548, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(685, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(822, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
+platForm_floor.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
+
 # set background images for level 1
 screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
 screen_rect = screen.get_rect()
