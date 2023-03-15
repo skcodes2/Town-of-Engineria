@@ -17,9 +17,9 @@ platForm_group1 = pygame.sprite.Group()
 platForm_floor = pygame.sprite.Group()
 # brown floor platforms
 platForm_floor.add(GameObject.PlatForms(0, 490, "lvl1platformImages/largebrownstone.png"))
-platForm_floor.add(GameObject.PlatForms(324, 545, "lvl1platformImages/largebrownstone.png"))
-platForm_floor.add(GameObject.PlatForms(648, 545, "lvl1platformImages/largebrownstone.png"))
-platForm_floor.add(GameObject.PlatForms(972, 545, "lvl1platformImages/largebrownstone.png"))
+platForm_floor.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
+platForm_floor.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
+platForm_floor.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 # brown pillar
 platForm_group1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
 # orange floor platform
@@ -37,9 +37,9 @@ platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplat
 # platform on top of brown pillar
 platForm_group1.add(GameObject.PlatForms(520, 270, "lvl1platformImages/brownplatform.png"))
 # left sky flat platform
-platForm_group1.add(GameObject.PlatForms(14, 200, "lvl1platformImages/leftskyplatform.png"))
+platForm_group1.add(GameObject.PlatForms(10, 200, "lvl1platformImages/leftskyplatform.png"))
 # right sky flat platform
-platForm_group1.add(GameObject.PlatForms(634, 180, "lvl1platformImages/rightskyplatform.png"))
+platForm_group1.add(GameObject.PlatForms(640, 180, "lvl1platformImages/rightskyplatform.png"))
 # left side border brown stone for collisions
 platForm_floor.add(GameObject.PlatForms(-1, 498, "lvl1platformImages/brownborderplatform.png"))
 platForm_floor.add(GameObject.PlatForms(-1, 361, "lvl1platformImages/brownborderplatform.png"))
@@ -67,7 +67,7 @@ screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundIma
 screen_rect = screen.get_rect()
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 5, 30, 450, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor)
+bobby = GameObject.Character(5, 5, 30, 440, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
