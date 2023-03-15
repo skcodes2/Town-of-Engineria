@@ -90,7 +90,7 @@ class Character(GameObject):
 
         if self.inAir is True and event[pygame.K_LEFT]:
             if self.jumpingSpeed > 0:
-                self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (130, 0, 65, 60))
+                self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (125, 0, 65, 60))
             else:
                 self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (60, 0, 65, 60))
             self.standingLeft = True
