@@ -60,7 +60,7 @@ class Character(GameObject):
 
     def playerMovementControl(self, event):
 
-        if all(key == 0 for key in pygame.key.get_pressed()) and self.inAir is False:
+        if not event[pygame.K_RIGHT] and not event[pygame.K_LEFT] and not event[pygame.K_UP] and self.inAir is False:
             if self.standingLeft:
                 self.rect = self.screen.blit(self.standingL, tuple(
                     self.currentPosition), (0, 0, 70, 60))
