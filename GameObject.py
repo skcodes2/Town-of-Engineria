@@ -168,6 +168,10 @@ class Character(GameObject):
                     pass
                 else:
                     self.leftSpeed = self.defaultSpeed
+        
+        if len(horizcollisions) == 0:
+            self.rightSpeed = self.defaultSpeed
+            self.leftSpeed = self.defaultSpeed
 
 
 
