@@ -74,30 +74,36 @@ bobbyStats.add(GameObject.Stats(105, 20, "statsImages/strength.png"))
 bobbyStats.add(GameObject.Stats(190, 22, "statsImages/coin.png"))
 
 # Shop Buttons (RECT) on shop window when P is pressed
-healthButtonRect = pygame.Rect(screen_rect.width/2 - 100, 200, 200, 50)
-attackButtonRect = pygame.Rect(screen_rect.width/2 - 100, 270, 200, 50)
-# set the font of label and the color (WHITE)
+healthButtonRect = pygame.Rect(50, 200, 300, 50)
+attackButtonRect = pygame.Rect(50, 270, 300, 50)
+# set the font of label and the color
 font = pygame.font.SysFont("copperplate", 24)
-shield_label = font.render('Upgrade Health', True, (255, 255, 255))
-attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
+titleFont = pygame.font.SysFont("copperplate", 42)
+shield_label = font.render('Upgrade Health', True, (0, 0, 0))
+attack_label = font.render('Upgrade Attack', True, (0, 0, 0))
+upgrades_label = titleFont.render('PLAYER UPGRADES', True, (0,0,0))
+gameSettings_label = titleFont.render('GAME SETTINGS', True, (0,0,0))
 
-# rendering the shop
 # bullet group 
 bullet_group = pygame.sprite.Group()
 bulletcooldown = 0
 
+# rendering the shop
 def renderShop():
     # set the caption
-    pygame.display.set_caption("Item Shop")
+    pygame.display.set_caption("Game Menu")
     # fill entire screen white
     screen.fill((255, 255, 255))
     # draw rectangle of health button
-    pygame.draw.rect(screen, (0, 0, 255), healthButtonRect)
+    pygame.draw.rect(screen, (0, 255, 255), healthButtonRect)
     # draw rectangle of attack button
-    pygame.draw.rect(screen, (255, 0, 0), attackButtonRect)
+    pygame.draw.rect(screen, (0, 255, 255), attackButtonRect)
     # blit the labels inside rect
-    screen.blit(shield_label, (healthButtonRect.x + 40, healthButtonRect.y + 15))
-    screen.blit(attack_label, (attackButtonRect.x + 40, attackButtonRect.y + 15))
+    screen.blit(shield_label, (healthButtonRect.x + 50, healthButtonRect.y + 15))
+    screen.blit(attack_label, (attackButtonRect.x + 50, attackButtonRect.y + 15))
+    screen.blit(upgrades_label, (50, 100))
+    screen.blit(gameSettings_label, (800,100))
+    
 
     running = True
     while running:
@@ -125,6 +131,7 @@ def renderShop():
                         # play some 'failure' sound effect.
                         pass
         pygame.display.flip()
+
 
 # rendering levels
 
@@ -156,6 +163,7 @@ def renderStats():
     screen.blit(heart, (75, 30))
     screen.blit(strength, (155, 30))
     screen.blit(money, (232, 30))
+
 
 
 running = True
