@@ -172,13 +172,13 @@ while running:
             renderShop()
     keys = pygame.key.get_pressed()
     direction = bobby.playerMovementControl(keys)
-
+    
     if keys[pygame.K_SPACE]:
         if bulletcooldown >= 30:
             if direction[1] == True:
-                bullet_group.add(GameObject.Bullet(15, 1, direction[1], direction[0].x - 25, direction[0].y + 25, screen))
+                bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
             else:
-                bullet_group.add(GameObject.Bullet(15, 1, direction[1], direction[0].x + 35, direction[0].y + 25, screen))
+                bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
             bulletcooldown = 0
     bulletcooldown += 1
     if bulletcooldown >= 30:
