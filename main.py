@@ -67,6 +67,7 @@ screen_rect = screen.get_rect()
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
 bobby = GameObject.Character(5, 5, 40, 350, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor)
 
+
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
 bobbyStats.add(GameObject.Stats(30, 20, "statsImages/heart.png"))
@@ -88,6 +89,24 @@ gameSettings_label = titleFont.render('GAME SETTINGS', True, (0,0,0))
 bullet_group = pygame.sprite.Group()
 bulletcooldown = 0
 
+def renderShopStats():
+    # Fill the stat surfaces with the background color
+    screen.fill((255, 255, 255), (75, 30, 30, 30))
+    screen.fill((255, 255, 255), (155, 30, 30, 30))
+    screen.fill((255, 255, 255), (232, 30, 50, 30))
+
+    # Render the updated stat values
+    heart = font.render(str(bobby.health), True, (0, 0, 0))
+    strength = font.render(str(bobby.attack), True, (0, 0, 0))
+    money = font.render(str(bobby.money), True, (0, 0, 0))
+
+    # Blit the updated stat values to the screen
+    bobbyStats.draw(screen)
+    screen.blit(heart, (75, 30))
+    screen.blit(strength, (155, 30))
+    screen.blit(money, (232, 30))
+
+
 # rendering the shop
 def renderShop():
     # set the caption
@@ -107,6 +126,7 @@ def renderShop():
 
     running = True
     while running:
+        renderShopStats()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
