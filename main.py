@@ -174,18 +174,21 @@ while running:
     direction = bobby.playerMovementControl(keys)
 
     if keys[pygame.K_SPACE]:
-        if bulletcooldown >= 10:
+        if bulletcooldown >= 30:
             if direction[1] == True:
                 bullet_group.add(GameObject.Bullet(15, 1, direction[1], direction[0].x - 25, direction[0].y + 25, screen))
             else:
                 bullet_group.add(GameObject.Bullet(15, 1, direction[1], direction[0].x + 35, direction[0].y + 25, screen))
             bulletcooldown = 0
     bulletcooldown += 1
-    if bulletcooldown >= 10:
-        bulletcooldown = 10
+    if bulletcooldown >= 30:
+        bulletcooldown = 30
     
     for bullet in bullet_group:
         bullet.bulletTravel()
+    
+    collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor, True, False)
+    collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
 
     pygame.display.flip()
 
