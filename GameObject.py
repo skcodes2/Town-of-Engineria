@@ -12,12 +12,23 @@ class GameObject(pygame.sprite.Sprite):
 
 
 class Bullet(GameObject):
-    def __init__(self, speed, damage, direction, x, y):
-        super.__init__(x, y, "bullet.png")
+    def __init__(self, speed, damage, goingLeft, x, y, screen):
+        super().__init__(x, y, "redbullet.png")
         self.speed = speed
         self.damage = damage
-        self.direction = direction
+        self.goingLeft = goingLeft
+        self.currentLocation = [x,y]
+        self.travel = pygame.image.load("redbullet.png")
+        self.screen = screen
 
+    def bulletTravel(self):
+        if self.goingLeft == True:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation))
+            self.currentLocation[0] -= self.speed
+        else:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation))
+            self.currentLocation[0] += self.speed
+            
 
 class SpeechBubble(GameObject):
     def __init__(self, text, x, y):
@@ -184,6 +195,8 @@ class Character(GameObject):
         if len(horizcollisions) == 0:
             self.rightSpeed = self.defaultSpeed
             self.leftSpeed = self.defaultSpeed
+        
+        return self.rect, self.standingLeft
 
 
 

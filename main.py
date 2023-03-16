@@ -82,7 +82,9 @@ shield_label = font.render('Upgrade Health', True, (255, 255, 255))
 attack_label = font.render('Upgrade Attack', True, (255, 255, 255))
 
 # rendering the shop
-
+# bullet group 
+bullet_group = pygame.sprite.Group()
+bulletcooldown = 0
 
 def renderShop():
     # set the caption
@@ -161,7 +163,7 @@ running = True
 while running:
     renderLevel1()
     renderStats()
-    pygame.time.Clock().tick(50)
+    pygame.time.Clock().tick(100)
     # event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -169,7 +171,22 @@ while running:
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             renderShop()
     keys = pygame.key.get_pressed()
-    bobby.playerMovementControl(keys)
+    direction = bobby.playerMovementControl(keys)
+
+    if keys[pygame.K_SPACE]:
+        if bulletcooldown >= 10:
+            if direction[1] == True:
+                bullet_group.add(GameObject.Bullet(15, 1, direction[1], direction[0].x - 25, direction[0].y + 25, screen))
+            else:
+                bullet_group.add(GameObject.Bullet(15, 1, direction[1], direction[0].x + 35, direction[0].y + 25, screen))
+            bulletcooldown = 0
+    bulletcooldown += 1
+    if bulletcooldown >= 10:
+        bulletcooldown = 10
+    
+    for bullet in bullet_group:
+        bullet.bulletTravel()
+
     pygame.display.flip()
 
 pygame.quit()
