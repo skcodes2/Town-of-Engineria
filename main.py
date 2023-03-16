@@ -84,6 +84,11 @@ shield_label = font.render('Upgrade Health', True, (0, 0, 0))
 attack_label = font.render('Upgrade Attack', True, (0, 0, 0))
 upgrades_label = titleFont.render('PLAYER UPGRADES', True, (0,0,0))
 gameSettings_label = titleFont.render('GAME SETTINGS', True, (0,0,0))
+#shop sounds
+success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
+unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
+
+
 
 # bullet group 
 bullet_group = pygame.sprite.Group()
@@ -105,6 +110,7 @@ def renderShopStats():
     screen.blit(heart, (75, 30))
     screen.blit(strength, (155, 30))
     screen.blit(money, (232, 30))
+
 
 
 # rendering the shop
@@ -137,18 +143,18 @@ def renderShop():
                     if bobby.money >= 5:
                         bobby.health += 1
                         bobby.money -= 5
-                        # play some 'bought' sound effect
+                        success_sound.play()
                     elif bobby.money < 5:
-                        # play some 'failure' sound effect.
+                        unsuccessful_sound.play()
                         pass
                     # execute upgrade shield action here
                 elif attackButtonRect.collidepoint(event.pos):
                     if bobby.money >= 5:
                         bobby.attack += 1
                         bobby.money -= 5
-                        # play some 'bought' sound effect
+                        success_sound.play()
                     elif bobby.money < 5:
-                        # play some 'failure' sound effect.
+                        unsuccessful_sound.play()
                         pass
         pygame.display.flip()
 
