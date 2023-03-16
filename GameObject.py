@@ -28,7 +28,7 @@ class Bullet(GameObject):
             self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 20, 0, 20, 20))
             self.currentLocation[0] -= self.speed
         else:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 20, 0, 20, 20))
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (140 - self.animate // 3 * 20, 0, 20, 20))
             self.currentLocation[0] += self.speed
 
         self.animate += 1
