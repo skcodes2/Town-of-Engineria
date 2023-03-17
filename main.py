@@ -15,6 +15,10 @@ backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
 # floor layout for level 1 (SPRITES)
 platform_group1 = pygame.sprite.Group()
 platform_floor1 = pygame.sprite.Group()
+images = pygame.sprite.Group()
+# house
+images.add(GameObject.PlatForms(28, 326, "lvl1platformImages/vikinghouse.png"))
+images.add(GameObject.PlatForms(28, 40, "lvl1platformImages/enemyhouse.png"))
 # orange floor platform
 platform_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # left side border brown stone for collisions
@@ -34,14 +38,12 @@ platform_floor1.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrow
 # brown pillar
 platform_floor1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
 # sky platform 1
-platform_group1.add(GameObject.PlatForms(180, 420, "lvl1platformImages/orangeplatform.png"))
+platform_group1.add(GameObject.PlatForms(350, 400, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
-platform_group1.add(GameObject.PlatForms(320, 360, "lvl1platformImages/brownplatform.png"))
-# sky platform 3
 platform_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangeplatform.png"))
-# sky platform 4
+# sky platform 3
 platform_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangeplatform.png"))
-# sky platform 5
+# sky platform 4
 platform_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
 # platform on top of brown pillar
 platform_group1.add(GameObject.PlatForms(520, 270, "lvl1platformImages/brownplatform.png"))
@@ -62,6 +64,17 @@ platform_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatp
 
 
 # floor layout for level 2 (SPRITES)
+platform_group2 = pygame.sprite.Group()
+platform_floor2 = pygame.sprite.Group()
+
+# ice floor platforms
+platform_floor2.add(GameObject.PlatForms(0, 490, "lvl2platformImages/iceplatform.png"))
+platform_floor2.add(GameObject.PlatForms(324, 550, "lvl2platformImages/iceplatform.png"))
+platform_floor2.add(GameObject.PlatForms(648, 550, "lvl2platformImages/iceplatform.png"))
+platform_floor2.add(GameObject.PlatForms(972, 550, "lvl2platformImages/iceplatform.png"))
+
+
+
 
 # set background images for level 1
 screen = pygame.display.set_mode((backgroundImage_LvL1_rect.width, backgroundImage_LvL1_rect.height))
@@ -74,7 +87,7 @@ screen = pygame.display.set_mode((backgroundImage_LvL3_rect.width, backgroundIma
 screen_rect = screen.get_rect()
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby1 = GameObject.Character(5, 5, 60, 350, "characterImages/bobbyR.png", screen, platform_group1, platform_floor1)
+bobby1 = GameObject.Character(5, 5, 110, 440, "characterImages/bobbyR.png", screen, platform_group1, platform_floor1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -164,10 +177,13 @@ def renderLevel1():
     screen.blit(backgroundImage_LvL1, backgroundImage_LvL1_rect)
     platform_group1.draw(screen)
     platform_floor1.draw(screen)
+    images.draw(screen)
     pass
 # rendering level 2
 def renderLevel2():
     screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
+    platform_group2.draw(screen)
+    platform_floor2.draw(screen)
     pass
 # rendering level 3
 def renderlevel3():
@@ -186,9 +202,10 @@ def renderStats():
 
 current_level = 1
 running = True
-# gameloop1
+# Game Loop
 while running:
     pygame.time.Clock().tick(120)
+    # AT LEVEL 1
     if current_level == 1:
         renderLevel1()
         renderStats()
@@ -209,14 +226,13 @@ while running:
             bullet.bulletTravel()
         collisions1 = pygame.sprite.groupcollide(bullet_group, platform_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platform_group1, True, False)
-
-    # event loop
+    # Event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             renderShop()
-    
+    # AT LEVEL 2
     if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
         current_level += 1
         if current_level == 2:
