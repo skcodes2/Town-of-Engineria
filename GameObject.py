@@ -11,12 +11,12 @@ class GameObject(pygame.sprite.Sprite):
 
 class Bullet(GameObject):
     def __init__(self, speed, damage, goingLeft, x, y, screen):
-        super().__init__(x, y, "axeanimation.png")
+        super().__init__(x, y, "characterAnimation/axeAnimation.png")
         self.speed = speed
         self.damage = damage
         self.goingLeft = goingLeft
         self.currentLocation = [x,y]
-        self.travel = pygame.image.load("axeanimation.png")
+        self.travel = pygame.image.load("characterAnimation/axeAnimation.png")
         self.screen = screen
         self.animate = 0
 
@@ -35,7 +35,7 @@ class Bullet(GameObject):
 class SpeechBubble(GameObject):
     def __init__(self, text, x, y):
         self.text = text
-        super.__init__(x, y, "speechBubbleImages/speechBubble.png")
+        super.__init__(x, y, "speechbubbleImages/speechbubble.png")
 
     def replaceText(self, text):
         self.text = text
