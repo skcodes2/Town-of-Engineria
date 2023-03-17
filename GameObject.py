@@ -1,6 +1,5 @@
 import pygame
 
-
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, x, y, img_path):
         super().__init__()
@@ -9,7 +8,6 @@ class GameObject(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
         self.x = x
         self.y = y
-
 
 class Bullet(GameObject):
     def __init__(self, speed, damage, goingLeft, x, y, screen):
@@ -30,13 +28,9 @@ class Bullet(GameObject):
         else:
             self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (140 - self.animate // 3 * 20, 0, 20, 20))
             self.currentLocation[0] += self.speed
-
         self.animate += 1
         if self.animate == 24:
             self.animate = 0
-
-
-            
 
 class SpeechBubble(GameObject):
     def __init__(self, text, x, y):
@@ -48,7 +42,6 @@ class SpeechBubble(GameObject):
 
     def closeBubble(self):
         self.text = ""
-
 
 class Character(GameObject):
     def __init__(self, speed, health, x, y, image_path, screen, platform1, platform2):
@@ -90,7 +83,6 @@ class Character(GameObject):
                     self.currentPosition), (0, 0, 70, 60))
 
         elif event[pygame.K_RIGHT] and self.inAir is False:
-
             if self.rightSpeed == 0:
                 self.rect = self.screen.blit(self.standingR, tuple(
                     self.currentPosition), (0, 0, 70, 60))
@@ -104,11 +96,9 @@ class Character(GameObject):
             self.standingLeft = False
 
         elif event[pygame.K_LEFT] and self.inAir is False:
-
             if self.leftSpeed == 0:
                 self.rect = self.screen.blit(self.standingL, tuple(
                     self.currentPosition), (0,0,70,60))
-            
             else:
                 self.rect = self.screen.blit(self.walkingL, tuple(
                     self.currentPosition), (74*self.nexImage, 0, 70, 60))
@@ -206,8 +196,6 @@ class Character(GameObject):
         
         return self.rect, self.standingLeft
 
-
-
 class Enemy(GameObject):
     def __init__(self, type, direction, health, x, y):
         self.type = type
@@ -232,11 +220,9 @@ class Enemy(GameObject):
             damage = 3
         # return a bullet object with correct direction and starting position with given speed
 
-
 class PlatForms(GameObject):
     def __init__(self, x, y, img_path):
         super().__init__(x, y, img_path)
-
 
 class Stats(GameObject):
     def __init__(self, x, y, img_path):
