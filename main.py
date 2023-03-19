@@ -193,16 +193,19 @@ def renderShop():
 
 # rendering levels
 def renderLevel1():
+    pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
     screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
     platForm_group1.draw(screen)
     platForm_floor1.draw(screen)
 
 def renderLevel2():
+    pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
     screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
     platForm_group2.draw(screen)
     platForm_floor2.draw(screen)
 
 def renderlevel3():
+    pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
     screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
     pygame.display.flip()
 
@@ -250,10 +253,16 @@ while running:
             running = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             renderShop()
+            if current_level == 1:
+                renderLevel1()
+            if current_level == 2:
+                renderLevel2()
+            if current_level == 3:
+                renderlevel3()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
             current_level += 1
             renderLevel2()
-
+        
     pygame.display.flip()
 
 pygame.quit()
