@@ -27,14 +27,12 @@ platForm_floor1.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrow
 # brown pillar
 platForm_floor1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
 # sky platform 1
-platForm_group1.add(GameObject.PlatForms(180, 420, "lvl1platformImages/orangeplatform.png"))
+platForm_group1.add(GameObject.PlatForms(380, 420, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
-platForm_group1.add(GameObject.PlatForms(320, 360, "lvl1platformImages/brownplatform.png"))
-# sky platform 3
 platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangeplatform.png"))
-# sky platform 4
+# sky platform 3
 platForm_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangeplatform.png"))
-# sky platform 5
+# sky platform 4
 platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
 # platform on top of brown pillar
 platForm_group1.add(GameObject.PlatForms(520, 270, "lvl1platformImages/brownplatform.png"))
@@ -192,13 +190,15 @@ def renderShop():
                         pass
         pygame.display.flip()
 
-
+Level1 = True
 # rendering levels
 def renderLevel1():
-    pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
-    screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-    platForm_group1.draw(screen)
-    platForm_floor1.draw(screen)
+    if Level1:
+        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
+        screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
+        platForm_group1.draw(screen)
+        platForm_floor1.draw(screen)
+        pass
 
 def renderLevel2():
     pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
@@ -228,8 +228,8 @@ current_level = 1
 running = True
 while running:
     renderMainScreen()
+    pygame.time.Clock().tick(120)
     if current_level == 1:
-        pygame.time.Clock().tick(100)
         renderLevel1()
         renderStats()
         keys = pygame.key.get_pressed()
@@ -251,7 +251,34 @@ while running:
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
-    
+
+    elif current_level == 2:
+        renderLevel2()
+        renderStats()
+        keys = pygame.key.get_pressed()
+        direction = bobby.playerMovementControl(keys)
+        
+        if keys[pygame.K_SPACE]:
+            if bulletcooldown >= 30:
+                if direction[1] == True:
+                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                else:
+                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                bulletcooldown = 0
+        
+        bulletcooldown += 1
+        if bulletcooldown >= 30:
+            bulletcooldown = 30
+        for bullet in bullet_group:
+            bullet.bulletTravel()
+
+        collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
+        collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
+
+    elif current_level == 3:
+        renderLevel3()
+        renderStats()
+        
     # Event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -271,15 +298,11 @@ while running:
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
             current_level += 1
-            renderLevel2()
-            renderStats()
-            keys2 = pygame.key.get_pressed()
-            direction2 = bobby2.playerMovementControl(keys2)
+            Level1 = not Level1
+            pygame.display.flip()
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
             current_level += 1
-            renderLevel3()
-            renderStats()
 
     pygame.display.flip()
 
