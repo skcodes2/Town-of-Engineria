@@ -63,11 +63,8 @@ platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatpl
 platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
 
 # set background images for level 1
-screen = pygame.display.set_mode((backgroundImage_Lvl1_rect.width, backgroundImage_Lvl1_rect.height))
+screen = pygame.display.set_mode((1200, 575))
 screen_rect = screen.get_rect()
-
-# Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 5, 40, 350, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor1)
 
 # floor layout for level 2 (SPRITES)
 platForm_group2 = pygame.sprite.Group()
@@ -77,6 +74,10 @@ platForm_floor2.add(GameObject.PlatForms(0, 490, "lvl2platformImages/largeplatfo
 platForm_floor2.add(GameObject.PlatForms(324, 550, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(648, 550, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(972, 550, "lvl2platformImages/largeplatform.png"))
+
+# Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
+bobby = GameObject.Character(5, 5, 40, 440, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor1)
+bobby2 = GameObject.Character(5, 5, 40, 440, "characterImages/bobbyR.png", screen, platForm_group2, platForm_floor2)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -122,13 +123,14 @@ def renderShopStats():
 #mainScreenRender
 fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
 Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(0,0,0))
-playBtn = GameObject.GameObject(375,250,"playbutton.png")
+playBtn = GameObject.GameObject(340,180,"playbutton.png")
 playBtnImage = pygame.image.load("playbutton.png")
 
 mainScreen = True
 #mainScreen Music
 pygame.mixer.init()
 pygame.mixer.music.load("GameMusic/mainScreenMusic.mp3")
+pygame.mixer.music.set_volume(0.15)
 pygame.mixer.music.play(-1)
 # rendering the main screen
 def renderMainScreen():
@@ -138,7 +140,7 @@ def renderMainScreen():
            pygame.display.set_caption("Main Menu")
            screen.blit(mainScreenImage,mainScreenImageRect)
            screen.blit(Title,(190,20))
-           screen.blit(playBtnImage,(340,220))
+           screen.blit(playBtnImage,(340,180))
            pygame.display.flip()
            if event.type == pygame.QUIT:
                 pygame.quit()
@@ -203,8 +205,8 @@ def renderLevel2():
     screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
     platForm_group2.draw(screen)
     platForm_floor2.draw(screen)
-
-def renderlevel3():
+    
+def renderLevel3():
     pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
     screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
     pygame.display.flip()
@@ -225,44 +227,60 @@ def renderStats():
 current_level = 1
 running = True
 while running:
-    pygame.time.Clock().tick(100)
     renderMainScreen()
     if current_level == 1:
+        pygame.time.Clock().tick(100)
         renderLevel1()
         renderStats()
         keys = pygame.key.get_pressed()
         direction = bobby.playerMovementControl(keys)
+        
         if keys[pygame.K_SPACE]:
             if bulletcooldown >= 30:
                 if direction[1] == True:
                     bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                 else:
                     bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
-            bulletcooldown = 0
-    bulletcooldown += 1
-    if bulletcooldown >= 30:
-        bulletcooldown = 30
-    for bullet in bullet_group:
-        bullet.bulletTravel()
-    collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
-    collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
+                bulletcooldown = 0
+        
+        bulletcooldown += 1
+        if bulletcooldown >= 30:
+            bulletcooldown = 30
+        for bullet in bullet_group:
+            bullet.bulletTravel()
+
+        collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
+        collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
     
     # Event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             renderShop()
             if current_level == 1:
                 renderLevel1()
+                renderStats()
             if current_level == 2:
                 renderLevel2()
+                renderStats()
             if current_level == 3:
-                renderlevel3()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                renderLevel3()
+                renderStats()
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
             current_level += 1
             renderLevel2()
-        
+            renderStats()
+            keys2 = pygame.key.get_pressed()
+            direction2 = bobby2.playerMovementControl(keys2)
+            
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
+            current_level += 1
+            renderLevel3()
+            renderStats()
+
     pygame.display.flip()
 
 pygame.quit()
