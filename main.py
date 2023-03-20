@@ -198,7 +198,8 @@ def renderLevel1():
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
-        pass
+    else:
+        print("function is false")
 
 def renderLevel2():
     pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
@@ -209,7 +210,6 @@ def renderLevel2():
 def renderLevel3():
     pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
     screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
-    pygame.display.flip()
 
 # rendering Bobby's Stats
 def renderStats():
@@ -251,8 +251,9 @@ while running:
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
-
+    
     elif current_level == 2:
+        Level1 = False
         renderLevel2()
         renderStats()
         keys = pygame.key.get_pressed()
@@ -298,12 +299,10 @@ while running:
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
             current_level += 1
-            Level1 = not Level1
-            pygame.display.flip()
+            Level1 = False
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
             current_level += 1
-
+            
     pygame.display.flip()
-
 pygame.quit()
