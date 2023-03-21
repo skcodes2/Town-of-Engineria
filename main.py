@@ -112,11 +112,11 @@ enemies1.add(GameObject.Enemy(850, 302, screen, enemy_bullets1, "level1"))
 #Shop Initialization
 shop = Shop.Shop(screen,bobby)
 
-def renderShopStats():
+# def renderShopStats():
     # Fill the stat surfaces with the background color
-    screen.fill((255, 255, 255), (75, 30, 30, 30))
-    screen.fill((255, 255, 255), (155, 30, 30, 30))
-    screen.fill((255, 255, 255), (232, 30, 50, 30))
+    # screen.fill((255, 255, 255), (75, 30, 30, 30))
+    # screen.fill((255, 255, 255), (155, 30, 30, 30))
+    # screen.fill((255, 255, 255), (232, 30, 50, 30))
 
 #     # Render the updated stat values
 #     heart = font.render(str(bobby.health), True, (0, 0, 0))
