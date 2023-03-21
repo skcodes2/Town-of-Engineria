@@ -330,7 +330,7 @@ class Enemy(GameObject):
 
             self.animateR += 1
             if self.animateR == self.animateDelay * 4 + 2:
-                self.bulletGroup.add(Enemy(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 60, self.screen))
+                self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 60, self.screen))
             if self.animateR == self.animateDelay * 5:
                 self.animateR = 0
 
