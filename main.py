@@ -82,11 +82,6 @@ bobbyStats.add(GameObject.Stats(30, 20, "statsImages/heart.png"))
 bobbyStats.add(GameObject.Stats(105, 20, "statsImages/strength.png"))
 bobbyStats.add(GameObject.Stats(190, 22, "statsImages/coin.png"))
 
-# Initialize Enemy Groups
-enemies1 = pygame.sprite.Group()
-enemies1.add(GameObject.Enemy(3, 385, 342, screen))
-enemies1.add(GameObject.Enemy(3, 850, 302, screen))
-
 # Shop Buttons (RECT) on shop window when P is pressed
 healthButtonRect = pygame.Rect(50, 200, 300, 50)
 attackButtonRect = pygame.Rect(50, 270, 300, 50)
@@ -104,6 +99,14 @@ unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
 # bullet group 
 bullet_group = pygame.sprite.Group()
 bulletcooldown = 0
+
+# enemy bullet group
+enemy_bullets1 = pygame.sprite.Group()
+
+# Initialize Enemy Groups
+enemies1 = pygame.sprite.Group()
+enemies1.add(GameObject.Enemy(385, 342, screen, enemy_bullets1, "level1"))
+enemies1.add(GameObject.Enemy(850, 302, screen, enemy_bullets1, "level1"))
 
 def renderShopStats():
     # Fill the stat surfaces with the background color
@@ -245,6 +248,12 @@ while running:
             bobby.loseHp(1)
             bobby.setLocation(40, 440)
 
+        bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
+        for sprite in bulletCollisions:
+            bobby.loseHp(1)
+            bobby.setLocation(40, 440)
+            sprite.kill()
+
         direction = bobby.playerMovementControl(keys)
 
         
@@ -262,8 +271,14 @@ while running:
         for bullet in bullet_group:
             bullet.bulletTravel()
 
+        for bullet in enemy_bullets1:
+            bullet.bulletHoming(bobby)
+
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
+        collisions3 = pygame.sprite.groupcollide(enemy_bullets1, platForm_floor1, True, False)
+        collisions4 = pygame.sprite.groupcollide(enemy_bullets1, platForm_group1, True, False)
+        collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets1, True, True)
 
         enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
         for enemy in enemiesHit.keys():

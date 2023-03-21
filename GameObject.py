@@ -21,7 +21,6 @@ class Bullet(GameObject):
         self.animate = 0
 
     def bulletTravel(self):
-        delay = 0
         if self.goingLeft == True:
             self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 20, 0, 20, 20))
             self.currentLocation[0] -= self.speed
@@ -34,24 +33,61 @@ class Bullet(GameObject):
 
 class EnemyBullet(GameObject):
     def __init__(self, speed, damage, goingLeft, x, y, screen):
-        super().__init__(x, y, "characterAnimation/axeAnimation.png")
+        super().__init__(x, y, "rockAnimation/rockthrow.png")
         self.speed = speed
         self.damage = damage
         self.goingLeft = goingLeft
         self.currentLocation = [x,y]
-        self.travel = pygame.image.load("characterAnimation/axeAnimation.png")
+        self.travel = pygame.image.load("rockAnimation/rockthrow.png")
         self.screen = screen
         self.animate = 0
+        self.age = 0
 
     def bulletTravel(self):
-        delay = 0
         if self.goingLeft == True:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 20, 0, 20, 20))
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+            self.rect.height -= 5
+            self.rect.y += 3
             self.currentLocation[0] -= self.speed
         else:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (140 - self.animate // 3 * 20, 0, 20, 20))
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+            self.rect.height -= 5
+            self.rect.y += 3
             self.currentLocation[0] += self.speed
         self.animate += 1
+        if self.animate == 24:
+            self.animate = 0
+        
+    def bulletHoming(self, bobby):
+        if self.goingLeft == True and self.age < 8:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+            self.rect.height -= 5
+            self.rect.y += 3
+            self.currentLocation[0] -= self.speed
+        elif self.goingLeft == False and self.age < 8:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+            self.rect.height -= 5
+            self.rect.y += 3
+            self.currentLocation[0] += self.speed
+        else:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+            self.rect.height -= 5
+            self.rect.y += 3
+            if bobby.rect.centerx + 20 <= self.rect.centerx:
+                self.currentLocation[0] -= self.speed
+            elif bobby.rect.centerx - 20 >= self.rect.centerx:
+                self.currentLocation[0] += self.speed
+            else:
+                pass
+            
+            if bobby.rect.centery + 20 <= self.rect.centery:
+                self.currentLocation[1] -= self.speed
+            elif bobby.rect.centery - 20 >= self.rect.centery:
+                self.currentLocation[1] += self.speed
+            else:
+                pass
+        self.animate += 1
+        self.age += 1
         if self.animate == 24:
             self.animate = 0
 
@@ -111,9 +147,9 @@ class Character(GameObject):
                     self.currentPosition), (0, 0, 70, 60))
             else:
                 self.rect = self.screen.blit(self.walkingR, tuple(
-                    self.currentPosition), (75*self.nexImage, 0, 76, 60))
+                    self.currentPosition), (75*(self.nexImage // 4), 0, 76, 60))
                 self.nexImage += 1
-                if(self.nexImage == 4):
+                if(self.nexImage == 16):
                     self.nexImage = 0
             self.currentPosition[0] += self.rightSpeed
             self.standingLeft = False
@@ -124,9 +160,9 @@ class Character(GameObject):
                     self.currentPosition), (0,0,70,60))
             else:
                 self.rect = self.screen.blit(self.walkingL, tuple(
-                    self.currentPosition), (74*self.nexImage, 0, 70, 60))
+                    self.currentPosition), (74*(self.nexImage // 4), 0, 70, 60))
                 self.nexImage += 1
-                if(self.nexImage == 4):
+                if(self.nexImage == 16):
                     self.nexImage = 0
             self.currentPosition[0] -= self.leftSpeed
             self.standingLeft = True
@@ -227,9 +263,8 @@ class Character(GameObject):
         self.currentPosition = [x,y]
 
 class Enemy(GameObject):
-    def __init__(self, health, x, y, screen):
+    def __init__(self, x, y, screen, bulletGroup, type):
         self.isLeft = True
-        self.health = health
         super().__init__(x, y, "enemyImages/enemyL.png")
         self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
         self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
@@ -237,14 +272,27 @@ class Enemy(GameObject):
         self.currentLocation = [x,y]
         self.animateL = 0
         self.animateR = 0
-        self.animateDelay = 4
+        self.animateDelay = 8
+        self.bulletGroup = bulletGroup
+        if type == "level1":
+            self.sightRange = 300
+            self.bulletSpeed = 6
+            self.health = 3
+        elif type == "level2":
+            self.sightRange = 500
+            self.bulletSpeed = 8
+            self.health = 5
+        elif type == "level3":
+            self.sightRange = 800
+            self.bulletSpeed = 12
+            self.health = 8
 
     def handleBehaviour(self, bobby):
 
-        if (abs(bobby.rect.centerx - self.rect.centerx) <= 300 and abs(bobby.rect.centery - self.rect.centery <= 300) and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
+        if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRange and abs(bobby.rect.centery - self.rect.centery <= self.sightRange) and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
             self.animateR = 0
             if self.animateL // self.animateDelay == 0:
-                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90))
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90)) # hard coded cuz animations arent all the same size for some reason
             
             elif self.animateL // self.animateDelay == 1:
                 self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (215, 0, 73.8, 90))
@@ -259,10 +307,12 @@ class Enemy(GameObject):
                 self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (0, 0, 78, 90))
 
             self.animateL += 1
+            if self.animateL == self.animateDelay * 4 + 2:
+                self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, True, self.rect.x - 16, self.rect.y + 60, self.screen))
             if self.animateL == self.animateDelay * 5:
                 self.animateL = 0
 
-        elif (abs(bobby.rect.centerx - self.rect.centerx) <= 300 and abs(bobby.rect.centery - self.rect.centery <= 300) and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
+        elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRange and abs(bobby.rect.centery - self.rect.centery <= self.sightRange) and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
             if self.animateR // self.animateDelay == 0:
                 self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0, 0, 73.8, 90))
             
@@ -279,6 +329,8 @@ class Enemy(GameObject):
                 self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (290, 0, 78, 90))
 
             self.animateR += 1
+            if self.animateR == self.animateDelay * 4 + 2:
+                self.bulletGroup.add(Enemy(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 60, self.screen))
             if self.animateR == self.animateDelay * 5:
                 self.animateR = 0
 
