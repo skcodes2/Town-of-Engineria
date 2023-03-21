@@ -32,6 +32,29 @@ class Bullet(GameObject):
         if self.animate == 24:
             self.animate = 0
 
+class EnemyBullet(GameObject):
+    def __init__(self, speed, damage, goingLeft, x, y, screen):
+        super().__init__(x, y, "characterAnimation/axeAnimation.png")
+        self.speed = speed
+        self.damage = damage
+        self.goingLeft = goingLeft
+        self.currentLocation = [x,y]
+        self.travel = pygame.image.load("characterAnimation/axeAnimation.png")
+        self.screen = screen
+        self.animate = 0
+
+    def bulletTravel(self):
+        delay = 0
+        if self.goingLeft == True:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 20, 0, 20, 20))
+            self.currentLocation[0] -= self.speed
+        else:
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (140 - self.animate // 3 * 20, 0, 20, 20))
+            self.currentLocation[0] += self.speed
+        self.animate += 1
+        if self.animate == 24:
+            self.animate = 0
+
 class SpeechBubble(GameObject):
     def __init__(self, text, x, y):
         self.text = text
@@ -195,30 +218,86 @@ class Character(GameObject):
             self.leftSpeed = self.defaultSpeed
         
         return self.rect, self.standingLeft
+    
+    def changeLevel(self, platform1, platform2):
+        self.platform1 = platform1
+        self.platform2 = platform2
+
+    def setLocation(self, x, y):
+        self.currentPosition = [x,y]
 
 class Enemy(GameObject):
-    def __init__(self, type, direction, health, x, y):
-        self.type = type
-        self.direction = direction
+    def __init__(self, health, x, y, screen):
+        self.isLeft = True
         self.health = health
-        super.__init__(x, y, "enemy.png")
+        super().__init__(x, y, "enemyImages/enemyL.png")
+        self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
+        self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
+        self.screen = screen
+        self.currentLocation = [x,y]
+        self.animateL = 0
+        self.animateR = 0
+        self.animateDelay = 4
+
+    def handleBehaviour(self, bobby):
+
+        if (abs(bobby.rect.centerx - self.rect.centerx) <= 300 and abs(bobby.rect.centery - self.rect.centery <= 300) and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
+            self.animateR = 0
+            if self.animateL // self.animateDelay == 0:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90))
+            
+            elif self.animateL // self.animateDelay == 1:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (215, 0, 73.8, 90))
+            
+            elif self.animateL // self.animateDelay == 2:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (140, 0, 73.8, 90))
+
+            elif self.animateL // self.animateDelay == 3:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (80, 0, 60, 90))
+
+            elif self.animateL // self.animateDelay == 4:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (0, 0, 78, 90))
+
+            self.animateL += 1
+            if self.animateL == self.animateDelay * 5:
+                self.animateL = 0
+
+        elif (abs(bobby.rect.centerx - self.rect.centerx) <= 300 and abs(bobby.rect.centery - self.rect.centery <= 300) and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
+            if self.animateR // self.animateDelay == 0:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0, 0, 73.8, 90))
+            
+            elif self.animateR // self.animateDelay == 1:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (80, 0, 73.8, 90))
+            
+            elif self.animateR // self.animateDelay == 2:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (155, 0, 73.8, 90))
+
+            elif self.animateR // self.animateDelay == 3:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (230, 0, 60, 90))
+
+            elif self.animateR // self.animateDelay == 4:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (290, 0, 78, 90))
+
+            self.animateR += 1
+            if self.animateR == self.animateDelay * 5:
+                self.animateR = 0
+
+        elif bobby.rect.centerx < self.rect.centerx:
+            self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90))
+        else:
+            self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,73.8,90))
+
+        if self.health == 0:
+            self.kill()
+        
+        self.rect.x += 15
+        self.rect.y += 10
+        self.rect.width -= 15
+        self.rect.height -= 10
+
 
     def loseHp(self, damage):
         self.health = self.health - damage
-
-    def shoot(self):
-        speed = ""
-        damage = ""
-        if type == 1:
-            speed = 5
-            damage = 1
-        elif type == 2:
-            speed = 10
-            damage = 2
-        elif type == 3:
-            speed = 15
-            damage = 3
-        # return a bullet object with correct direction and starting position with given speed
 
 class PlatForms(GameObject):
     def __init__(self, x, y, img_path):

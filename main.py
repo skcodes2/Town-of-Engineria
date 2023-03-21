@@ -75,13 +75,17 @@ platForm_floor2.add(GameObject.PlatForms(972, 550, "lvl2platformImages/largeplat
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
 bobby = GameObject.Character(5, 5, 40, 440, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor1)
-bobby2 = GameObject.Character(5, 5, 40, 440, "characterImages/bobbyR.png", screen, platForm_group2, platForm_floor2)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
 bobbyStats.add(GameObject.Stats(30, 20, "statsImages/heart.png"))
 bobbyStats.add(GameObject.Stats(105, 20, "statsImages/strength.png"))
 bobbyStats.add(GameObject.Stats(190, 22, "statsImages/coin.png"))
+
+# Initialize Enemy Groups
+enemies1 = pygame.sprite.Group()
+enemies1.add(GameObject.Enemy(3, 385, 342, screen))
+enemies1.add(GameObject.Enemy(3, 850, 302, screen))
 
 # Shop Buttons (RECT) on shop window when P is pressed
 healthButtonRect = pygame.Rect(50, 200, 300, 50)
@@ -233,7 +237,16 @@ while running:
         renderLevel1()
         renderStats()
         keys = pygame.key.get_pressed()
+        for enemy in enemies1:
+            enemy.handleBehaviour(bobby)
+
+        enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
+        for collision in enemyCollisions:
+            bobby.loseHp(1)
+            bobby.setLocation(40, 440)
+
         direction = bobby.playerMovementControl(keys)
+
         
         if keys[pygame.K_SPACE]:
             if bulletcooldown >= 30:
@@ -251,6 +264,10 @@ while running:
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
+
+        enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
+        for enemy in enemiesHit.keys():
+            enemy.loseHp(bobby.attack)
     
     elif current_level == 2:
         Level1 = False
@@ -300,6 +317,7 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
             current_level += 1
             Level1 = False
+            bobby.changeLevel(platForm_group2, platForm_floor2)
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
             current_level += 1
