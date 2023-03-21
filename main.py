@@ -1,5 +1,6 @@
 import pygame
 import GameObject
+import Shop
 
 pygame.init()
 # set up images and icons
@@ -105,22 +106,26 @@ unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
 bullet_group = pygame.sprite.Group()
 bulletcooldown = 0
 
-def renderShopStats():
-    # Fill the stat surfaces with the background color
-    screen.fill((255, 255, 255), (75, 30, 30, 30))
-    screen.fill((255, 255, 255), (155, 30, 30, 30))
-    screen.fill((255, 255, 255), (232, 30, 50, 30))
+#Shop Initialization
+shop = Shop.Shop(screen,bobby)
 
-    # Render the updated stat values
-    heart = font.render(str(bobby.health), True, (0, 0, 0))
-    strength = font.render(str(bobby.attack), True, (0, 0, 0))
-    money = font.render(str(bobby.money), True, (0, 0, 0))
+#using this code later dont touch -sabi
+# def renderShopStats():
+#     # Fill the stat surfaces with the background color
+#     screen.fill((255, 255, 255), (75, 30, 30, 30))
+#     screen.fill((255, 255, 255), (155, 30, 30, 30))
+#     screen.fill((255, 255, 255), (232, 30, 50, 30))
 
-    # Blit the updated stat values to the screen
-    bobbyStats.draw(screen)
-    screen.blit(heart, (75, 30))
-    screen.blit(strength, (155, 30))
-    screen.blit(money, (232, 30))
+#     # Render the updated stat values
+#     heart = font.render(str(bobby.health), True, (0, 0, 0))
+#     strength = font.render(str(bobby.attack), True, (0, 0, 0))
+#     money = font.render(str(bobby.money), True, (0, 0, 0))
+
+#     # Blit the updated stat values to the screen
+#     bobbyStats.draw(screen)
+#     screen.blit(heart, (75, 30))
+#     screen.blit(strength, (155, 30))
+#     screen.blit(money, (232, 30))
 
 #mainScreenRender
 fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
@@ -149,50 +154,51 @@ def renderMainScreen():
            if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
                 pygame.mixer.music.stop()
                 mainScreen = False
-
+                
+#using this code later dont touch -sabi
 # rendering the shop
-def renderShop():
-    # set the caption
-    pygame.display.set_caption("Game Menu")
-    # fill entire screen white
-    screen.fill((255, 255, 255))
-    # draw rectangle of health button
-    pygame.draw.rect(screen, (0, 255, 255), healthButtonRect)
-    # draw rectangle of attack button
-    pygame.draw.rect(screen, (0, 255, 255), attackButtonRect)
-    # blit the labels inside rect
-    screen.blit(shield_label, (healthButtonRect.x + 50, healthButtonRect.y + 15))
-    screen.blit(attack_label, (attackButtonRect.x + 50, attackButtonRect.y + 15))
-    screen.blit(upgrades_label, (50, 100))
-    screen.blit(gameSettings_label, (800,100))
+# def renderShop():
+#     # set the caption
+#     pygame.display.set_caption("Game Menu")
+#     # fill entire screen white
+#     screen.fill((255, 255, 255))
+#     # draw rectangle of health button
+#     pygame.draw.rect(screen, (0, 255, 255), healthButtonRect)
+#     # draw rectangle of attack button
+#     pygame.draw.rect(screen, (0, 255, 255), attackButtonRect)
+#     # blit the labels inside rect
+#     screen.blit(shield_label, (healthButtonRect.x + 50, healthButtonRect.y + 15))
+#     screen.blit(attack_label, (attackButtonRect.x + 50, attackButtonRect.y + 15))
+#     screen.blit(upgrades_label, (50, 100))
+#     screen.blit(gameSettings_label, (800,100))
     
-    running = True
-    while running:
-        renderShopStats()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                pygame.display.set_caption("Bobby: The Town of Enginerea")
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # event.button == 1 is a left click
-                # check if the mouse click was inside a button
-                if healthButtonRect.collidepoint(event.pos):
-                    if bobby.money >= 5:
-                        bobby.health += 1
-                        bobby.money -= 5
-                        success_sound.play()
-                    elif bobby.money < 5:
-                        unsuccessful_sound.play()
-                        pass
-                    # execute upgrade shield action here
-                elif attackButtonRect.collidepoint(event.pos):
-                    if bobby.money >= 5:
-                        bobby.attack += 1
-                        bobby.money -= 5
-                        success_sound.play()
-                    elif bobby.money < 5:
-                        unsuccessful_sound.play()
-                        pass
-        pygame.display.flip()
+    # running = True
+    # while running:
+    #     renderShopStats()
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             running = False
+    #             pygame.display.set_caption("Bobby: The Town of Enginerea")
+    #         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # event.button == 1 is a left click
+    #             # check if the mouse click was inside a button
+    #             if healthButtonRect.collidepoint(event.pos):
+    #                 if bobby.money >= 5:
+    #                     bobby.health += 1
+    #                     bobby.money -= 5
+    #                     success_sound.play()
+    #                 elif bobby.money < 5:
+    #                     unsuccessful_sound.play()
+    #                     pass
+    #                 # execute upgrade shield action here
+    #             elif attackButtonRect.collidepoint(event.pos):
+    #                 if bobby.money >= 5:
+    #                     bobby.attack += 1
+    #                     bobby.money -= 5
+    #                     success_sound.play()
+    #                 elif bobby.money < 5:
+    #                     unsuccessful_sound.play()
+    #                     pass
+    #     pygame.display.flip()
 
 Level1 = True
 # rendering levels
@@ -302,8 +308,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
-            renderShop()
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+            # renderShop()
+            shop.isOpen=True
+            shop.renderShop()
             if current_level == 1:
                 renderLevel1()
                 renderStats()
