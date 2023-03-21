@@ -130,7 +130,7 @@ class Character(GameObject):
 
     def loseHp(self, damage):
         self.health = self.health - damage
-
+        
     def playerMovementControl(self, event):
 
         if not event[pygame.K_RIGHT] and not event[pygame.K_LEFT] and not event[pygame.K_UP] and self.inAir is False:
