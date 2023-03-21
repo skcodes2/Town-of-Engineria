@@ -109,6 +109,9 @@ enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 342, screen, enemy_bullets1, "level1"))
 enemies1.add(GameObject.Enemy(850, 302, screen, enemy_bullets1, "level1"))
 
+#Shop Initialization
+shop = Shop.Shop(screen,bobby)
+
 def renderShopStats():
     # Fill the stat surfaces with the background color
     screen.fill((255, 255, 255), (75, 30, 30, 30))
