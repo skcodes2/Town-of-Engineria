@@ -30,10 +30,7 @@ platForm_floor1 = pygame.sprite.Group()
 movingPlatform_group1 = pygame.sprite.Group()
 
 # moving sky platform
-#movingPlatform_group1.add(GameObject.MovingPlatForms(720,470,5,600,800,"lvl1platformImages/brownplatform.png"))
-moving_platform = GameObject.MovingPlatForms(720, 470, 5, 600, 800, "lvl1platformImages/brownplatform.png")
-movingPlatform_group1.add(moving_platform)
-
+movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
 
 
 # orange floor platform
@@ -52,6 +49,7 @@ platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangepla
 # sky platform 3
 platForm_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangeplatform.png"))
 # sky platform 4
+
 #platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
 
 
@@ -86,7 +84,7 @@ destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.pn
 lavapool = pygame.image.load("lvl1platformImages/lava.png")
 
 Level1 = True
-# rendering levels --------------------------------------- Leve 1 ---------------------
+# rendering levels 
 def renderLevel1():
     if Level1:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
@@ -105,8 +103,6 @@ def renderLevel1():
         movingPlatform_group1.update()
         movingPlatform_group1.draw(screen)
 
-
-
     else:
         print("function is false")
 
@@ -120,7 +116,7 @@ platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplat
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 10, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1)
+bobby = GameObject.Character(5, 10, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -194,21 +190,21 @@ pygame.mixer.music.play(-1)
 def renderMainScreen():
     global mainScreen
     while mainScreen:
+        pygame.display.set_caption("Main Menu")
+        screen.blit(mainScreenImage,mainScreenImageRect)
+        screen.blit(Title, (180,55))
+        screen.blit(playBtnImage, (510,200))
+        screen.blit(exitBtnImage, (510,260))
+        screen.blit(helpBtnImage, (505,320))
+        pygame.display.flip()
         for event in pygame.event.get():
-            pygame.display.set_caption("Main Menu")
-            screen.blit(mainScreenImage,mainScreenImageRect)
-            screen.blit(Title, (180,55))
-            screen.blit(playBtnImage, (510,200))
-            screen.blit(exitBtnImage, (510,260))
-            screen.blit(helpBtnImage, (505,320))
-            pygame.display.flip()
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
                 pygame.mixer.music.stop()
                 mainScreen = False
             if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos): 
-                pygame.quit()
+                quit()
                 
 #using this code later dont touch -sabi
 # rendering the shop
@@ -296,6 +292,8 @@ while running:
         keys = pygame.key.get_pressed()
         for enemy in enemies1:
             enemy.handleBehaviour(bobby)
+
+        #movingPlatCollisions = pygame.sprite.spritecollide(bobby,)
 
         enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
         for collision in enemyCollisions:

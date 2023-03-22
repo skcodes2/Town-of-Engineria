@@ -103,7 +103,7 @@ class SpeechBubble(GameObject):
         self.text = ""
 
 class Character(GameObject):
-    def __init__(self, speed, health, x, y, image_path, screen, platform1, platform2):
+    def __init__(self, speed, health, x, y, image_path, screen, platform1, platform2, movingPlatforms):
         super().__init__(x, y, image_path)
         self.defaultSpeed = speed
         self.leftSpeed = speed
@@ -115,6 +115,7 @@ class Character(GameObject):
         self.currentPosition = [x, y]
         self.platform1 = platform1
         self.platform2 = platform2
+        self.movingPlatforms = movingPlatforms
 
         self.nexImage = 0
         self.screen = screen
@@ -213,11 +214,15 @@ class Character(GameObject):
         self.rect.width -= 40
         self.rect.x += 20
 
+        #colliding with a moving platform:
+        movingVertCollisions = pygame.sprite.spritecollide(
+            self,self.movingPlatforms,False)
         vertcollisions = pygame.sprite.spritecollide(
             self, self.platform1, False)
         vertcollisions2 = pygame.sprite.spritecollide(
             self, self.platform2, False)
         vertcollisions += vertcollisions2
+        vertcollisions += movingVertCollisions
         for sprite in vertcollisions:
             if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
                 self.inAir = False
@@ -358,22 +363,18 @@ class PlatForms(GameObject):
 class MovingPlatForms(GameObject): 
     def __init__(self,x,y,speed,stopLeft,stopRight,img_path): 
         super().__init__(x,y,img_path)
-        self.direction = [1,0]
+        self.direction = 1
         self.speed = speed; 
         self.stopLeft = stopLeft
         self.stopRight = stopRight
 
     def update(self):
-        self.moving()
-        super().update()        
-
-    def moving(self): 
         if self.x <= self.stopLeft: 
-            self.direction[0] = 1 #start moving right once it has reached the left most position. 
+            self.direction = 1 #start moving right once it has reached the left most position. 
         elif self.x >= self.stopRight: 
-            self.direction[0] = -1 #start moving left once it has reached the right most position. 
-        self.x += self.speed*self.direction[0]
-        print('working')
+            self.direction = -1 #start moving left once it has reached the right most position. 
+        self.x += self.speed * self.direction
+        self.rect.x = self.x # Update the position of the sprite based on the new x value
 
 
 class Stats(GameObject):
