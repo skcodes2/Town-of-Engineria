@@ -29,7 +29,7 @@ platForm_floor1 = pygame.sprite.Group()
 # orange floor platform
 platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # brown floor platforms
-platForm_floor1.add(GameObject.PlatForms(0, 490, "lvl1platformImages/largebrownstone.png"))
+platForm_floor1.add(GameObject.PlatForms(0, 480, "lvl1platformImages/largebrownstone.png"))
 platForm_floor1.add(GameObject.PlatForms(324, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_floor1.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrownstone.png"))
 platForm_floor1.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
@@ -69,8 +69,8 @@ platForm_floor1.add(GameObject.PlatForms(822, 0, "lvl1platformImages/brownflatpl
 platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
 platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
 # aesthetic images
-bobbyhouse = pygame.image.load("lvl1platformImages/vikinghouse.png")
-enemyhouse = pygame.image.load("lvl1platformImages/enemyhouse.png")
+destroyedbuilding1 = pygame.image.load("lvl1platformImages/destroyedbuilding1.png")
+destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.png")
 lavapool = pygame.image.load("lvl1platformImages/lava.png")
 
 Level1 = True
@@ -79,8 +79,10 @@ def renderLevel1():
     if Level1:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-        screen.blit(bobbyhouse, (30,326))
-        screen.blit(enemyhouse, (30,40))
+        screen.blit(destroyedbuilding1, (30,187))
+        screen.blit(destroyedbuilding2, (930,55))
+        screen.blit(lavapool, (320,530))
+        screen.blit(lavapool, (462,530))
         screen.blit(lavapool, (605,530))
         screen.blit(lavapool, (747,530))
         screen.blit(lavapool, (889,530))
@@ -99,7 +101,7 @@ platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplat
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 10, 75, 370, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1)
+bobby = GameObject.Character(5, 10, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
