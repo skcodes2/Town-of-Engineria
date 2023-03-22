@@ -300,12 +300,12 @@ while running:
         enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
         for collision in enemyCollisions:
             bobby.loseHp(1)
-            bobby.setLocation(40, 440)
+            bobby.setLocation(40, 400)
 
         bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
         for sprite in bulletCollisions:
             bobby.loseHp(1)
-            bobby.setLocation(40, 440)
+            bobby.setLocation(40, 400)
             sprite.kill()
 
         direction = bobby.playerMovementControl(keys)
