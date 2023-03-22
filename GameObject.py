@@ -131,6 +131,9 @@ class Character(GameObject):
 
     def loseHp(self, damage):
         self.health = self.health - damage
+
+    def gainMoney(self, money):
+        self.money += money
         
     def playerMovementControl(self, event):
 
@@ -268,7 +271,7 @@ class Character(GameObject):
         self.currentPosition = [x,y]
 
 class Enemy(GameObject):
-    def __init__(self, x, y, screen, bulletGroup, type):
+    def __init__(self, x, y, screen, bulletGroup, type, coins):
         self.isLeft = True
         super().__init__(x, y, "enemyImages/enemyL.png")
         self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
@@ -291,6 +294,7 @@ class Enemy(GameObject):
             self.sightRange = 800
             self.bulletSpeed = 12
             self.health = 8
+        self.coins = coins
 
     def handleBehaviour(self, bobby):
 
@@ -345,6 +349,7 @@ class Enemy(GameObject):
             self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,73.8,90))
 
         if self.health == 0:
+            self.coins.add(coin(self.rect.x + 23, self.rect.y + 62, 20, self.screen))
             self.kill()
         
         self.rect.x += 15
@@ -359,6 +364,10 @@ class Enemy(GameObject):
 class PlatForms(GameObject):
     def __init__(self, x, y, img_path):
         super().__init__(x, y, img_path)
+
+class LavaPool(GameObject):
+    def __init__(self, x, y, img_path):
+        super().__init__(x,y,img_path)
 
 class MovingPlatForms(GameObject): 
     def __init__(self,x,y,speed,stopLeft,stopRight,img_path): 
@@ -376,6 +385,24 @@ class MovingPlatForms(GameObject):
         self.x += self.speed * self.direction
         self.rect.x = self.x # Update the position of the sprite based on the new x value
 
+class coin(GameObject):
+    def __init__(self, x, y, value, screen):
+        super().__init__(x, y, "statsImages/coinAnimation.png")
+        self.value = value
+        self.animation = pygame.image.load("statsImages/coinAnimation.png")
+        self.timer = 0
+        self.screen = screen
+        self.currentLocation = [x,y]
+    
+    def animate(self):
+        if self.timer // 3 == 0:
+            self.rect = self.screen.blit(self.animation, tuple(self.currentLocation), (0, 0, 25, 25))
+        elif self.timer // 3 >= 1:
+            self.rect = self.screen.blit(self.animation, tuple(self.currentLocation), ((self.timer // 3) * 30 - 2, 0, 25, 25))   
+        self.timer += 1
+        if self.timer >= 18:
+            self.timer = 0
+        
 
 class Stats(GameObject):
     def __init__(self, x, y, img_path):

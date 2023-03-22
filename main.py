@@ -28,6 +28,7 @@ screen_rect = screen.get_rect()
 platForm_group1 = pygame.sprite.Group()
 platForm_floor1 = pygame.sprite.Group()
 movingPlatform_group1 = pygame.sprite.Group()
+lavapool1 = pygame.sprite.Group()
 
 # moving sky platform
 movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
@@ -54,7 +55,7 @@ platForm_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangepla
 
 
 # platform on top of brown pillar
-platForm_group1.add(GameObject.PlatForms(520, 270, "lvl1platformImages/brownplatform.png"))
+platForm_group1.add(GameObject.PlatForms(520, 250, "lvl1platformImages/brownplatform.png"))
 # left sky flat platform
 platForm_group1.add(GameObject.PlatForms(10, 200, "lvl1platformImages/leftskyplatform.png"))
 # right sky flat platform
@@ -78,33 +79,15 @@ platForm_floor1.add(GameObject.PlatForms(685, 0, "lvl1platformImages/brownflatpl
 platForm_floor1.add(GameObject.PlatForms(822, 0, "lvl1platformImages/brownflatplatform.png"))
 platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
 platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
+# lavapools
+lavapool1.add(GameObject.LavaPool(320, 530, "lvl1platformImages/lava.png"))
+lavapool1.add(GameObject.LavaPool(462, 530, "lvl1platformImages/lava.png"))
+lavapool1.add(GameObject.LavaPool(605, 530, "lvl1platformImages/lava.png"))
+lavapool1.add(GameObject.LavaPool(747, 530, "lvl1platformImages/lava.png"))
+lavapool1.add(GameObject.LavaPool(889, 530, "lvl1platformImages/lava.png"))
 # aesthetic images
 destroyedbuilding1 = pygame.image.load("lvl1platformImages/destroyedbuilding1.png")
 destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.png")
-lavapool = pygame.image.load("lvl1platformImages/lava.png")
-
-Level1 = True
-# rendering levels 
-def renderLevel1():
-    if Level1:
-        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
-        screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-        screen.blit(destroyedbuilding1, (30,187))
-        screen.blit(destroyedbuilding2, (930,55))
-        screen.blit(lavapool, (320,530))
-        screen.blit(lavapool, (462,530))
-        screen.blit(lavapool, (605,530))
-        screen.blit(lavapool, (747,530))
-        screen.blit(lavapool, (889,530))
-        platForm_group1.draw(screen)
-        platForm_floor1.draw(screen)
-        
-        
-        movingPlatform_group1.update()
-        movingPlatform_group1.draw(screen)
-
-    else:
-        print("function is false")
 
 # floor layout for level 2 (SPRITES)
 platForm_group2 = pygame.sprite.Group()
@@ -145,10 +128,13 @@ bulletcooldown = 0
 # enemy bullet group
 enemy_bullets1 = pygame.sprite.Group()
 
+# coins
+coins1 = pygame.sprite.Group()
+
 # Initialize Enemy Groups
 enemies1 = pygame.sprite.Group()
-enemies1.add(GameObject.Enemy(385, 342, screen, enemy_bullets1, "level1"))
-enemies1.add(GameObject.Enemy(850, 302, screen, enemy_bullets1, "level1"))
+enemies1.add(GameObject.Enemy(385, 342, screen, enemy_bullets1, "level1", coins1))
+enemies1.add(GameObject.Enemy(850, 302, screen, enemy_bullets1, "level1", coins1))
 
 #Shop Initialization
 shop = Shop.Shop(screen,bobby)
@@ -251,6 +237,32 @@ def renderMainScreen():
     #                     pass
     #     pygame.display.flip()
 
+Level1 = True
+# rendering levels 
+def renderLevel1():
+    if Level1:
+        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
+        screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
+        screen.blit(destroyedbuilding1, (30,187))
+        screen.blit(destroyedbuilding2, (930,55))
+        lavapool1.draw(screen)
+        platForm_group1.draw(screen)
+        platForm_floor1.draw(screen)
+        movingPlatform_group1.update()
+        movingPlatform_group1.draw(screen)
+        for enemy in enemies1:
+            enemy.handleBehaviour(bobby)
+        for coin in coins1:
+            coin.animate()
+        for bullet in bullet_group:
+            bullet.bulletTravel()
+
+        for bullet in enemy_bullets1:
+            bullet.bulletHoming(bobby)
+
+    else:
+        print("function is false")
+
 Level2 = True
 def renderLevel2():
     if Level2:
@@ -290,8 +302,6 @@ while running:
         renderLevel1()
         renderStats()
         keys = pygame.key.get_pressed()
-        for enemy in enemies1:
-            enemy.handleBehaviour(bobby)
 
         #movingPlatCollisions = pygame.sprite.spritecollide(bobby,)
 
@@ -306,10 +316,20 @@ while running:
             bobby.setLocation(40, 400)
             sprite.kill()
 
+        lavaCollisions = pygame.sprite.spritecollide(bobby, lavapool1, False)
+        if len(lavaCollisions) > 0:
+            bobby.loseHp(1)
+            bobby.setLocation(40,400)
+
+        coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
+        for coin in coinCollisions:
+            bobby.gainMoney(coin.value)
+            coin.kill()
+
         direction = bobby.playerMovementControl(keys)
 
         if keys[pygame.K_SPACE]:
-            if bulletcooldown >= 30:
+            if bulletcooldown >= 10:
                 if direction[1] == True:
                     bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                 else:
@@ -319,11 +339,6 @@ while running:
         bulletcooldown += 1
         if bulletcooldown >= 30:
             bulletcooldown = 30
-        for bullet in bullet_group:
-            bullet.bulletTravel()
-
-        for bullet in enemy_bullets1:
-            bullet.bulletHoming(bobby)
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
