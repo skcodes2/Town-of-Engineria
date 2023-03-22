@@ -6,14 +6,22 @@ pygame.init()
 # set up images and icons
 pygame.display.set_caption("Main Menu")
 pygame.display.set_icon(pygame.image.load("mainScreenImages/gameicon.png"))
-mainScreenImage = pygame.image.load('mainScreenImages/MainScreenImage.png'); 
+# main screen background 
+mainScreenImage = pygame.image.load('mainScreenImages/main.png'); 
 mainScreenImageRect = mainScreenImage.get_rect()
+# level 1 background
 backgroundImage_LvL1 = pygame.image.load('backgroundImages/lvl1background.png')
-backgroundImage_LvL2 = pygame.image.load("backgroundImages/lvl2background.png")
-backgroundImage_LvL3 = pygame.image.load("backgroundImages/lvl3background.png")
 backgroundImage_Lvl1_rect = backgroundImage_LvL1.get_rect()
+# level 2 background
+backgroundImage_LvL2 = pygame.image.load("backgroundImages/lvl2background.png")
 backgroundImage_LvL2_rect = backgroundImage_LvL2.get_rect()
+# level 3 background
+backgroundImage_LvL3 = pygame.image.load("backgroundImages/lvl3background.png")
 backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
+
+# set size of window screen
+screen = pygame.display.set_mode((1200, 575))
+screen_rect = screen.get_rect()
 
 # floor layout for level 1 (SPRITES)
 platForm_group1 = pygame.sprite.Group()
@@ -60,22 +68,38 @@ platForm_floor1.add(GameObject.PlatForms(685, 0, "lvl1platformImages/brownflatpl
 platForm_floor1.add(GameObject.PlatForms(822, 0, "lvl1platformImages/brownflatplatform.png"))
 platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
 platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
+# aesthetic images
+bobbyhouse = pygame.image.load("lvl1platformImages/vikinghouse.png")
+enemyhouse = pygame.image.load("lvl1platformImages/enemyhouse.png")
+lavapool = pygame.image.load("lvl1platformImages/lava.png")
 
-# set background images for level 1
-screen = pygame.display.set_mode((1200, 575))
-screen_rect = screen.get_rect()
+Level1 = True
+# rendering levels
+def renderLevel1():
+    if Level1:
+        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
+        screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
+        screen.blit(bobbyhouse, (30,326))
+        screen.blit(enemyhouse, (30,40))
+        screen.blit(lavapool, (605,530))
+        screen.blit(lavapool, (747,530))
+        screen.blit(lavapool, (889,530))
+        platForm_group1.draw(screen)
+        platForm_floor1.draw(screen)
+    else:
+        print("function is false")
 
 # floor layout for level 2 (SPRITES)
 platForm_group2 = pygame.sprite.Group()
 platForm_floor2 = pygame.sprite.Group()
 # ice floor platforms
-platForm_floor2.add(GameObject.PlatForms(0, 490, "lvl2platformImages/largeplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(324, 550, "lvl2platformImages/largeplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(648, 550, "lvl2platformImages/largeplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(972, 550, "lvl2platformImages/largeplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 10, 40, 440, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1)
+bobby = GameObject.Character(5, 10, 75, 370, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -131,9 +155,13 @@ shop = Shop.Shop(screen,bobby)
 
 #mainScreenRender
 fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
-Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(0,0,0))
-playBtn = GameObject.GameObject(340,180,"mainScreenImages/playbutton.png")
+Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(255,255,255))
+playBtn = GameObject.GameObject(510,200,"mainScreenImages/playbutton.png")
+exitBtn = GameObject.GameObject(510,260,"mainScreenImages/exitbutton.png")
+helpBtn = GameObject.GameObject(510,260,"mainScreenImages/helpbutton.png")
 playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
+exitBtnImage = pygame.image.load("mainScreenImages/exitbutton.png")
+helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
 
 mainScreen = True
 #mainScreen Music
@@ -146,16 +174,20 @@ def renderMainScreen():
     global mainScreen
     while mainScreen:
         for event in pygame.event.get():
-           pygame.display.set_caption("Main Menu")
-           screen.blit(mainScreenImage,mainScreenImageRect)
-           screen.blit(Title,(190,20))
-           screen.blit(playBtnImage,(340,180))
-           pygame.display.flip()
-           if event.type == pygame.QUIT:
+            pygame.display.set_caption("Main Menu")
+            screen.blit(mainScreenImage,mainScreenImageRect)
+            screen.blit(Title, (180,55))
+            screen.blit(playBtnImage, (510,200))
+            screen.blit(exitBtnImage, (510,260))
+            screen.blit(helpBtnImage, (505,320))
+            pygame.display.flip()
+            if event.type == pygame.QUIT:
                 pygame.quit()
-           if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
+            if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
                 pygame.mixer.music.stop()
                 mainScreen = False
+            if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos): 
+                pygame.quit()
                 
 #using this code later dont touch -sabi
 # rendering the shop
@@ -202,26 +234,23 @@ def renderMainScreen():
     #                     pass
     #     pygame.display.flip()
 
-Level1 = True
-# rendering levels
-def renderLevel1():
-    if Level1:
-        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
-        screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-        platForm_group1.draw(screen)
-        platForm_floor1.draw(screen)
+Level2 = True
+def renderLevel2():
+    if Level2:
+        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
+        screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
+        platForm_group2.draw(screen)
+        platForm_floor2.draw(screen)
     else:
         print("function is false")
 
-def renderLevel2():
-    pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
-    screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
-    platForm_group2.draw(screen)
-    platForm_floor2.draw(screen)
-    
+Level3 = True
 def renderLevel3():
-    pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
-    screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
+    if Level3:
+        pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
+        screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
+    else:
+        print("function is false")
 
 # rendering Bobby's Stats
 def renderStats():
@@ -233,7 +262,6 @@ def renderStats():
     screen.blit(heart, (75, 30))
     screen.blit(strength, (155, 30))
     screen.blit(money, (232, 30))
-
 
 # Game Loop 1
 current_level = 1
@@ -261,7 +289,6 @@ while running:
 
         direction = bobby.playerMovementControl(keys)
 
-        
         if keys[pygame.K_SPACE]:
             if bulletcooldown >= 30:
                 if direction[1] == True:
@@ -290,7 +317,6 @@ while running:
             enemy.loseHp(bobby.attack)
     
     elif current_level == 2:
-        Level1 = False
         renderLevel2()
         renderStats()
         keys = pygame.key.get_pressed()
@@ -342,6 +368,7 @@ while running:
             bobby.changeLevel(platForm_group2, platForm_floor2)
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
+            Level2 = False
             current_level += 1
             
     pygame.display.flip()
