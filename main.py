@@ -2,6 +2,7 @@ import pygame
 import GameObject
 import Shop
 
+
 pygame.init()
 # set up images and icons
 pygame.display.set_caption("Main Menu")
@@ -26,6 +27,15 @@ screen_rect = screen.get_rect()
 # floor layout for level 1 (SPRITES)
 platForm_group1 = pygame.sprite.Group()
 platForm_floor1 = pygame.sprite.Group()
+movingPlatform_group1 = pygame.sprite.Group()
+
+# moving sky platform
+#movingPlatform_group1.add(GameObject.MovingPlatForms(720,470,5,600,800,"lvl1platformImages/brownplatform.png"))
+moving_platform = GameObject.MovingPlatForms(720, 470, 5, 600, 800, "lvl1platformImages/brownplatform.png")
+movingPlatform_group1.add(moving_platform)
+
+
+
 # orange floor platform
 platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # brown floor platforms
@@ -42,7 +52,9 @@ platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangepla
 # sky platform 3
 platForm_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangeplatform.png"))
 # sky platform 4
-platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
+#platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
+
+
 # platform on top of brown pillar
 platForm_group1.add(GameObject.PlatForms(520, 270, "lvl1platformImages/brownplatform.png"))
 # left sky flat platform
@@ -74,7 +86,7 @@ destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.pn
 lavapool = pygame.image.load("lvl1platformImages/lava.png")
 
 Level1 = True
-# rendering levels
+# rendering levels --------------------------------------- Leve 1 ---------------------
 def renderLevel1():
     if Level1:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
@@ -88,6 +100,13 @@ def renderLevel1():
         screen.blit(lavapool, (889,530))
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
+        
+        
+        movingPlatform_group1.update()
+        movingPlatform_group1.draw(screen)
+
+
+
     else:
         print("function is false")
 

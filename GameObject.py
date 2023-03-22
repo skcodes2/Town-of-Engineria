@@ -355,6 +355,27 @@ class PlatForms(GameObject):
     def __init__(self, x, y, img_path):
         super().__init__(x, y, img_path)
 
+class MovingPlatForms(GameObject): 
+    def __init__(self,x,y,speed,stopLeft,stopRight,img_path): 
+        super().__init__(x,y,img_path)
+        self.direction = [1,0]
+        self.speed = speed; 
+        self.stopLeft = stopLeft
+        self.stopRight = stopRight
+
+    def update(self):
+        self.moving()
+        super().update()        
+
+    def moving(self): 
+        if self.x <= self.stopLeft: 
+            self.direction[0] = 1 #start moving right once it has reached the left most position. 
+        elif self.x >= self.stopRight: 
+            self.direction[0] = -1 #start moving left once it has reached the right most position. 
+        self.x += self.speed*self.direction[0]
+        print('working')
+
+
 class Stats(GameObject):
     def __init__(self, x, y, img_path):
         super().__init__(x, y, img_path)
