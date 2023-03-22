@@ -6,16 +6,16 @@ class Shop:
         self.isOpen = False
         
         #fonts and backgrounds
-        self.UpgradeFrame = pygame.image.load("backgroundImages/UpgradePage.png")
-        self.playerFrame = pygame.image.load("backgroundImages/PlayerViewPage.png")
-        self.shopBackground = pygame.image.load("backgroundImages/shopBg.png")
+        self.UpgradeFrame = pygame.image.load("shopImages/UpgradePage.png")
+        self.playerFrame = pygame.image.load("shopImages/PlayerViewPage.png")
+        self.shopBackground = pygame.image.load("shopImages/ShopBg.png")
         self.font = pygame.font.Font("Fonts/titles.otf", 35)
         self.Statsupgrades_label = self.font.render('Stats', True, (255,226,183))
         self.Equipmentupgrades_label = self.font.render('Equipment', True, (255,226,183))
         self.player_label = self.font.render("Bobby",True,(255,226,183))
 
         #Statsbuttons
-        self.attackBtn = GameObject.GameObject(950,190,"Buttons/attackUpgradeBtn.png")
+        self.attackBtn = GameObject.GameObject(950,190,"Buttons/AttackUpgradeBtn.png")
         self.healthBtn = GameObject.GameObject(890,325,"Buttons/HealthUpgradeBtn.png")
         self.speedBtn = GameObject.GameObject(1020,325,"Buttons/SorcShoesUpgradeBtn.png")
         self.StatsFont = pygame.font.Font("Fonts/Stats.ttf",20)
@@ -28,11 +28,11 @@ class Shop:
         self.SteelTitle2 = self.StatsFont.render("Armour +5",True,(0,0,0))
         #Equipment Button
         self.axeBtn = GameObject.GameObject(140,190,"Buttons/AxeButton.png")
-        self.shield1Btn = GameObject.GameObject(70,325,"Buttons/Sheild1Button.png")
+        self.shield1Btn = GameObject.GameObject(70,325,"Buttons/Shield1Button.png")
         self.shield2Btn = GameObject.GameObject(200,325,"Buttons/Shield2Button.png")
 
         #characters
-        self.baseBobby = GameObject.GameObject(500,260,"ShopImages/BaseBobby.png")
+        self.baseBobby = GameObject.GameObject(500,260,"shopImages/BaseBobby.png")
 
     def renderShop(self):
         while self.isOpen:

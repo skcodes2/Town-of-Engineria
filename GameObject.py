@@ -11,21 +11,21 @@ class GameObject(pygame.sprite.Sprite):
 
 class Bullet(GameObject):
     def __init__(self, speed, damage, goingLeft, x, y, screen):
-        super().__init__(x, y, "characterAnimation/axeAnimation.png")
+        super().__init__(x, y, "bobbyBaseAnimation/axeAnimation.png")
         self.speed = speed
         self.damage = damage
         self.goingLeft = goingLeft
         self.currentLocation = [x,y]
-        self.travel = pygame.image.load("characterAnimation/axeAnimation.png")
+        self.travel = pygame.image.load("bobbyBaseAnimation/axeAnimation.png")
         self.screen = screen
         self.animate = 0
 
     def bulletTravel(self):
         if self.goingLeft == True:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 20, 0, 20, 20))
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 19, 0, 19, 20))
             self.currentLocation[0] -= self.speed
         else:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (140 - self.animate // 3 * 20, 0, 20, 20))
+            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (132 - self.animate // 3 * 19, 0, 20, 20))
             self.currentLocation[0] += self.speed
         self.animate += 1
         if self.animate == 24:
@@ -33,12 +33,12 @@ class Bullet(GameObject):
 
 class EnemyBullet(GameObject):
     def __init__(self, speed, damage, goingLeft, x, y, screen):
-        super().__init__(x, y, "rockAnimation/rockthrow.png")
+        super().__init__(x, y, "enemyAnimation/rockthrow.png")
         self.speed = speed
         self.damage = damage
         self.goingLeft = goingLeft
         self.currentLocation = [x,y]
-        self.travel = pygame.image.load("rockAnimation/rockthrow.png")
+        self.travel = pygame.image.load("enemyAnimation/rockthrow.png")
         self.screen = screen
         self.animate = 0
         self.age = 0
@@ -118,12 +118,12 @@ class Character(GameObject):
 
         self.nexImage = 0
         self.screen = screen
-        self.walkingR = pygame.image.load("characterAnimation/walkingR.png")
-        self.walkingL = pygame.image.load("characterAnimation/walkingL.png")
-        self.standingR = pygame.image.load("characterImages/bobbyR.png")
-        self.standingL = pygame.image.load("characterImages/bobbyL.png")
-        self.jumpingR = pygame.image.load("characterAnimation/jumpingR.png")
-        self.jumpingL = pygame.image.load("characterAnimation/jumpingL.png")
+        self.walkingR = pygame.image.load("bobbyBaseAnimation/walkingR.png")
+        self.walkingL = pygame.image.load("bobbyBaseAnimation/walkingL.png")
+        self.standingR = pygame.image.load("Axe1/axe1R.png")
+        self.standingL = pygame.image.load("Axe1/axe1L.png")
+        self.jumpingR = pygame.image.load("bobbyBaseAnimation/jumpingR.png")
+        self.jumpingL = pygame.image.load("bobbyBaseAnimation/jumpingL.png")
 
         self.inAir = False
         self.standingLeft = False

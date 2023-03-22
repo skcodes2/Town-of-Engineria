@@ -5,8 +5,8 @@ import Shop
 pygame.init()
 # set up images and icons
 pygame.display.set_caption("Main Menu")
-pygame.display.set_icon(pygame.image.load("gameicon.png"))
-mainScreenImage = pygame.image.load('backgroundImages/MainScreenImage.png'); 
+pygame.display.set_icon(pygame.image.load("mainScreenImages/gameicon.png"))
+mainScreenImage = pygame.image.load('mainScreenImages/MainScreenImage.png'); 
 mainScreenImageRect = mainScreenImage.get_rect()
 backgroundImage_LvL1 = pygame.image.load('backgroundImages/lvl1background.png')
 backgroundImage_LvL2 = pygame.image.load("backgroundImages/lvl2background.png")
@@ -75,7 +75,7 @@ platForm_floor2.add(GameObject.PlatForms(648, 550, "lvl2platformImages/largeplat
 platForm_floor2.add(GameObject.PlatForms(972, 550, "lvl2platformImages/largeplatform.png"))
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 5, 40, 440, "characterImages/bobbyR.png", screen, platForm_group1, platForm_floor1)
+bobby = GameObject.Character(5, 10, 40, 440, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -132,8 +132,8 @@ shop = Shop.Shop(screen,bobby)
 #mainScreenRender
 fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
 Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(0,0,0))
-playBtn = GameObject.GameObject(340,180,"playbutton.png")
-playBtnImage = pygame.image.load("playbutton.png")
+playBtn = GameObject.GameObject(340,180,"mainScreenImages/playbutton.png")
+playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
 
 mainScreen = True
 #mainScreen Music
