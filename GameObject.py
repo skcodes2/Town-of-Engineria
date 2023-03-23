@@ -379,7 +379,7 @@ class Enemy(GameObject):
         self.rect.width -= 15
         self.rect.height -= 10
 
-        if self.health == 0:
+        if self.health <= 0:
             self.coins.add(coin(self.rect.x + 10, self.rect.y + 52, 20, self.screen))
             self.kill()
             del self

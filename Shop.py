@@ -13,15 +13,24 @@ class Shop:
         self.Statsupgrades_label = self.font.render('Stats', True, (255,226,183))
         self.Equipmentupgrades_label = self.font.render('Equipment', True, (255,226,183))
         self.player_label = self.font.render("Bobby",True,(255,226,183))
+        self.LeftStatsFont = pygame.font.Font("Fonts/titles.otf", 24)
 
-        #Statsbuttons
+        #Statsbuttons and fonts
         self.attackBtn = GameObject.GameObject(950,190,"Buttons/AttackUpgradeBtn.png")
         self.healthBtn = GameObject.GameObject(890,325,"Buttons/HealthUpgradeBtn.png")
         self.speedBtn = GameObject.GameObject(1020,325,"Buttons/SorcShoesUpgradeBtn.png")
-        self.StatsFont = pygame.font.Font("Fonts/Stats.ttf",20)
+        self.StatsFont = pygame.font.SysFont("Fonts/Stats.ttf",20)
         self.HealthTitle = self.StatsFont.render("Health +1",True,(0,0,0))
         self.DamageTitle = self.StatsFont.render("Damage +1",True,(0,0,0))
         self.SpeedTitle = self.StatsFont.render("Speed +1",True,(0,0,0))
+
+        #Icon Images
+        self.healthIcon = GameObject.GameObject(420, 30, "statsImages/heart.png")
+        self.attackIcon = GameObject.GameObject(490, 30, "statsImages/strength.png")
+        self.armourIcon = GameObject.GameObject(580, 30,"statsImages/shieldIcon.png")
+        self.SpeedIcon = GameObject.GameObject(660, 30,"statsImages/SpeedIcon.png")
+        self.moneyIcon = GameObject.GameObject(740, 30, "statsImages/coin.png")
+        
 
         self.WoodTitle2 = self.StatsFont.render("Armour +3",True,(0,0,0))
         self.AxeTitle2 = self.StatsFont.render("Damage +1",True,(0,0,0))
@@ -31,15 +40,41 @@ class Shop:
         self.shield1Btn = GameObject.GameObject(70,325,"Buttons/Shield1Button.png")
         self.shield2Btn = GameObject.GameObject(200,325,"Buttons/Shield2Button.png")
 
-        #characters
+        #character
         self.baseBobby = GameObject.GameObject(500,260,"shopImages/BaseBobby.png")
 
+        #Sound Effects 
+        self.success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
+        self.unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
     def renderShop(self):
         while self.isOpen:
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
                     self.isOpen = False
+                    return self.bobby
+                if event.type == pygame.MOUSEBUTTONDOWN and self.healthBtn.rect.collidepoint(event.pos):
+                    if self.bobby.money>=10:
+                        self.bobby.money -=10
+                        self.bobby.health +=1
+                        self.success_sound.play()
+                    else:
+                        self.unsuccessful_sound.play()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.attackBtn.rect.collidepoint(event.pos):
+                    if self.bobby.money>=10:
+                        self.bobby.money -=10
+                        self.bobby.attack +=1
+                        self.success_sound.play()
+                    else:
+                        self.unsuccessful_sound.play()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.speedBtn.rect.collidepoint(event.pos):
+                    if self.bobby.money>=10:
+                        self.bobby.money -=10
+                        self.bobby.defaultSpeed +=1
+                        self.success_sound.play()
+                    else:
+                        self.unsuccessful_sound.play()
+                #Backgrounds
                 self.screen.fill((0,0,0))
                 self.screen.blit(self.shopBackground,(0,-12))
                 self.screen.blit(self.UpgradeFrame,(1,15))
@@ -56,17 +91,36 @@ class Shop:
                 self.screen.blit(self.attackBtn.image,self.attackBtn.rect)
                 self.screen.blit(self.speedBtn.image,self.speedBtn.rect)
                 self.screen.blit(self.healthBtn.image,self.healthBtn.rect) 
-                self.screen.blit(self.HealthTitle,(915,305))
+                self.screen.blit(self.HealthTitle,(920,305))
                 self.screen.blit(self.DamageTitle,(980,170))
                 self.screen.blit(self.SpeedTitle,(1055,305))
+                #Shields and Axe Upgrade Buttons
+                self.screen.blit(self.WoodTitle2,(100,305))
+                self.screen.blit(self.AxeTitle2,(170,170))
+                self.screen.blit(self.SteelTitle2,(225,305))
 
-                self.screen.blit(self.WoodTitle2,(90,305))
-                self.screen.blit(self.AxeTitle2,(160,170))
-                self.screen.blit(self.SteelTitle2,(220,305))
+                #Value of Stats
+                self.health = self.LeftStatsFont.render(str(self.bobby.health),True, (0, 0, 0))
+                self.attack = self.LeftStatsFont.render(str(self.bobby.attack),True, (0, 0, 0))
+                self.money = self.LeftStatsFont.render(str(self.bobby.money),True, (0, 0, 0))
+                self.armour = self.LeftStatsFont.render(str(self.bobby.armour),True, (0, 0, 0))
+                self.speed = self.LeftStatsFont.render(str(self.bobby.defaultSpeed),True, (0, 0, 0))
 
+                #image of bobby
                 self.screen.blit(self.baseBobby.image,self.baseBobby.rect)
                 
+                self.renderShopStats()
                 pygame.display.flip()   
-                
+            
     def renderShopStats(self):
-        pass
+        self.screen.blit(self.healthIcon.image, self.healthIcon.rect)
+        self.screen.blit(self.attackIcon.image, self.attackIcon.rect)
+        self.screen.blit(self.moneyIcon.image, self.moneyIcon.rect)
+        self.screen.blit(self.armourIcon.image,self.armourIcon.rect)
+        self.screen.blit(self.SpeedIcon.image, self.SpeedIcon.rect)
+
+        self.screen.blit(self.health,(470,30))
+        self.screen.blit(self.attack,(550,30))
+        self.screen.blit(self.armour,(630,30))
+        self.screen.blit(self.speed,(710,30))
+        self.screen.blit(self.money,(790,30))

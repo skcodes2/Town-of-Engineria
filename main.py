@@ -53,7 +53,7 @@ platForm_group1.add(GameObject.PlatForms(850, 370, "lvl1platformImages/orangepla
 movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
 
 # left sky flat platform
-platForm_group1.add(GameObject.PlatForms(10, 200, "lvl1platformImages/leftskyplatform.png"))
+platForm_group1.add(GameObject.PlatForms(10, 190, "lvl1platformImages/leftskyplatform.png"))
 # right sky flat platform
 platForm_group1.add(GameObject.PlatForms(640, 180, "lvl1platformImages/rightskyplatform.png"))
 # left side border brown stone for collisions
@@ -100,7 +100,7 @@ platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplat
 
 
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 1, 0, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
+bobby = GameObject.Character(5, 10, 0, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -137,8 +137,7 @@ enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
 
-#Shop Initialization
-shop = Shop.Shop(screen,bobby)
+
 
 # def renderShopStats():
     # Fill the stat surfaces with the background color
@@ -356,13 +355,13 @@ while running:
             del coin
 
         direction = bobby.playerMovementControl(keys)
-
+        damage =1
         if keys[pygame.K_SPACE]:
             if bulletcooldown >= 10:
                 if direction[1] == True:
-                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
+                    bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
                 else:
-                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
+                    bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                 bulletcooldown = 0
         
         bulletcooldown += 1
@@ -413,8 +412,11 @@ while running:
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             # renderShop()
+            #Shop Initialization
+            shop = Shop.Shop(screen,bobby)
             shop.isOpen=True
-            shop.renderShop()
+            bobby = shop.renderShop()
+            damage = bobby.attack
             if current_level == 1:
                 renderLevel1()
                 renderStats()
