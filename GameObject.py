@@ -257,7 +257,9 @@ class Character(GameObject):
                 self.currentPosition[1] = sprite.rect.top - 59
                 self.jumpingSpeed = 20
 
-        if len(vertcollisions) == 0 and self.inAir is False:
+        vertcollisions1 = [sprite for sprite in vertcollisions if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 10]
+
+        if len(vertcollisions1) == 0 and self.inAir is False:
             self.inAir = True
             self.jumpingSpeed = 0
 
