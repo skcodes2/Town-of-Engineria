@@ -168,6 +168,7 @@ exitBtnImage = pygame.image.load("mainScreenImages/exitbutton.png")
 helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
 
 mainScreen = True
+sb = GameObject.SpeechBubble(bobby.rect.x, bobby.rect.y, bobby, screen)
 #mainScreen Music
 pygame.mixer.init()
 pygame.mixer.music.load("GameMusic/mainScreenMusic.mp3")
@@ -241,7 +242,9 @@ def renderMainScreen():
 doorClosedRect = GameObject.GameObject(510,260,"lvl1platformImages/doorClosed.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 
-playDialogue = True
+playDialogue1 = True
+playDialogue2 = True
+dialogueClock = 0
 Level1 = True
 # rendering levels 
 def renderLevel1():
@@ -406,10 +409,6 @@ while running:
                 renderLevel3()
                 renderStats()
 
-        if current_level == 1 and playDialogue == True:
-            print("hi")
-            playDialogue = False
-
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
             current_level += 1
             Level1 = False
@@ -418,6 +417,22 @@ while running:
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
             Level2 = False
             current_level += 1
+
+    if current_level == 1 and playDialogue1 == True:
+            text = "i'm so gay"
+            sb.showDialogue(bobby, text)
+            dialogueClock += 1
+            if dialogueClock == 200:
+                playDialogue1 = False
+                dialogueClock = 0
+    
+    if len(enemies1) == 0 and playDialogue2 == True:
+        text = "ur gay"
+        sb.showDialogue(bobby, text)
+        dialogueClock += 1
+        if dialogueClock == 200:
+            playDialogue2 = False
+            dialogueClock = 0
             
     pygame.display.flip()
 pygame.quit()

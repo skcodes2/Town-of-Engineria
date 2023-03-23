@@ -100,12 +100,19 @@ class EnemyBullet(GameObject):
             self.animate = 0
 
 class SpeechBubble(GameObject):
-    def __init__(self, text, x, y):
-        self.text = text
-        super.__init__(x, y, "speechbubbleImages/speechbubble.png")
+    def __init__(self, x, y, bobby, screen):
+        super().__init__(x, y, "speechbubbleImages/speechbubble.png")
+        self.bobby = bobby
+        self.screen = screen
+        self.currentLocation = [x,y]
+        self.bubble = pygame.image.load("speechbubbleImages/speechbubble.png")
+        self.font = pygame.font.SysFont("copperplate", 24)
 
-    def replaceText(self, text):
-        self.text = text
+    def showDialogue(self, bobby, text):
+        self.currentLocation = [bobby.rect.x - 150, bobby.rect.y - 250]
+        self.screen.blit(self.bubble, tuple(self.currentLocation))
+        dialogue = self.font.render(text, True, (0, 0, 0))
+        self.screen.blit(dialogue, (bobby.rect.x - 100, bobby.rect.y - 200))
 
     def closeBubble(self):
         self.text = ""
@@ -141,7 +148,7 @@ class Character(GameObject):
 
     def loseHp(self, damage):
         self.health = self.health - damage
-        self.rect = self.screen.blit(self.death, tuple(self.currentPosition), (75*(self.nexImage // 2), 0, 76, 60))
+        # self.rect = self.screen.blit(self.death, tuple(self.currentPosition), (75*(self.nexImage // 2), 0, 76, 60))
         self.nexImage += 1
         if(self.nexImage == 2):
             self.nexImage = 0
