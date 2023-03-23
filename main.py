@@ -31,7 +31,7 @@ movingPlatform_group1 = pygame.sprite.Group()
 lavapool1 = pygame.sprite.Group()
 
 # moving sky platform
-movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
+movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 610, 910, "lvl1platformImages/brownplatform.png"))
 
 
 # orange floor platform
