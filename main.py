@@ -30,10 +30,6 @@ platForm_floor1 = pygame.sprite.Group()
 movingPlatform_group1 = pygame.sprite.Group()
 lavapool1 = pygame.sprite.Group()
 
-# moving sky platform
-movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
-
-
 # orange floor platform
 platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # brown floor platforms
@@ -43,19 +39,19 @@ platForm_floor1.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrow
 platForm_floor1.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 # brown pillar
 platForm_floor1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
+
 # sky platform 1
 platForm_group1.add(GameObject.PlatForms(380, 420, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
-platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangeplatform.png"))
-# sky platform 3
-platForm_group1.add(GameObject.PlatForms(850, 380, "lvl1platformImages/orangeplatform.png"))
-# sky platform 4
-
-#platForm_group1.add(GameObject.PlatForms(720, 470, "lvl1platformImages/brownplatform.png"))
-
-
-# platform on top of brown pillar
 platForm_group1.add(GameObject.PlatForms(520, 250, "lvl1platformImages/brownplatform.png"))
+# sky platform 3
+platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangeplatform.png"))
+# sky platform 4
+platForm_group1.add(GameObject.PlatForms(850, 370, "lvl1platformImages/orangeplatform.png"))
+
+# moving sky platform
+movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
+
 # left sky flat platform
 platForm_group1.add(GameObject.PlatForms(10, 200, "lvl1platformImages/leftskyplatform.png"))
 # right sky flat platform
@@ -85,9 +81,13 @@ lavapool1.add(GameObject.LavaPool(462, 530, "lvl1platformImages/lava.png"))
 lavapool1.add(GameObject.LavaPool(605, 530, "lvl1platformImages/lava.png"))
 lavapool1.add(GameObject.LavaPool(747, 530, "lvl1platformImages/lava.png"))
 lavapool1.add(GameObject.LavaPool(889, 530, "lvl1platformImages/lava.png"))
+
 # aesthetic images
 destroyedbuilding1 = pygame.image.load("lvl1platformImages/destroyedbuilding1.png")
 destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.png")
+destroyedbuilding3 = pygame.image.load("lvl1platformImages/destroyedbuilding3.png")
+
+#-----------------------------------------------------------------------------------^^^^^ Level 1 platforms
 
 # floor layout for level 2 (SPRITES)
 platForm_group2 = pygame.sprite.Group()
@@ -97,6 +97,7 @@ platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatfo
 platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
+
 
 # Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
 bobby = GameObject.Character(5, 10, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
@@ -133,8 +134,8 @@ coins1 = pygame.sprite.Group()
 
 # Initialize Enemy Groups
 enemies1 = pygame.sprite.Group()
-enemies1.add(GameObject.Enemy(385, 342, screen, enemy_bullets1, "level1", coins1))
-enemies1.add(GameObject.Enemy(850, 302, screen, enemy_bullets1, "level1", coins1))
+enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
+enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
 
 #Shop Initialization
 shop = Shop.Shop(screen,bobby)
@@ -237,6 +238,9 @@ def renderMainScreen():
     #                     pass
     #     pygame.display.flip()
 
+doorClosedRect = GameObject.GameObject(510,260,"lvl1platformImages/doorClosed.png")
+doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
+
 Level1 = True
 # rendering levels 
 def renderLevel1():
@@ -245,9 +249,11 @@ def renderLevel1():
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
         screen.blit(destroyedbuilding1, (30,187))
         screen.blit(destroyedbuilding2, (930,55))
+        screen.blit(destroyedbuilding3, (335,450))
         lavapool1.draw(screen)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
+        screen.blit(doorClosedImage, (1050, 235))
         movingPlatform_group1.update()
         movingPlatform_group1.draw(screen)
         for enemy in enemies1:

@@ -109,7 +109,7 @@ class Character(GameObject):
         self.leftSpeed = speed
         self.rightSpeed = speed
         self.jumpingSpeed = 20
-        self.money = 100
+        self.money = 0
         self.attack = 1
         self.health = health
         self.currentPosition = [x, y]
@@ -125,12 +125,17 @@ class Character(GameObject):
         self.standingL = pygame.image.load("Axe1/axe1L.png")
         self.jumpingR = pygame.image.load("bobbyBaseAnimation/jumpingR.png")
         self.jumpingL = pygame.image.load("bobbyBaseAnimation/jumpingL.png")
+        self.death = pygame.image.load("bobbyBaseAnimation/characterdeathAnimation.png")
 
         self.inAir = False
         self.standingLeft = False
 
     def loseHp(self, damage):
         self.health = self.health - damage
+        self.rect = self.screen.blit(self.death, tuple(self.currentPosition), (75*(self.nexImage // 2), 0, 76, 60))
+        self.nexImage += 1
+        if(self.nexImage == 2):
+            self.nexImage = 0
 
     def gainMoney(self, money):
         self.money += money
