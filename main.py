@@ -312,6 +312,8 @@ def renderStats():
 current_level = 1
 running = True
 while running:
+
+    print(bobby.health)
     renderMainScreen()
     pygame.time.Clock().tick(120)
 
@@ -448,7 +450,7 @@ while running:
     if len(enemies1) == 0 and playDialogue2 == True:
         text = "ur gay"
         sb.showSpeechBubble(bobby)
-        sb.showText(bobby, text, 100, 200)
+        sb.showText(bobby, text, 50, 200)
         dialogueClock += 1
         if dialogueClock == 120:
             playDialogue2 = False
