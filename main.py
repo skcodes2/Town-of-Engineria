@@ -322,6 +322,7 @@ while running:
             bobby.loseHp(1)
             bobby.setLocation(40, 400)
             sprite.kill()
+            del sprite
 
         lavaCollisions = pygame.sprite.spritecollide(bobby, lavapool1, False)
         if len(lavaCollisions) > 0:
@@ -332,15 +333,16 @@ while running:
         for coin in coinCollisions:
             bobby.gainMoney(coin.value)
             coin.kill()
+            del coin
 
         direction = bobby.playerMovementControl(keys)
 
         if keys[pygame.K_SPACE]:
             if bulletcooldown >= 10:
                 if direction[1] == True:
-                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
                 else:
-                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                 bulletcooldown = 0
         
         bulletcooldown += 1

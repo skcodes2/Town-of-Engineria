@@ -19,6 +19,10 @@ class Bullet(GameObject):
         self.travel = pygame.image.load("bobbyBaseAnimation/axeAnimation.png")
         self.screen = screen
         self.animate = 0
+        self.rect.x = x
+        self.rect.y = y
+        self.rect.width = 20
+        self.rect.height = 20
 
     def bulletTravel(self):
         if self.goingLeft == True:
@@ -42,6 +46,10 @@ class EnemyBullet(GameObject):
         self.screen = screen
         self.animate = 0
         self.age = 0
+        self.rect.x = x
+        self.rect.y = y
+        self.rect.width = 20
+        self.rect.height = 20
 
     def bulletTravel(self):
         if self.goingLeft == True:
@@ -355,15 +363,16 @@ class Enemy(GameObject):
             self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90))
         else:
             self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,73.8,90))
-
-        if self.health == 0:
-            self.coins.add(coin(self.rect.x + 23, self.rect.y + 62, 20, self.screen))
-            self.kill()
         
         self.rect.x += 15
         self.rect.y += 10
         self.rect.width -= 15
         self.rect.height -= 10
+
+        if self.health == 0:
+            self.coins.add(coin(self.rect.x + 10, self.rect.y + 52, 20, self.screen))
+            self.kill()
+            del self
 
 
     def loseHp(self, damage):
