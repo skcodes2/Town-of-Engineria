@@ -419,18 +419,24 @@ while running:
             current_level += 1
 
     if current_level == 1 and playDialogue1 == True:
-            text = "i'm so gay"
-            sb.showDialogue(bobby, text)
+            bobby.defaultSpeed = 0
+            text = "Raymond"
+            sb.showSpeechBubble(bobby)
+            sb.showText(bobby, text, 50, 200)
             dialogueClock += 1
-            if dialogueClock == 200:
+            if dialogueClock >= 50:
+                sb.showText(bobby, "hello", 50, 180)
+            if dialogueClock == 120:
                 playDialogue1 = False
                 dialogueClock = 0
+                bobby.defaultSpeed = 5
     
     if len(enemies1) == 0 and playDialogue2 == True:
         text = "ur gay"
-        sb.showDialogue(bobby, text)
+        sb.showSpeechBubble(bobby)
+        sb.showText(bobby, text, 100, 200)
         dialogueClock += 1
-        if dialogueClock == 200:
+        if dialogueClock == 120:
             playDialogue2 = False
             dialogueClock = 0
             
