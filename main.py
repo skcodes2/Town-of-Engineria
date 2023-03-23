@@ -266,6 +266,7 @@ def renderLevel1():
 Level2 = True
 def renderLevel2():
     if Level2:
+        movingPlatform_group1.empty()
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
         screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
         platForm_group2.draw(screen)
