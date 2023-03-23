@@ -175,30 +175,33 @@ class Character(GameObject):
             self.inAir = True
 
         if self.inAir is True and event[pygame.K_LEFT]:
+            self.currentPosition[1] -= self.jumpingSpeed
+            self.currentPosition[0] -= self.leftSpeed
             if self.jumpingSpeed > 0:
                 self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (125, 0, 65, 60))
             else:
                 self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (60, 0, 65, 60))
             self.standingLeft = True
-            self.currentPosition[1] -= self.jumpingSpeed
-            self.currentPosition[0] -= self.leftSpeed
+
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
 
         elif self.inAir is True and event[pygame.K_RIGHT]:
+            self.currentPosition[1] -= self.jumpingSpeed
+            self.currentPosition[0] += self.rightSpeed
             if self.jumpingSpeed > 0:
                 self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (150, 0, 65, 60))
             else:
                 self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (215, 0, 65, 60))
             self.standingLeft = False
-            self.currentPosition[1] -= self.jumpingSpeed
-            self.currentPosition[0] += self.rightSpeed
+
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
 
         elif self.inAir is True:
+            self.currentPosition[1] -= self.jumpingSpeed
             if self.standingLeft:
                 if self.jumpingSpeed > 0:
                     self.rect = self.screen.blit(self.jumpingL, tuple(self.currentPosition), (130, 0, 65, 60))
@@ -209,7 +212,6 @@ class Character(GameObject):
                     self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (150, 0, 65, 60))
                 else:
                     self.rect = self.screen.blit(self.jumpingR, tuple(self.currentPosition), (215, 0, 65, 60))
-            self.currentPosition[1] -= self.jumpingSpeed
             self.jumpingSpeed -= 2
             if self.jumpingSpeed < -10:
                 self.jumpingSpeed = -10
@@ -227,8 +229,9 @@ class Character(GameObject):
         vertcollisions += vertcollisions2
         vertcollisions += movingVertCollisions
         for sprite in vertcollisions:
-            if self.rect.bottom >= sprite.rect.top - 10 and self.rect.bottom <= sprite.rect.top + 10:
+            if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 10:
                 self.inAir = False
+                self.currentPosition[1] = sprite.rect.top - 59
                 self.jumpingSpeed = 20
 
         if len(vertcollisions) == 0 and self.inAir is False:
