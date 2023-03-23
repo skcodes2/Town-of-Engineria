@@ -111,7 +111,7 @@ class SpeechBubble(GameObject):
         self.text = ""
 
 class Character(GameObject):
-    def __init__(self, speed, health, x, y, image_path, screen, platform1, platform2, movingPlatforms):
+    def __init__(self, speed, health, armour, x, y, image_path, screen, platform1, platform2, movingPlatforms):
         super().__init__(x, y, image_path)
         self.defaultSpeed = speed
         self.leftSpeed = speed
@@ -120,6 +120,7 @@ class Character(GameObject):
         self.money = 0
         self.attack = 1
         self.health = health
+        self.armour = armour
         self.currentPosition = [x, y]
         self.platform1 = platform1
         self.platform2 = platform2

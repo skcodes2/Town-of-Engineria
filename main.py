@@ -99,8 +99,8 @@ platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplat
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
 
 
-# Main Character (BOBBY) (speed, health, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 10, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
+# Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
+bobby = GameObject.Character(5, 10, 0, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -241,6 +241,7 @@ def renderMainScreen():
 doorClosedRect = GameObject.GameObject(510,260,"lvl1platformImages/doorClosed.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 
+playDialogue = True
 Level1 = True
 # rendering levels 
 def renderLevel1():
@@ -404,6 +405,10 @@ while running:
             if current_level == 3:
                 renderLevel3()
                 renderStats()
+
+        if current_level == 1 and playDialogue == True:
+            print("hi")
+            playDialogue = False
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
             current_level += 1
