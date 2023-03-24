@@ -126,7 +126,7 @@ class Character(GameObject):
         self.leftSpeed = speed
         self.rightSpeed = speed
         self.jumpingSpeed = 20
-        self.money = 0
+        self.money = 100
         self.attack = 1
         self.health = health
         self.armour = armour
@@ -151,9 +151,9 @@ class Character(GameObject):
     def loseHp(self, damage):
         self.health = self.health - damage
         # self.rect = self.screen.blit(self.death, tuple(self.currentPosition), (75*(self.nexImage // 2), 0, 76, 60))
-        self.nexImage += 1
-        if(self.nexImage == 2):
-            self.nexImage = 0
+        # self.nexImage += 1
+        # if(self.nexImage == 2):
+        #     self.nexImage = 0
 
     def gainMoney(self, money):
         self.money += money

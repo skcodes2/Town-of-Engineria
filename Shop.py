@@ -1,4 +1,4 @@
-import GameObject,pygame
+import GameObject,pygame,os
 class Shop:
     def __init__(self,screen,playerObject):
         self.screen = screen
@@ -33,15 +33,21 @@ class Shop:
         
 
         self.WoodTitle2 = self.StatsFont.render("Armour +3",True,(0,0,0))
-        self.AxeTitle2 = self.StatsFont.render("Damage +1",True,(0,0,0))
+        self.AxeTitle2 = self.StatsFont.render("Damage +6",True,(0,0,0))
         self.SteelTitle2 = self.StatsFont.render("Armour +5",True,(0,0,0))
         #Equipment Button
         self.axeBtn = GameObject.GameObject(140,190,"Buttons/AxeButton.png")
         self.shield1Btn = GameObject.GameObject(70,325,"Buttons/Shield1Button.png")
         self.shield2Btn = GameObject.GameObject(200,325,"Buttons/Shield2Button.png")
+        self.axeBtnNotPushed = True
+        self.shield1BtnNotPushed = True
+        self.shield2BtnNotPushed = True
+    
 
         #character
-        self.baseBobby = GameObject.GameObject(500,260,"shopImages/BaseBobby.png")
+        self.axeType = "1"
+        self.shieldType = "0"
+        
 
         #Sound Effects 
         self.success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
@@ -49,6 +55,11 @@ class Shop:
     def renderShop(self):
         while self.isOpen:
             for event in pygame.event.get():
+                self.WorkingBobbyImageInShop = GameObject.GameObject(500,260,"ShopImages/ShopUpgradeImages/StandingAxe"+self.axeType+"Shield"+self.shieldType+"L.png")
+                self.bobby.walkingR = pygame.image.load("ShopImages/WalkingR/WalkingAxe"+self.axeType+"Shield"+self.shieldType+"R.png")
+                self.bobby.walkingL =pygame.image.load("ShopImages/WalkingL/WalkingAxe"+self.axeType+"Shield"+self.shieldType+"L.png")
+                self.bobby.standingL =pygame.image.load("ShopImages/StandingL/StandingAxe"+self.axeType+"Shield"+self.shieldType+"L.png")
+                self.bobby.standingR =pygame.image.load("ShopImages/StandingR/StandingAxe"+self.axeType+"Shield"+self.shieldType+"R.png")
 
                 if event.type == pygame.QUIT:
                     self.isOpen = False
@@ -74,6 +85,44 @@ class Shop:
                         self.success_sound.play()
                     else:
                         self.unsuccessful_sound.play()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.axeBtn.rect.collidepoint(event.pos) and self.axeBtnNotPushed:
+                    if self.bobby.money>=50:
+                        self.bobby.money -=50
+                        self.axeBtnNotPushed = False
+                        self.axeType ="2"
+                        self.bobby.attack = 6
+                        self.success_sound.play()
+                    else:
+                        self.unsuccessful_sound.play()
+                elif not self.axeBtnNotPushed and event.type == pygame.MOUSEBUTTONDOWN and self.axeBtn.rect.collidepoint(event.pos):
+                    self.unsuccessful_sound.play()
+                   
+
+
+                if event.type == pygame.MOUSEBUTTONDOWN and self.shield1Btn.rect.collidepoint(event.pos) and self.shield1BtnNotPushed:
+                    if self.bobby.money>=30:
+                        self.bobby.money -=30
+                        self.shield1BtnNotPushed = False
+                        self.shieldType = "1"
+                        self.bobby.armour = 3
+                        self.success_sound.play()
+                    else:
+                        self.unsuccessful_sound.play()
+                elif not self.shield1BtnNotPushed and event.type == pygame.MOUSEBUTTONDOWN and self.shield1Btn.rect.collidepoint(event.pos):
+                    self.unsuccessful_sound.play()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.shield2Btn.rect.collidepoint(event.pos) and self.shield2BtnNotPushed:
+                    if self.bobby.money>=40:
+                        self.bobby.money -=40
+                        self.shield2BtnNotPushed = False
+                        self.shieldType = "2"
+                        self.bobby.armour = 5
+                        self.success_sound.play()
+                    else:
+                        self.unsuccessful_sound.play()
+                elif not self.shield2BtnNotPushed and event.type == pygame.MOUSEBUTTONDOWN and self.shield2Btn.rect.collidepoint(event.pos):
+                    self.unsuccessful_sound.play()
+                    
+                    
                 #Backgrounds
                 self.screen.fill((0,0,0))
                 self.screen.blit(self.shopBackground,(0,-12))
@@ -107,7 +156,7 @@ class Shop:
                 self.speed = self.LeftStatsFont.render(str(self.bobby.defaultSpeed),True, (0, 0, 0))
 
                 #image of bobby
-                self.screen.blit(self.baseBobby.image,self.baseBobby.rect)
+                self.screen.blit(self.WorkingBobbyImageInShop.image,self.WorkingBobbyImageInShop.rect)
                 
                 self.renderShopStats()
                 pygame.display.flip()   

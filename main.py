@@ -138,7 +138,8 @@ enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
 
 
-
+#Shop Initialization
+shop = Shop.Shop(screen,bobby)
 # def renderShopStats():
     # Fill the stat surfaces with the background color
     # screen.fill((255, 255, 255), (75, 30, 30, 30))
@@ -311,8 +312,6 @@ def renderStats():
 current_level = 1
 running = True
 while running:
-
-    print(bobby.health)
     renderMainScreen()
     pygame.time.Clock().tick(120)
 
@@ -412,8 +411,6 @@ while running:
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             # renderShop()
-            #Shop Initialization
-            shop = Shop.Shop(screen,bobby)
             shop.isOpen=True
             bobby = shop.renderShop()
             damage = bobby.attack
