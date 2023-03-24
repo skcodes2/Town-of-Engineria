@@ -86,6 +86,8 @@ lavapool1.add(GameObject.LavaPool(889, 530, "lvl1platformImages/lava.png"))
 destroyedbuilding1 = pygame.image.load("lvl1platformImages/destroyedbuilding1.png")
 destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.png")
 destroyedbuilding3 = pygame.image.load("lvl1platformImages/destroyedbuilding3.png")
+destroyedbuilding4 = pygame.image.load("lvl1platformImages/destroyedbuilding4.png")
+destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
 
 #-----------------------------------------------------------------------------------^^^^^ Level 1 platforms
 
@@ -136,7 +138,7 @@ coins1 = pygame.sprite.Group()
 enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
-
+enemies1.add(GameObject.Enemy(1030, 94, screen, enemy_bullets1, "level1", coins1))
 
 #Shop Initialization
 shop = Shop.Shop(screen,bobby)
@@ -249,6 +251,7 @@ doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 
 playDialogue1 = True
 playDialogue2 = True
+playDialogue3 = True
 dialogueClock = 0
 Level1 = True
 # rendering levels 
@@ -256,9 +259,11 @@ def renderLevel1():
     if Level1:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-        screen.blit(destroyedbuilding1, (30,187))
-        screen.blit(destroyedbuilding2, (930,55))
-        screen.blit(destroyedbuilding3, (335,450))
+        screen.blit(destroyedbuilding1, (30,187)) # next to booby
+        screen.blit(destroyedbuilding2, (625,-135)) # top right corner 
+        screen.blit(destroyedbuilding3, (335,450)) # in the lava 
+        screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
+        screen.blit(destroyedcar, (23,88)) # car image on left sky platform
         lavapool1.draw(screen)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
@@ -433,26 +438,36 @@ while running:
             Level2 = False
             current_level += 1
 
-    if current_level == 1 and playDialogue1 == True:
+    if current_level == 1 and playDialogue2 == True:
+        if playDialogue1 == True:
             bobby.defaultSpeed = 0
-            text = "Raymond"
             sb.showSpeechBubble(bobby)
-            sb.showText(bobby, text, 50, 200)
+            sb.showText(bobby, "Move and jump with ARROW", 20, 130)
+            sb.showText(bobby, "keys. Press SPACE key to", 20, 110)
+            sb.showText(bobby, "attack and deflect enemy", 20, 90)
+            sb.showText(bobby, "bullets.", 20, 70)
             dialogueClock += 1
-            if dialogueClock >= 50:
-                sb.showText(bobby, "hello", 50, 180)
-            if dialogueClock == 120:
-                playDialogue1 = False
-                dialogueClock = 0
-                bobby.defaultSpeed = 5
+        if dialogueClock >= 150:
+            playDialogue1 = False
+            playDialogue2 == True
+            sb.showSpeechBubble(bobby)
+            sb.showText(bobby, "Defete all enemies to collect", 20, 130)
+            sb.showText(bobby, "chests and proceed to next", 20, 110)
+            sb.showText(bobby, "level.", 20, 90)
+            dialogueClock += 1
+        if dialogueClock == 270:
+            playDialogue2 = False
+            dialogueClock = 0
+            bobby.defaultSpeed = 5
+            
     
-    if len(enemies1) == 0 and playDialogue2 == True:
-        text = "ur gay"
+    if len(enemies1) == 0 and playDialogue3 == True:
+        text = "Good work!"
         sb.showSpeechBubble(bobby)
         sb.showText(bobby, text, 50, 200)
         dialogueClock += 1
         if dialogueClock == 120:
-            playDialogue2 = False
+            playDialogue3 = False
             dialogueClock = 0
             
     pygame.display.flip()

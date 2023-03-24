@@ -109,7 +109,7 @@ class SpeechBubble(GameObject):
         self.font = pygame.font.SysFont("copperplate", 24)
 
     def showSpeechBubble(self, bobby):
-        self.currentLocation = [bobby.rect.x - 100, bobby.rect.y - 250]
+        self.currentLocation = [bobby.rect.x - 50, bobby.rect.y - 175]
         self.screen.blit(self.bubble, tuple(self.currentLocation))
 
     
