@@ -120,6 +120,8 @@ shield_label = font.render('Upgrade Health', True, (0, 0, 0))
 attack_label = font.render('Upgrade Attack', True, (0, 0, 0))
 upgrades_label = titleFont.render('PLAYER UPGRADES', True, (0,0,0))
 gameSettings_label = titleFont.render('GAME SETTINGS', True, (0,0,0))
+#Coin Collected
+collected = pygame.mixer.Sound("SoundEffects/collectedCoin.mp3")
 #shop sounds
 success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
 unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
@@ -354,6 +356,7 @@ while running:
 
         coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
         for coin in coinCollisions:
+            collected.play()
             bobby.gainMoney(coin.value)
             coin.kill()
             del coin

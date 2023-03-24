@@ -159,7 +159,7 @@ class Character(GameObject):
         self.money += money
         
     def playerMovementControl(self, event):
-
+    
         if not event[pygame.K_RIGHT] and not event[pygame.K_LEFT] and not event[pygame.K_UP] and self.inAir is False:
             if self.standingLeft:
                 self.rect = self.screen.blit(self.standingL, tuple(
@@ -183,6 +183,7 @@ class Character(GameObject):
 
         elif event[pygame.K_LEFT] and self.inAir is False:
             if self.leftSpeed == 0:
+                
                 self.rect = self.screen.blit(self.standingL, tuple(
                     self.currentPosition), (0,0,70,60))
             else:
