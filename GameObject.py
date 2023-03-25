@@ -106,13 +106,17 @@ class SpeechBubble(GameObject):
         self.screen = screen
         self.currentLocation = [x,y]
         self.bubble = pygame.image.load("speechbubbleImages/speechbubble.png")
+        self.smallbubble = pygame.image.load("speechbubbleImages/smallspeechbubble.png")
         self.font = pygame.font.SysFont("copperplate", 24)
 
     def showSpeechBubble(self, bobby):
         self.currentLocation = [bobby.rect.x - 50, bobby.rect.y - 175]
         self.screen.blit(self.bubble, tuple(self.currentLocation))
 
-    
+    def showsmallspeechbubble(self, bobby):
+        self.currentLocation = [bobby.rect.x - 50, bobby.rect.y - 100]
+        self.screen.blit(self.smallbubble, tuple(self.currentLocation))
+
     def showText(self, bobby, text, offsetx, offsety):
         dialogue = self.font.render(text, True, (0, 0, 0))
         self.screen.blit(dialogue, (bobby.rect.x - offsetx, bobby.rect.y - offsety))

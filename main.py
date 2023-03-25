@@ -101,8 +101,9 @@ platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplat
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
 
 
+
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 10, 0, 75, 350, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
+bobby = GameObject.Character(5, 10, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
 
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
@@ -141,25 +142,10 @@ enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(1030, 94, screen, enemy_bullets1, "level1", coins1))
+enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
 
 #Shop Initialization
 shop = Shop.Shop(screen,bobby)
-# def renderShopStats():
-    # Fill the stat surfaces with the background color
-    # screen.fill((255, 255, 255), (75, 30, 30, 30))
-    # screen.fill((255, 255, 255), (155, 30, 30, 30))
-    # screen.fill((255, 255, 255), (232, 30, 50, 30))
-
-#     # Render the updated stat values
-#     heart = font.render(str(bobby.health), True, (0, 0, 0))
-#     strength = font.render(str(bobby.attack), True, (0, 0, 0))
-#     money = font.render(str(bobby.money), True, (0, 0, 0))
-
-#     # Blit the updated stat values to the screen
-#     bobbyStats.draw(screen)
-#     screen.blit(heart, (75, 30))
-#     screen.blit(strength, (155, 30))
-#     screen.blit(money, (232, 30))
 
 #mainScreenRender
 fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
@@ -197,58 +183,13 @@ def renderMainScreen():
                 mainScreen = False
             if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos): 
                 quit()
-                
-#using this code later dont touch -sabi
-# rendering the shop
-# def renderShop():
-#     # set the caption
-#     pygame.display.set_caption("Game Menu")
-#     # fill entire screen white
-#     screen.fill((255, 255, 255))
-#     # draw rectangle of health button
-#     pygame.draw.rect(screen, (0, 255, 255), healthButtonRect)
-#     # draw rectangle of attack button
-#     pygame.draw.rect(screen, (0, 255, 255), attackButtonRect)
-#     # blit the labels inside rect
-#     screen.blit(shield_label, (healthButtonRect.x + 50, healthButtonRect.y + 15))
-#     screen.blit(attack_label, (attackButtonRect.x + 50, attackButtonRect.y + 15))
-#     screen.blit(upgrades_label, (50, 100))
-#     screen.blit(gameSettings_label, (800,100))
-    
-    # running = True
-    # while running:
-    #     renderShopStats()
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             running = False
-    #             pygame.display.set_caption("Bobby: The Town of Enginerea")
-    #         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # event.button == 1 is a left click
-    #             # check if the mouse click was inside a button
-    #             if healthButtonRect.collidepoint(event.pos):
-    #                 if bobby.money >= 5:
-    #                     bobby.health += 1
-    #                     bobby.money -= 5
-    #                     success_sound.play()
-    #                 elif bobby.money < 5:
-    #                     unsuccessful_sound.play()
-    #                     pass
-    #                 # execute upgrade shield action here
-    #             elif attackButtonRect.collidepoint(event.pos):
-    #                 if bobby.money >= 5:
-    #                     bobby.attack += 1
-    #                     bobby.money -= 5
-    #                     success_sound.play()
-    #                 elif bobby.money < 5:
-    #                     unsuccessful_sound.play()
-    #                     pass
-    #     pygame.display.flip()
 
 # death screen stuff
 die = death.Death(screen,bobby)
 startTime = pygame.time.get_ticks()
 
 
-doorClosedRect = GameObject.GameObject(510,260,"lvl1platformImages/doorClosed.png")
+doorClosedRect = GameObject.GameObject(1050,235,"lvl1platformImages/doorClosed.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 
 playDialogue1 = True
@@ -466,8 +407,8 @@ while running:
     
     if len(enemies1) == 0 and playDialogue3 == True:
         text = "Good work!"
-        sb.showSpeechBubble(bobby)
-        sb.showText(bobby, text, 50, 200)
+        sb.showsmallspeechbubble(bobby)
+        sb.showText(bobby, text, 20, 70)
         dialogueClock += 1
         if dialogueClock == 120:
             playDialogue3 = False
