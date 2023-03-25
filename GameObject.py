@@ -107,7 +107,7 @@ class SpeechBubble(GameObject):
         self.currentLocation = [x,y]
         self.bubble = pygame.image.load("speechbubbleImages/speechbubble.png")
         self.smallbubble = pygame.image.load("speechbubbleImages/smallspeechbubble.png")
-        self.font = pygame.font.SysFont("copperplate", 24)
+        self.font = pygame.font.SysFont("arial.ttf", 24)
 
     def showSpeechBubble(self, bobby):
         self.currentLocation = [bobby.rect.x - 50, bobby.rect.y - 175]

@@ -63,10 +63,10 @@ class Death:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
-                    pygame.quit()
+                    quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and self.playBtn.rect.collidepoint(event.pos): 
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN and self.exitBtn.rect.collidepoint(event.pos): 
-                    pygame.quit()
+                    quit()
 
             pygame.display.flip()

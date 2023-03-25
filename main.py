@@ -89,6 +89,8 @@ destroyedbuilding3 = pygame.image.load("lvl1platformImages/destroyedbuilding3.pn
 destroyedbuilding4 = pygame.image.load("lvl1platformImages/destroyedbuilding4.png")
 destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
 
+
+
 #-----------------------------------------------------------------------------------^^^^^ Level 1 platforms
 
 # floor layout for level 2 (SPRITES)
@@ -101,22 +103,12 @@ platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplat
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
 
 
-
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 10, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
+bobby = GameObject.Character(5, 1, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
 
-# Shop Buttons (RECT) on shop window when P is pressed
-healthButtonRect = pygame.Rect(50, 200, 300, 50)
-attackButtonRect = pygame.Rect(50, 270, 300, 50)
-# set the font of label and the color
-font = pygame.font.SysFont("copperplate", 24)
-titleFont = pygame.font.SysFont("copperplate", 42)
-shield_label = font.render('Upgrade Health', True, (0, 0, 0))
-attack_label = font.render('Upgrade Attack', True, (0, 0, 0))
-upgrades_label = titleFont.render('PLAYER UPGRADES', True, (0,0,0))
-gameSettings_label = titleFont.render('GAME SETTINGS', True, (0,0,0))
 #Coin Collected
 collected = pygame.mixer.Sound("SoundEffects/collectedCoin.mp3")
+
 #shop sounds
 success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
 unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
@@ -135,7 +127,7 @@ coins1 = pygame.sprite.Group()
 enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
-enemies1.add(GameObject.Enemy(1030, 94, screen, enemy_bullets1, "level1", coins1))
+enemies1.add(GameObject.Enemy(1000, 94, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
 
 #Shop Initialization
@@ -192,7 +184,7 @@ def renderMainScreen():
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                quit()
             if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
                 pygame.mixer.music.stop()
                 mainScreen = False
@@ -202,18 +194,19 @@ def renderMainScreen():
                 # place the render help here. 
                 renderHelpScreen()
 
-
-
-
-
 # death screen stuff
 die = death.Death(screen,bobby)
 startTime = pygame.time.get_ticks()
 
-
 doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
+
+chestOpenRect =  GameObject.GameObject(1090,137,"chestImages/openedChest.png")
+chestClosedImage = pygame.image.load("chestImages/closedChest.png")
+chestOpenImage = pygame.image.load("chestImages/openedChest.png")
+chestKeyRect = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+chestKeyImage = pygame.image.load("chestImages/chestKey.png")
 
 playDialogue1 = True
 playDialogue2 = True
@@ -230,6 +223,8 @@ def renderLevel1():
         screen.blit(destroyedbuilding3, (335,450)) # in the lava 
         screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
         screen.blit(destroyedcar, (23,88)) # car image on left sky platform
+        screen.blit(chestClosedImage, (1090, 137))
+        screen.blit(chestKeyImage, (120, 150))
         lavapool1.draw(screen)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
@@ -274,6 +269,9 @@ bobbyStats.add(GameObject.Stats(28, 17, "statsImages/heart.png"))
 bobbyStats.add(GameObject.Stats(99, 20, "statsImages/strength.png"))
 bobbyStats.add(GameObject.Stats(175, 22, "statsImages/coin.png"))
 
+# set the font of label and the color
+font = pygame.font.SysFont("arial.ttf", 24)
+
 # rendering Bobby's Stats
 def renderStats():
     heart = font.render(str(bobby.health), True, (255, 255, 255))
@@ -292,7 +290,7 @@ current_level = 1
 running = True
 while running:
     renderMainScreen()
-    pygame.time.Clock().tick(120)
+    pygame.time.Clock().tick(100)
 
     if bobby.health <= 0: 
         bobby.health = 10
@@ -310,8 +308,6 @@ while running:
         renderLevel1()
         renderStats()
         keys = pygame.key.get_pressed()
-
-        #movingPlatCollisions = pygame.sprite.spritecollide(bobby,)
 
         enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
         for collision in enemyCollisions:
@@ -371,6 +367,9 @@ while running:
         if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
             sb.showsmallspeechbubble(bobby)
             sb.showText(bobby, "Press [ENTER]", 32.5, 65)
+
+        if bobby.rect.colliderect(chestKeyRect):
+            print("true")
     
     elif current_level == 2:
         renderLevel2()
@@ -454,13 +453,12 @@ while running:
             dialogueClock = 0
             bobby.defaultSpeed = 5
             
-    
     if len(enemies1) == 0 and playDialogue3 == True:
         doorClosedImage = doorOpenImage
         sb.showsmallspeechbubble(bobby)
         sb.showText(bobby, "Good work!", 20, 70)
         dialogueClock += 1
-        if dialogueClock == 120:
+        if dialogueClock == 90:
             playDialogue3 = False
             dialogueClock = 0
             

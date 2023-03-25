@@ -90,7 +90,7 @@ class Shop:
                         self.bobby.money -=50
                         self.axeBtnNotPushed = False
                         self.axeType ="2"
-                        self.bobby.attack = 6
+                        self.bobby.attack = 7
                         self.success_sound.play()
                     else:
                         self.unsuccessful_sound.play()
