@@ -189,8 +189,9 @@ die = death.Death(screen,bobby)
 startTime = pygame.time.get_ticks()
 
 
-doorClosedRect = GameObject.GameObject(1050,235,"lvl1platformImages/doorClosed.png")
+doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
+doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
 
 playDialogue1 = True
 playDialogue2 = True
@@ -210,7 +211,7 @@ def renderLevel1():
         lavapool1.draw(screen)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
-        screen.blit(doorClosedImage, (1050, 235))
+        screen.blit(doorClosedImage, (1040, 237))
         movingPlatform_group1.update()
         movingPlatform_group1.draw(screen)
         for enemy in enemies1:
@@ -358,7 +359,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             # renderShop()
             shop.isOpen=True
             bobby = shop.renderShop()
@@ -373,10 +374,14 @@ while running:
                 renderLevel3()
                 renderStats()
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 1:
-            current_level += 1
-            Level1 = False
-            bobby.changeLevel(platForm_group2, platForm_floor2)
+        elif event.type == pygame.KEYDOWN and current_level == 1:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            elif event.key == pygame.K_RETURN:
+                if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                    current_level += 1
+                    Level1 = False
+                    bobby.changeLevel(platForm_group2, platForm_floor2)
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
             Level2 = False
@@ -386,8 +391,8 @@ while running:
         if playDialogue1 == True:
             bobby.defaultSpeed = 0
             sb.showSpeechBubble(bobby)
-            sb.showText(bobby, "Move and jump with ARROW", 20, 130)
-            sb.showText(bobby, "keys. Press SPACE key to", 20, 110)
+            sb.showText(bobby, "Move and jump with [ARROW]", 20, 130)
+            sb.showText(bobby, "keys. Press [SPACE] key to", 20, 110)
             sb.showText(bobby, "attack and deflect enemy", 20, 90)
             sb.showText(bobby, "bullets.", 20, 70)
             dialogueClock += 1
@@ -406,13 +411,18 @@ while running:
             
     
     if len(enemies1) == 0 and playDialogue3 == True:
-        text = "Good work!"
+        doorClosedImage = doorOpenImage
         sb.showsmallspeechbubble(bobby)
-        sb.showText(bobby, text, 20, 70)
+        sb.showText(bobby, "Good work!", 20, 70)
         dialogueClock += 1
         if dialogueClock == 120:
             playDialogue3 = False
             dialogueClock = 0
+    
+    if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
+        sb.showsmallspeechbubble(bobby)
+        sb.showText(bobby, "Press [ENTER]", 32.5, 65)
+
             
     pygame.display.flip()
 pygame.quit()
