@@ -165,7 +165,6 @@ def renderHelpScreen():
     help = True
     screen.fill((255,255,255))
     while help:
-        print("working")
         pygame.display.set_caption("Help Screen")
         if not pygame.mixer.music.get_busy():
             pygame.mixer.music.play(-1)
