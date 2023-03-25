@@ -326,6 +326,10 @@ while running:
         enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
         for enemy in enemiesHit.keys():
             enemy.loseHp(bobby.attack)
+        
+        if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
+            sb.showsmallspeechbubble(bobby)
+            sb.showText(bobby, "Press [ENTER]", 32.5, 65)
     
     elif current_level == 2:
         renderLevel2()
@@ -418,11 +422,6 @@ while running:
         if dialogueClock == 120:
             playDialogue3 = False
             dialogueClock = 0
-    
-    if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
-        sb.showsmallspeechbubble(bobby)
-        sb.showText(bobby, "Press [ENTER]", 32.5, 65)
-
             
     pygame.display.flip()
 pygame.quit()
