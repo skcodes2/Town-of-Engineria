@@ -202,11 +202,13 @@ doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
 
-chestOpenRect =  GameObject.GameObject(1090,137,"chestImages/openedChest.png")
-chestClosedImage = pygame.image.load("chestImages/closedChest.png")
-chestOpenImage = pygame.image.load("chestImages/openedChest.png")
+chestOpenImage =  GameObject.GameObject(1090,127,"chestImages/openedChest.png")
+chestClosedImage = GameObject.GameObject(1090,137,"chestImages/closedChest.png")
 chestKeyRect = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-chestKeyImage = pygame.image.load("chestImages/chestKey.png")
+chestKeyImage = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+numberOfKeys=[]
+Level1keyAlive = True
+Level1ChestAlive = True
 
 playDialogue1 = True
 playDialogue2 = True
@@ -217,14 +219,20 @@ Level1 = True
 def renderLevel1():
     if Level1:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
+        numberOfKeys.append(chestKeyImage)
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
         screen.blit(destroyedbuilding1, (30,187)) # next to booby
         screen.blit(destroyedbuilding2, (625,-135)) # top right corner 
         screen.blit(destroyedbuilding3, (335,450)) # in the lava 
         screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
         screen.blit(destroyedcar, (23,88)) # car image on left sky platform
-        screen.blit(chestClosedImage, (1090, 137))
-        screen.blit(chestKeyImage, (120, 150))
+        if Level1ChestAlive:
+            screen.blit(chestClosedImage.image,chestClosedImage.rect)
+        elif len(enemies1)==0:
+            screen.blit(chestOpenImage.image,chestOpenImage.rect)
+
+        if Level1keyAlive:
+            screen.blit(chestKeyImage.image, chestKeyImage.rect)
         lavapool1.draw(screen)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
@@ -367,9 +375,17 @@ while running:
         if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
             sb.showsmallspeechbubble(bobby)
             sb.showText(bobby, "Press [ENTER]", 32.5, 65)
+        if Level1keyAlive:  
+            if bobby.rect.colliderect(chestKeyRect) and bobby.keys==0:
+                Level1keyAlive = False
+                bobby.keys+=1
+                print(bobby.keys)
+        if Level1ChestAlive and len(enemies1)==0:
+            if bobby.rect.colliderect(chestClosedImage.rect) and bobby.keys>=1:
+                Level1ChestAlive = False
+                bobby.money+=20
+                bobby.keys-=1
 
-        if bobby.rect.colliderect(chestKeyRect):
-            print("true")
     
     elif current_level == 2:
         renderLevel2()
@@ -440,7 +456,7 @@ while running:
             sb.showText(bobby, "attack and deflect enemy", 20, 90)
             sb.showText(bobby, "bullets.", 20, 70)
             dialogueClock += 1
-        if dialogueClock >= 150:
+        if dialogueClock >= 100:
             playDialogue1 = False
             playDialogue2 == True
             sb.showSpeechBubble(bobby)
@@ -448,7 +464,7 @@ while running:
             sb.showText(bobby, "chests and proceed to next", 20, 110)
             sb.showText(bobby, "level.", 20, 90)
             dialogueClock += 1
-        if dialogueClock == 270:
+        if dialogueClock == 200:
             playDialogue2 = False
             dialogueClock = 0
             bobby.defaultSpeed = 5

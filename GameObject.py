@@ -138,6 +138,7 @@ class Character(GameObject):
         self.platform1 = platform1
         self.platform2 = platform2
         self.movingPlatforms = movingPlatforms
+        self.keys = 0
 
         self.nexImage = 0
         self.screen = screen
