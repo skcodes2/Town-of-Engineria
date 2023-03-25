@@ -146,7 +146,7 @@ fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
 Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(255,255,255))
 playBtn = GameObject.GameObject(510,200,"mainScreenImages/playbutton.png")
 exitBtn = GameObject.GameObject(510,260,"mainScreenImages/exitbutton.png")
-helpBtn = GameObject.GameObject(510,260,"mainScreenImages/helpbutton.png")
+helpBtn = GameObject.GameObject(510,320,"mainScreenImages/helpbutton.png")
 playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
 exitBtnImage = pygame.image.load("mainScreenImages/exitbutton.png")
 helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
@@ -154,15 +154,37 @@ helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
 mainScreen = True
 sb = GameObject.SpeechBubble(bobby.rect.x, bobby.rect.y, bobby, screen)
 #mainScreen Music
+pygame.display.set_caption("Main Menu")
 pygame.mixer.init()
 pygame.mixer.music.load("GameMusic/mainScreenMusic.mp3")
 pygame.mixer.music.set_volume(0.15)
 pygame.mixer.music.play(-1)
+
+# help render loop
+def renderHelpScreen():
+    help = True
+    screen.fill((255,255,255))
+    while help:
+        print("working")
+        pygame.display.set_caption("Help Screen")
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.play(-1)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                help = False
+
+        pygame.display.flip()
+
+
 # rendering the main screen
 def renderMainScreen():
     global mainScreen
     while mainScreen:
         pygame.display.set_caption("Main Menu")
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.play(-1)
+
         screen.blit(mainScreenImage,mainScreenImageRect)
         screen.blit(Title, (180,55))
         screen.blit(playBtnImage, (510,200))
@@ -177,6 +199,13 @@ def renderMainScreen():
                 mainScreen = False
             if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos): 
                 quit()
+            if event.type == pygame.MOUSEBUTTONDOWN and helpBtn.rect.collidepoint(event.pos): 
+                # place the render help here. 
+                renderHelpScreen()
+
+
+
+
 
 # death screen stuff
 die = death.Death(screen,bobby)
@@ -268,6 +297,10 @@ while running:
 
     if bobby.health <= 0: 
         bobby.health = 10
+        #resetting the game
+        current_level = 1
+        mainScreen = True
+
         endTime = pygame.time.get_ticks()
         elapsedTime = (endTime - startTime)/1000 #time in seconds.
         minutesPlayed = int(elapsedTime // 60)
@@ -284,11 +317,13 @@ while running:
         enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
         for collision in enemyCollisions:
             bobby.loseHp(1)
+            die.totalDamageTaken += 1
             bobby.setLocation(40, 400)
 
         bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
         for sprite in bulletCollisions:
             bobby.loseHp(1)
+            die.totalDamageTaken += 1
             bobby.setLocation(40, 400)
             sprite.kill()
             del sprite
@@ -296,12 +331,15 @@ while running:
         lavaCollisions = pygame.sprite.spritecollide(bobby, lavapool1, False)
         if len(lavaCollisions) > 0:
             bobby.loseHp(1)
+            die.totalDamageTaken += 1
+            die.lavaSpills += 1
             bobby.setLocation(40,400)
 
         coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
         for coin in coinCollisions:
             collected.play()
             bobby.gainMoney(coin.value)
+            die.totalMoneyEarned += 20 
             coin.kill()
             del coin
 
@@ -314,6 +352,7 @@ while running:
                 else:
                     bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                 bulletcooldown = 0
+                die.axesChucked += 1
         
         bulletcooldown += 1
         if bulletcooldown >= 30:
@@ -328,6 +367,7 @@ while running:
         enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
         for enemy in enemiesHit.keys():
             enemy.loseHp(bobby.attack)
+            
         
         if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
             sb.showsmallspeechbubble(bobby)
