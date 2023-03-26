@@ -59,10 +59,8 @@ platForm_group1.add(GameObject.PlatForms(10, 190, "lvl1platformImages/leftskypla
 # right sky flat platform
 platForm_group1.add(GameObject.PlatForms(640, 180, "lvl1platformImages/rightskyplatform.png"))
 # left side border brown stone for collisions
-platForm_floor1.add(GameObject.PlatForms(-2, -5,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor1.add(GameObject.PlatForms(-2, 235,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor1.add(GameObject.PlatForms(-2, 300,"lvl1platformImages/brownborderplatform.png"))
-platForm_floor1.add(GameObject.PlatForms(-2, 500,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor1.add(GameObject.PlatForms(-6, -5,"lvl1platformImages/brownborderplatform.png"))
+platForm_floor1.add(GameObject.PlatForms(-6, 235,"lvl1platformImages/brownborderplatform.png"))
 # right side border brown stone for collisions
 platForm_floor1.add(GameObject.PlatForms(1175, -40, "lvl1platformImages/brownborderplatform.png"))
 platForm_floor1.add(GameObject.PlatForms(1175, 190, "lvl1platformImages/brownborderplatform.png"))
@@ -92,20 +90,52 @@ destroyedbuilding4 = pygame.image.load("lvl1platformImages/destroyedbuilding4.pn
 destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
 
 
-
 #-----------------------------------------------------------------------------------^^^^^ Level 1 platforms
+
 
 # floor layout for level 2 (SPRITES)
 platForm_group2 = pygame.sprite.Group()
 platForm_floor2 = pygame.sprite.Group()
 movingPlatform_group2 = pygame.sprite.Group()
 vertMovingPlatform_group2 = pygame.sprite.Group()
-# ice floor platforms
+# snow floor platforms
 platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(972, 350, "lvl2platformImages/largeplatform.png"))
-vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
+# moving up and down platform
+vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820,450,2,100,450, "lvl1platformImages/brownplatform.png"))
+# platform for door
+platForm_floor2.add(GameObject.PlatForms(560, 130, "lvl2platformImages/iceplatform.png"))
+# platform for chest 
+platForm_floor2.add(GameObject.PlatForms(1000, 160, "lvl2platformImages/iceplatform.png"))
+#enemy platform
+platForm_floor2.add(GameObject.PlatForms(24, 310, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(174, 310, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(324, 310, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(474, 310, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(624, 310, "lvl2platformImages/iceplatform.png"))
+# left side border platforms (from bottom to top)
+platForm_floor2.add(GameObject.PlatForms(-5, 320, "lvl2platformImages/sideborderplatforms.png"))
+platForm_floor2.add(GameObject.PlatForms(-5, 40, "lvl2platformImages/sideborderplatforms.png"))
+platForm_floor2.add(GameObject.PlatForms(-5, -225, "lvl2platformImages/sideborderplatforms.png"))
+# right side border platforms (from bottom to top)
+platForm_floor2.add(GameObject.PlatForms(1175, 307, "lvl2platformImages/sideborderplatforms.png"))
+platForm_floor2.add(GameObject.PlatForms(1175, 40, "lvl2platformImages/sideborderplatforms.png"))
+platForm_floor2.add(GameObject.PlatForms(1175, -225, "lvl2platformImages/sideborderplatforms.png"))
+# top side border brown stone for collisions
+platForm_floor2.add(GameObject.PlatForms(0, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(137, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(274, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(411, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(548, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(685, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(822, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(959, 0, "lvl2platformImages/borderplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(1096, 0, "lvl2platformImages/borderplatform.png"))
+
+
+#-----------------------------------------------------------------------------------^^^^^ Level 2 platforms
 
 
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
@@ -223,13 +253,18 @@ doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
 
+#LEVEL 1 CHESTS AND KEYS 
 chestOpenImage =  GameObject.GameObject(1090,127,"chestImages/openedChest.png")
 chestClosedImage = GameObject.GameObject(1090,137,"chestImages/closedChest.png")
 chestKeyRect = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 chestKeyImage = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+
+#LEVEL 2 CHEST AND KEYS 
+chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
+chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
+chestKeyRect2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+chestKeyImage2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 numberOfKeys=[]
-Level1keyAlive = True
-Level1ChestAlive = True
 
 #instructions to move 
 playDialogue1 = True
@@ -241,6 +276,8 @@ playDialogue3 = True
 playDialogue4 = True
 dialogueClock = 0
 
+Level1keyAlive = True
+Level1ChestAlive = True
 Level1 = True
 # rendering levels 
 def renderLevel1():
@@ -284,18 +321,28 @@ def renderLevel1():
     else:
         print("function is false")
 
+Level2keyAlive = True
+Level2ChestAlive = True
 Level2 = True
 def renderLevel2():
     if Level2:
         movingPlatform_group1.empty()
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
         screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
-
-        vertMovingPlatform_group2.update()
-        vertMovingPlatform_group2.draw(screen)
+        if Level2ChestAlive:
+            screen.blit(chestClosedImage2.image,chestClosedImage2.rect)
+        #if there are no enemies, open the chest 
+        elif len(enemies1)==0:
+            screen.blit(chestOpenImage2.image,chestOpenImage2.rect)
+        #if there are keys
+        if Level2keyAlive:
+            screen.blit(chestKeyImage2.image, chestKeyImage2.rect)
 
         platForm_group2.draw(screen)
         platForm_floor2.draw(screen)
+        vertMovingPlatform_group2.update()
+        vertMovingPlatform_group2.draw(screen)
+        screen.blit(doorClosedImage, (590, 30))
     else:
         print("function is false")
 
@@ -335,7 +382,9 @@ running = True
 while running:
     renderMainScreen()
     pygame.time.Clock().tick(100)
-
+    #-------------------------------------------------------------------------------------------------
+    #-------------------------------- IF BOBBY IS DEAD -----------------------------------------------
+    #-------------------------------------------------------------------------------------------------
     if bobby.health <= 0: 
         bobby.health = 10
         #resetting the game
@@ -348,6 +397,9 @@ while running:
         secondsPlayed = int(elapsedTime%60)
         die.renderDeathScreen(minutesPlayed,secondsPlayed)
 
+    #-------------------------------------------------------------------------------------------------
+    #-------------------------------- IF BOBBY IS ON LEVEL 1 -----------------------------------------
+    #-------------------------------------------------------------------------------------------------
     if current_level == 1:
         renderLevel1()
         renderStats()
@@ -433,7 +485,9 @@ while running:
                 bobby.money+=20
                 bobby.keys-=1
 
-    
+    #-------------------------------------------------------------------------------------------------
+    #-------------------------------- IF BOBBY IS ON LEVEL 2 -----------------------------------------
+    #-------------------------------------------------------------------------------------------------
     elif current_level == 2:
         renderLevel2()
         renderStats()
@@ -458,11 +512,16 @@ while running:
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
 
+    #-------------------------------------------------------------------------------------------------
+    #-------------------------------- IF BOBBY IS ON LEVEL 3 -----------------------------------------
+    #-------------------------------------------------------------------------------------------------
     elif current_level == 3:
         renderLevel3()
         renderStats()
         
-    # Event loop
+    #-------------------------------------------------------------------------------------------------
+    #-------------------------------------- EVENT LOOP -----------------------------------------------
+    #-------------------------------------------------------------------------------------------------
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -486,7 +545,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_RETURN:
-                if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                #if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                     pygame.mixer.music.stop()
                     pygame.time.delay(100)
                     doorOpen.play()
@@ -498,6 +557,9 @@ while running:
             Level2 = False
             current_level += 1
 
+    #-------------------------------------------------------------------------------------------------
+    #-------------------------------------- DIALOUGE SECTION -----------------------------------------
+    #-------------------------------------------------------------------------------------------------
     if current_level == 1 and playDialogue2 == True:
         if playDialogue1 == True:
             bobby.defaultSpeed = 0
@@ -523,7 +585,7 @@ while running:
     if len(enemies1) == 0 and playDialogue3 == True:
         doorClosedImage = doorOpenImage
         sb.showsmallspeechbubble(bobby)
-        sb.showText(bobby, "Good work!", 20, 70)
+        sb.showText(bobby, "Good work!", 20, 65)
         dialogueClock += 1
         if dialogueClock == 50:
             playDialogue3 = False
@@ -542,6 +604,6 @@ while running:
             playDialogue4 = False
             dialogueClock = 0
             bobby.defaultSpeed = 5
-            
+
     pygame.display.flip()
 pygame.quit()
