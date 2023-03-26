@@ -29,6 +29,7 @@ platForm_group1 = pygame.sprite.Group()
 platForm_floor1 = pygame.sprite.Group()
 movingPlatform_group1 = pygame.sprite.Group()
 lavapool1 = pygame.sprite.Group()
+vertMovingPlatform_group1 = pygame.sprite.Group()
 
 # orange floor platform
 platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
@@ -104,7 +105,7 @@ platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplat
 
 
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 1, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1)
+bobby = GameObject.Character(5, 1, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1, vertMovingPlatform_group1)
 
 #Coin Collected
 collected = pygame.mixer.Sound("SoundEffects/collectedCoin.mp3")
@@ -258,6 +259,10 @@ def renderLevel2():
         movingPlatform_group1.empty()
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
         screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
+
+        vertMovingPlatform_group1.update()
+        vertMovingPlatform_group1.draw(screen)
+
         platForm_group2.draw(screen)
         platForm_floor2.draw(screen)
     else:
@@ -440,6 +445,8 @@ while running:
             elif event.key == pygame.K_RETURN:
                 if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                     current_level += 1
+                    vertMovingPlatform_group1.add(GameObject.VertMovingPlatForms(50,450,2,100,400, "lvl1platformImages/brownplatform.png"))
+
                     Level1 = False
                     bobby.changeLevel(platForm_group2, platForm_floor2)
             

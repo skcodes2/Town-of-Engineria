@@ -124,7 +124,7 @@ class SpeechBubble(GameObject):
 
 
 class Character(GameObject):
-    def __init__(self, speed, health, armour, x, y, image_path, screen, platform1, platform2, movingPlatforms):
+    def __init__(self, speed, health, armour, x, y, image_path, screen, platform1, platform2, movingPlatforms, vertMovingPlatforms):
         super().__init__(x, y, image_path)
         self.defaultSpeed = speed
         self.leftSpeed = speed
@@ -138,6 +138,7 @@ class Character(GameObject):
         self.platform1 = platform1
         self.platform2 = platform2
         self.movingPlatforms = movingPlatforms
+        self.vertMovingPlatforms = vertMovingPlatforms
         self.keys = 0
 
         self.nexImage = 0
@@ -251,10 +252,12 @@ class Character(GameObject):
         #colliding with a moving platform:
         movingVertCollisions = pygame.sprite.spritecollide(
             self,self.movingPlatforms,False)
+        vertMovingPlatCollisions = pygame.sprite.spritecollide(self,self.vertMovingPlatforms,False)
         vertcollisions = pygame.sprite.spritecollide(
             self, self.platform1, False)
         vertcollisions2 = pygame.sprite.spritecollide(
             self, self.platform2, False)
+        vertcollisions += vertMovingPlatCollisions
         vertcollisions += vertcollisions2
         vertcollisions += movingVertCollisions
         for sprite in vertcollisions:
@@ -419,6 +422,23 @@ class MovingPlatForms(GameObject):
             self.direction = -1 #start moving left once it has reached the right most position. 
         self.x += self.speed * self.direction
         self.rect.x = self.x # Update the position of the sprite based on the new x value
+
+class VertMovingPlatForms(GameObject): 
+    def __init__(self,x,y,speed,stopUp,stopDown,img_path): 
+        super().__init__(x,y,img_path)
+        self.direction = -1
+        self.speed = speed; 
+        self.stopUp = stopUp
+        self.stopDown = stopDown
+
+    def update(self):
+        if self.y <= self.stopUp: 
+            self.direction = 1 #start moving right once it has reached the left most position. 
+        elif self.y >= self.stopDown: 
+            self.direction = -1 #start moving left once it has reached the right most position. 
+        self.y += self.speed * self.direction
+        self.rect.y = self.y # Update the position of the sprite based on the new x value
+
 
 class coin(GameObject):
     def __init__(self, x, y, value, screen):
