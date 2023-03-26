@@ -445,7 +445,7 @@ while running:
             elif event.key == pygame.K_RETURN:
                 if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                     current_level += 1
-                    vertMovingPlatform_group1.add(GameObject.VertMovingPlatForms(50,450,2,100,400, "lvl1platformImages/brownplatform.png"))
+                    vertMovingPlatform_group1.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
 
                     Level1 = False
                     bobby.changeLevel(platForm_group2, platForm_floor2)

@@ -261,10 +261,19 @@ class Character(GameObject):
         vertcollisions += vertcollisions2
         vertcollisions += movingVertCollisions
         for sprite in vertcollisions:
-            if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 10:
+            if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 15:
                 self.inAir = False
                 self.currentPosition[1] = sprite.rect.top - 59
                 self.jumpingSpeed = 20
+            
+        for sprite in vertMovingPlatCollisions:
+            if sprite.direction == 1:
+                self.currentPosition[1] += sprite.speed 
+                self.rect.bottom += sprite.speed 
+        
+        for sprite in movingVertCollisions:
+            self.currentPosition[0] += sprite.speed * sprite.direction
+            self.rect.x += sprite.speed * sprite.direction
 
         vertcollisions1 = [sprite for sprite in vertcollisions if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 10]
 
