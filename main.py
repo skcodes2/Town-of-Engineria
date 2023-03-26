@@ -105,19 +105,30 @@ platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplat
 
 
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
-bobby = GameObject.Character(5, 1, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1, vertMovingPlatform_group1)
+bobby = GameObject.Character(5, 10, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1, vertMovingPlatform_group1)
+#bobby axe throw sound effect
+bobbythrow = pygame.mixer.Sound("SoundEffects/axeThrow.mp3")
 
 #Coin Collected
 collected = pygame.mixer.Sound("SoundEffects/collectedCoin.mp3")
+collected.set_volume(0.5)
+#treasure collected
+chestcollected = pygame.mixer.Sound("SoundEffects/chestOpenSound.mp3")
+chestcollected.set_volume(0.5)
+#enemy hit sound effect
+enemyHitSound = pygame.mixer.Sound("SoundEffects/enemyHitSound.mp3")
+enemyHitSound.set_volume(0.4)
+#door open sound
+doorOpen = pygame.mixer.Sound("SoundEffects/doorOpen.mp3")
+doorOpen.set_volume(0.5)
 
-#shop sounds
-success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
-unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
+#death sound 
+lost = pygame.mixer.Sound("SoundEffects/deathSound.mp3")
+lost.set_volume(5)
 
 # bullet group 
 bullet_group = pygame.sprite.Group()
 bulletcooldown = 0
-
 # enemy bullet group
 enemy_bullets1 = pygame.sprite.Group()
 
@@ -128,7 +139,7 @@ coins1 = pygame.sprite.Group()
 enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
-enemies1.add(GameObject.Enemy(1000, 94, screen, enemy_bullets1, "level1", coins1))
+enemies1.add(GameObject.Enemy(900, 94, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
 
 #Shop Initialization
@@ -227,11 +238,13 @@ def renderLevel1():
         screen.blit(destroyedbuilding3, (335,450)) # in the lava 
         screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
         screen.blit(destroyedcar, (23,88)) # car image on left sky platform
+        #iif there are chests 
         if Level1ChestAlive:
             screen.blit(chestClosedImage.image,chestClosedImage.rect)
+        #if there are no enemies, open the chest 
         elif len(enemies1)==0:
             screen.blit(chestOpenImage.image,chestOpenImage.rect)
-
+        #if there are keys 
         if Level1keyAlive:
             screen.blit(chestKeyImage.image, chestKeyImage.rect)
         lavapool1.draw(screen)
@@ -324,12 +337,14 @@ while running:
 
         enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
         for collision in enemyCollisions:
+            lost.play() 
             bobby.loseHp(1)
             die.totalDamageTaken += 1
             bobby.setLocation(40, 400)
 
         bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
         for sprite in bulletCollisions:
+            lost.play()
             bobby.loseHp(1)
             die.totalDamageTaken += 1
             bobby.setLocation(40, 400)
@@ -338,6 +353,7 @@ while running:
 
         lavaCollisions = pygame.sprite.spritecollide(bobby, lavapool1, False)
         if len(lavaCollisions) > 0:
+            lost.play()
             bobby.loseHp(1)
             die.totalDamageTaken += 1
             die.lavaSpills += 1
@@ -361,7 +377,7 @@ while running:
                     bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                 bulletcooldown = 0
                 die.axesChucked += 1
-        
+            
         bulletcooldown += 1
         if bulletcooldown >= 30:
             bulletcooldown = 30
@@ -373,21 +389,28 @@ while running:
         collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets1, True, True)
 
         enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
+        #if enemy gets hit by bullet
         for enemy in enemiesHit.keys():
+            enemyHitSound.play()
             enemy.loseHp(bobby.attack)
             
-        
         if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
             sb.showsmallspeechbubble(bobby)
             sb.showText(bobby, "Press [ENTER]", 32.5, 65)
-        if Level1keyAlive:  
+        #if chest key exist on level
+        if Level1keyAlive: 
+            #and collides with the key rectangle and bobby has 0 key  
             if bobby.rect.colliderect(chestKeyRect) and bobby.keys==0:
+                #stop blitting key image and increase his key amount 
                 Level1keyAlive = False
                 bobby.keys+=1
-                print(bobby.keys)
+        #if chest is closed and enemies are killed
         if Level1ChestAlive and len(enemies1)==0:
+            #and if he collides with the closed chest with a key
             if bobby.rect.colliderect(chestClosedImage.rect) and bobby.keys>=1:
+                #blit the opened chest 
                 Level1ChestAlive = False
+                chestcollected.play()
                 bobby.money+=20
                 bobby.keys-=1
 
@@ -475,7 +498,7 @@ while running:
             playDialogue2 = False
             dialogueClock = 0
             bobby.defaultSpeed = 5
-            
+    
     if len(enemies1) == 0 and playDialogue3 == True:
         doorClosedImage = doorOpenImage
         sb.showsmallspeechbubble(bobby)
@@ -484,6 +507,6 @@ while running:
         if dialogueClock == 90:
             playDialogue3 = False
             dialogueClock = 0
-            
+    
     pygame.display.flip()
 pygame.quit()

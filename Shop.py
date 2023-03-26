@@ -51,7 +51,9 @@ class Shop:
 
         #Sound Effects 
         self.success_sound = pygame.mixer.Sound("SoundEffects/successful.wav")
+        self.success_sound.set_volume(0.2)
         self.unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
+        self.unsuccessful_sound.set_volume(0.2)
     def renderShop(self):
         while self.isOpen:
             for event in pygame.event.get():
