@@ -26,7 +26,7 @@ class Shop:
 
         #Icon Images
         self.healthIcon = GameObject.GameObject(420, 30, "statsImages/heart.png")
-        self.attackIcon = GameObject.GameObject(490, 30, "statsImages/strength.png")
+        self.attackIcon = GameObject.GameObject(499, 30, "statsImages/strength.png")
         self.armourIcon = GameObject.GameObject(580, 30,"statsImages/shieldIcon.png")
         self.SpeedIcon = GameObject.GameObject(660, 30,"statsImages/SpeedIcon.png")
         self.moneyIcon = GameObject.GameObject(740, 30, "statsImages/coin.png")
@@ -171,7 +171,7 @@ class Shop:
         self.screen.blit(self.SpeedIcon.image, self.SpeedIcon.rect)
 
         self.screen.blit(self.health,(470,30))
-        self.screen.blit(self.attack,(550,30))
+        self.screen.blit(self.attack,(554,30))
         self.screen.blit(self.armour,(630,30))
         self.screen.blit(self.speed,(710,30))
-        self.screen.blit(self.money,(790,30))
+        self.screen.blit(self.money,(780,30))
