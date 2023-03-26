@@ -117,7 +117,7 @@ chestcollected = pygame.mixer.Sound("SoundEffects/chestOpenSound.mp3")
 chestcollected.set_volume(0.5)
 #enemy hit sound effect
 enemyHitSound = pygame.mixer.Sound("SoundEffects/enemyHitSound.mp3")
-enemyHitSound.set_volume(0.4)
+enemyHitSound.set_volume(0.2)
 #door open sound
 doorOpen = pygame.mixer.Sound("SoundEffects/doorOpen.mp3")
 doorOpen.set_volume(0.5)
@@ -199,6 +199,8 @@ def renderMainScreen():
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
                 pygame.mixer.music.stop()
+                pygame.time.delay(200)
+                pygame.mixer.music.load("GameMusic/level1music.mp3")
                 mainScreen = False
             if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos): 
                 quit()
@@ -226,10 +228,14 @@ playDialogue1 = True
 playDialogue2 = True
 playDialogue3 = True
 dialogueClock = 0
+
 Level1 = True
 # rendering levels 
 def renderLevel1():
     if Level1:
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.play(-1)
+
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
         numberOfKeys.append(chestKeyImage)
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
@@ -467,6 +473,8 @@ while running:
                 running = False
             elif event.key == pygame.K_RETURN:
                 if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                    pygame.mixer.music.stop()
+                    pygame.time.delay(100)
                     doorOpen.play()
                     current_level += 1
                     vertMovingPlatform_group1.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
