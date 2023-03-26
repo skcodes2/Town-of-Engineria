@@ -467,6 +467,7 @@ while running:
                 running = False
             elif event.key == pygame.K_RETURN:
                 if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                    doorOpen.play()
                     current_level += 1
                     vertMovingPlatform_group1.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
 
