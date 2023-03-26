@@ -516,7 +516,7 @@ while running:
         sb.showsmallspeechbubble(bobby)
         sb.showText(bobby, "Good work!", 20, 70)
         dialogueClock += 1
-        if dialogueClock == 90:
+        if dialogueClock == 50:
             playDialogue3 = False
             dialogueClock = 0
     
