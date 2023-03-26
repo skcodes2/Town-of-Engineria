@@ -104,7 +104,7 @@ vertMovingPlatform_group2 = pygame.sprite.Group()
 platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(972, 350, "lvl2platformImages/largeplatform.png"))
 vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
 
 
@@ -119,6 +119,9 @@ collected.set_volume(0.5)
 #treasure collected
 chestcollected = pygame.mixer.Sound("SoundEffects/chestOpenSound.mp3")
 chestcollected.set_volume(0.5)
+#key collected 
+keyCollected = pygame.mixer.Sound("SoundEffects/keyGrab.mp3")
+keyCollected.set_volume(0.5)
 #enemy hit sound effect
 enemyHitSound = pygame.mixer.Sound("SoundEffects/enemyHitSound.mp3")
 enemyHitSound.set_volume(0.2)
@@ -228,9 +231,14 @@ numberOfKeys=[]
 Level1keyAlive = True
 Level1ChestAlive = True
 
+#instructions to move 
 playDialogue1 = True
+#instructions to defeat enemies 
 playDialogue2 = True
+#says "Good Work!"
 playDialogue3 = True
+#instructions to open shop 
+playDialogue4 = True
 dialogueClock = 0
 
 Level1 = True
@@ -413,6 +421,7 @@ while running:
             if bobby.rect.colliderect(chestKeyRect) and bobby.keys==0:
                 #stop blitting key image and increase his key amount 
                 Level1keyAlive = False
+                keyCollected.play()
                 bobby.keys+=1
         #if chest is closed and enemies are killed
         if Level1ChestAlive and len(enemies1)==0:
@@ -492,7 +501,7 @@ while running:
     if current_level == 1 and playDialogue2 == True:
         if playDialogue1 == True:
             bobby.defaultSpeed = 0
-            sb.showSpeechBubble(bobby)
+            sb.showSpeechBubbleLevel1(bobby)
             sb.showText(bobby, "Move and jump with [ARROW]", 20, 130)
             sb.showText(bobby, "keys. Press [SPACE] key to", 20, 110)
             sb.showText(bobby, "attack and deflect enemy", 20, 90)
@@ -501,7 +510,7 @@ while running:
         if dialogueClock >= 100:
             playDialogue1 = False
             playDialogue2 == True
-            sb.showSpeechBubble(bobby)
+            sb.showSpeechBubbleLevel1(bobby)
             sb.showText(bobby, "Defete all enemies to collect", 20, 130)
             sb.showText(bobby, "chests and proceed to next", 20, 110)
             sb.showText(bobby, "level.", 20, 90)
@@ -520,5 +529,19 @@ while running:
             playDialogue3 = False
             dialogueClock = 0
     
+    if current_level == 2 and playDialogue4 == True:
+        if playDialogue4 == True:
+            bobby.defaultSpeed = 0
+            sb.showSpeechBubbleLevel2(bobby)
+            sb.showText(bobby, "Press [P] to open shop menu.", 170, 130)
+            sb.showText(bobby, "You can upgrade weapons and", 170, 110)
+            sb.showText(bobby, "stats by [LEFT] clicking the", 170, 90)
+            sb.showText(bobby, "icons.", 170, 70)
+            dialogueClock += 1
+        if dialogueClock == 90:
+            playDialogue4 = False
+            dialogueClock = 0
+            bobby.defaultSpeed = 5
+            
     pygame.display.flip()
 pygame.quit()

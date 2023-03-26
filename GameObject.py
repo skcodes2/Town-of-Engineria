@@ -106,13 +106,18 @@ class SpeechBubble(GameObject):
         self.screen = screen
         self.currentLocation = [x,y]
         self.bubble = pygame.image.load("speechbubbleImages/speechbubble.png")
+        self.bubble2 = pygame.image.load("speechbubbleImages/speechbubble2.png")
         self.smallbubble = pygame.image.load("speechbubbleImages/smallspeechbubble.png")
         self.font = pygame.font.SysFont("arial.ttf", 24)
 
-    def showSpeechBubble(self, bobby):
+    def showSpeechBubbleLevel1(self, bobby):
         self.currentLocation = [bobby.rect.x - 50, bobby.rect.y - 175]
         self.screen.blit(self.bubble, tuple(self.currentLocation))
-
+    
+    def showSpeechBubbleLevel2(self, bobby):
+        self.currentLocation = [bobby.rect.x - 200, bobby.rect.y - 175]
+        self.screen.blit(self.bubble2, tuple(self.currentLocation))
+    
     def showsmallspeechbubble(self, bobby):
         self.currentLocation = [bobby.rect.x - 50, bobby.rect.y - 100]
         self.screen.blit(self.smallbubble, tuple(self.currentLocation))
