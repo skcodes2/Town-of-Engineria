@@ -267,15 +267,16 @@ class Character(GameObject):
                 self.jumpingSpeed = 20
             
         for sprite in vertMovingPlatCollisions:
-            if sprite.direction == 1:
+            if sprite.direction == 1 and self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 15 and self.inAir == False:
                 self.currentPosition[1] += sprite.speed 
                 self.rect.bottom += sprite.speed 
         
         for sprite in movingVertCollisions:
-            self.currentPosition[0] += sprite.speed * sprite.direction
-            self.rect.x += sprite.speed * sprite.direction
+            if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 15 and self.inAir == False:
+                self.currentPosition[0] += sprite.speed * sprite.direction
+                self.rect.x += sprite.speed * sprite.direction
 
-        vertcollisions1 = [sprite for sprite in vertcollisions if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 10]
+        vertcollisions1 = [sprite for sprite in vertcollisions if self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 15]
 
         if len(vertcollisions1) == 0 and self.inAir is False:
             self.inAir = True
@@ -309,9 +310,11 @@ class Character(GameObject):
         
         return self.rect, self.standingLeft
     
-    def changeLevel(self, platform1, platform2):
+    def changeLevel(self, platform1, platform2, movingPlatforms, vertMovingPlatforms):
         self.platform1 = platform1
         self.platform2 = platform2
+        self.movingPlatforms = movingPlatforms
+        self.vertMovingPlatforms = vertMovingPlatforms
 
     def setLocation(self, x, y):
         self.currentPosition = [x,y]
