@@ -31,6 +31,7 @@ movingPlatform_group1 = pygame.sprite.Group()
 lavapool1 = pygame.sprite.Group()
 vertMovingPlatform_group1 = pygame.sprite.Group()
 
+
 # orange floor platform
 platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
 # brown floor platforms
@@ -97,11 +98,14 @@ destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
 # floor layout for level 2 (SPRITES)
 platForm_group2 = pygame.sprite.Group()
 platForm_floor2 = pygame.sprite.Group()
+movingPlatform_group2 = pygame.sprite.Group()
+vertMovingPlatform_group2 = pygame.sprite.Group()
 # ice floor platforms
 platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(972, 500, "lvl2platformImages/largeplatform.png"))
+vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
 
 
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
@@ -279,8 +283,8 @@ def renderLevel2():
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
         screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
 
-        vertMovingPlatform_group1.update()
-        vertMovingPlatform_group1.draw(screen)
+        vertMovingPlatform_group2.update()
+        vertMovingPlatform_group2.draw(screen)
 
         platForm_group2.draw(screen)
         platForm_floor2.draw(screen)
@@ -376,7 +380,7 @@ while running:
         direction = bobby.playerMovementControl(keys)
         damage =1
         if keys[pygame.K_SPACE]:
-            if bulletcooldown >= 10:
+            if bulletcooldown >= 20:
                 if direction[1] == True:
                     bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
                 else:
@@ -385,8 +389,8 @@ while running:
                 die.axesChucked += 1
             
         bulletcooldown += 1
-        if bulletcooldown >= 30:
-            bulletcooldown = 30
+        if bulletcooldown >= 20:
+            bulletcooldown = 20
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
@@ -428,16 +432,17 @@ while running:
         direction = bobby.playerMovementControl(keys)
         
         if keys[pygame.K_SPACE]:
-            if bulletcooldown >= 30:
+            if bulletcooldown >= 20:
                 if direction[1] == True:
                     bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                 else:
                     bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                 bulletcooldown = 0
+                die.axesChucked += 1
         
         bulletcooldown += 1
-        if bulletcooldown >= 30:
-            bulletcooldown = 30
+        if bulletcooldown >= 20:
+            bulletcooldown = 20
         for bullet in bullet_group:
             bullet.bulletTravel()
 
@@ -477,10 +482,8 @@ while running:
                     pygame.time.delay(100)
                     doorOpen.play()
                     current_level += 1
-                    vertMovingPlatform_group1.add(GameObject.VertMovingPlatForms(50,450,2,100,450, "lvl1platformImages/brownplatform.png"))
-
                     Level1 = False
-                    bobby.changeLevel(platForm_group2, platForm_floor2)
+                    bobby.changeLevel(platForm_group2, platForm_floor2, movingPlatform_group2, vertMovingPlatform_group2)
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
             Level2 = False
