@@ -545,7 +545,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_RETURN:
-                #if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                     pygame.mixer.music.stop()
                     pygame.time.delay(100)
                     doorOpen.play()
