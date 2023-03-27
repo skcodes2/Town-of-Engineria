@@ -287,6 +287,7 @@ playDialogue2 = True
 playDialogue3 = True
 # instructions to open shop 
 playDialogue4 = True
+playDialogue5 = True
 dialogueClock = 0
 
 #--------------------------------------------------------------------------------------------------
@@ -362,11 +363,11 @@ doorOpenImage2 = pygame.image.load("lvl1platformImages/doorOpen.png")
 # chest and key 1 initialization
 chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
 chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
-chestKeyRect2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-chestKeyImage2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+chestKeyRect2 = GameObject.GameObject(620,60,"chestImages/chestKey.png")
+chestKeyImage2 = GameObject.GameObject(620,60,"chestImages/chestKey.png")
 # chest and key 2 initialization
-chestOpenImage3 =  GameObject.GameObject(610,77,"chestImages/openedChest.png")
-chestClosedImage3 = GameObject.GameObject(610,87,"chestImages/closedChest.png")
+chestOpenImage3 =  GameObject.GameObject(230,417,"chestImages/openedChest.png")
+chestClosedImage3 = GameObject.GameObject(230,427,"chestImages/closedChest.png")
 chestKeyRect3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
 chestKeyImage3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
 # boolean functions
@@ -403,7 +404,7 @@ def renderLevel2():
         platForm_floor2.draw(screen)
         vertMovingPlatform_group2.update()
         vertMovingPlatform_group2.draw(screen)
-        screen.blit(doorClosedImage, (80, 370))
+        screen.blit(doorClosedImage2, (80, 370))
     else:
         print("function is false")
 
@@ -558,6 +559,14 @@ while running:
                 chestcollected.play()
                 bobby.money+=20
                 bobby.keys-=1
+        if len(enemies1) == 0 and playDialogue3 == True:
+            doorClosedImage = doorOpenImage
+            sb.showsmallspeechbubble(bobby)
+            sb.showText(bobby, "Good work!", 20, 65)
+            dialogueClock += 1
+            if dialogueClock == 50:
+                playDialogue3 = False
+                dialogueClock = 0
 
     # -------------------------------------------------------------------------------------------------
     # -------------------------------- IF BOBBY IS ON LEVEL 2 -----------------------------------------
@@ -586,6 +595,9 @@ while running:
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
         
+        if len(enemies2) == 0 and bobby.rect.colliderect(doorOpenRect2):
+            sb.showsmallspeechbubble(bobby)
+            sb.showText(bobby, "Press [ENTER]", 32.5, 65)
         # if chest key exist on level
         if Level2keyAlive: 
             # and collides with the key rectangle
@@ -621,6 +633,14 @@ while running:
                 chestcollected.play()
                 bobby.money+=20
                 bobby.keys-=1
+        if len(enemies2) == 0 and playDialogue5 == True:
+            doorClosedImage2 = doorOpenImage2
+            sb.showsmallspeechbubble(bobby)
+            sb.showText(bobby, "Good work!", 20, 65)
+            dialogueClock += 1
+            if dialogueClock == 50:
+                playDialogue5 = False
+                dialogueClock = 0
     # -------------------------------------------------------------------------------------------------
     # -------------------------------- IF BOBBY IS ON LEVEL 3 -----------------------------------------
     # -------------------------------------------------------------------------------------------------
@@ -718,15 +738,6 @@ while running:
             playDialogue2 = False
             dialogueClock = 0
             bobby.defaultSpeed = 5
-    
-    if len(enemies1) == 0 and playDialogue3 == True:
-        doorClosedImage = doorOpenImage
-        sb.showsmallspeechbubble(bobby)
-        sb.showText(bobby, "Good work!", 20, 65)
-        dialogueClock += 1
-        if dialogueClock == 50:
-            playDialogue3 = False
-            dialogueClock = 0
     
     if current_level == 2 and playDialogue4 == True:
         if playDialogue4 == True:
