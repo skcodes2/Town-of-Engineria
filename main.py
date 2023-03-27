@@ -89,6 +89,7 @@ destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.pn
 destroyedbuilding3 = pygame.image.load("lvl1platformImages/destroyedbuilding3.png")
 destroyedbuilding4 = pygame.image.load("lvl1platformImages/destroyedbuilding4.png")
 destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
+tree = pygame.image.load("lvl1platformImages/deadtree.png")
 
 # --------------------------------------------------------------------------------------------------
 # ------------------------------------ LEVEL TWO PLATFORMS -----------------------------------------
@@ -139,13 +140,15 @@ platForm_floor2.add(GameObject.PlatForms(1096, 0, "lvl2platformImages/borderplat
 # ------------------------------------ LEVEL THREE PLATFORMS ---------------------------------------
 # --------------------------------------------------------------------------------------------------
 platForm_floor3 = pygame.sprite.Group()
-platForm_HorizontalMoving3 = pygame.sprite.Group()
+platForm_group3 = pygame.sprite.Group()
+movingPlatform_group3 = pygame.sprite.Group()
+vertMovingPlatform_group3 = pygame.sprite.Group()
 
 platForm_floor3.add(GameObject.PlatForms(-10,470,"lvl3platFormImages\startingPlatForm.png"))
 platForm_floor3.add(GameObject.PlatForms(0,150,"lvl3platFormImages\level3MediumPlatForm.png"))
 platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages\BossPlatForm.png"))
 platForm_floor3.add(GameObject.PlatForms(-5,300,"lvl3platFormImages\level3MediumPlatForm.png"))
-platForm_HorizontalMoving3.add(GameObject.MovingPlatForms(215,470,3,215,850,"lvl3platFormImages\Level3Floating.png"))
+movingPlatform_group3.add(GameObject.MovingPlatForms(215,470,3,215,850,"lvl3platFormImages\Level3Floating.png"))
 
 # --------------------------------------------------------------------------------------------------
 # ------------------------------------ BOBBY INITIALIZATION ----------------------------------------
@@ -274,11 +277,6 @@ def renderMainScreen():
 die = death.Death(screen,bobby)
 startTime = pygame.time.get_ticks()
 
-# door initialization
-doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
-doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
-doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
-
 numberOfKeys=[]
 
 # instructions to move 
@@ -295,10 +293,16 @@ dialogueClock = 0
 #------------------------------------ RENDER LEVEL 1 ----------------------------------------------
 #--------------------------------------------------------------------------------------------------
 # LEVEL 1 CHESTS AND KEYS 
+# door initialization
+doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
+doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
+doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
+# chest and key initialization
 chestOpenImage =  GameObject.GameObject(1090,127,"chestImages/openedChest.png")
 chestClosedImage = GameObject.GameObject(1090,137,"chestImages/closedChest.png")
 chestKeyRect = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 chestKeyImage = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+# boolean functions 
 Level1keyAlive = True
 Level1ChestAlive = True
 Level1 = True
@@ -311,11 +315,13 @@ def renderLevel1():
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
         numberOfKeys.append(chestKeyImage)
         screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-        screen.blit(destroyedbuilding1, (30,187)) # next to booby
+        screen.blit(destroyedbuilding1, (35,165)) # next to booby
         screen.blit(destroyedbuilding2, (625,-135)) # top right corner 
         screen.blit(destroyedbuilding3, (335,450)) # in the lava 
         screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
         screen.blit(destroyedcar, (23,88)) # car image on left sky platform
+        screen.blit(tree, (160,302))
+        screen.blit(tree, (700,15))
         
         # if there are chests 
         if Level1ChestAlive:
@@ -349,15 +355,21 @@ def renderLevel1():
 # ------------------------------------ RENDER LEVEL 2 ----------------------------------------------
 # --------------------------------------------------------------------------------------------------
 # LEVEL 2 CHEST AND KEYS 
+# door initialization
+doorOpenRect2 = GameObject.GameObject(80,370,"lvl1platformImages/doorOpen.png")
+doorClosedImage2 = pygame.image.load("lvl1platformImages/doorClosed.png")
+doorOpenImage2 = pygame.image.load("lvl1platformImages/doorOpen.png")
+# chest and key 1 initialization
 chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
 chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
 chestKeyRect2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 chestKeyImage2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-
-chestOpenImage3 =  GameObject.GameObject(800,107,"chestImages/openedChest.png")
-chestClosedImage3 = GameObject.GameObject(800,117,"chestImages/closedChest.png")
+# chest and key 2 initialization
+chestOpenImage3 =  GameObject.GameObject(610,77,"chestImages/openedChest.png")
+chestClosedImage3 = GameObject.GameObject(610,87,"chestImages/closedChest.png")
 chestKeyRect3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
 chestKeyImage3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
+# boolean functions
 Level2keyAlive = True
 Level2keyAlive2 = True
 Level2ChestAlive = True
@@ -406,8 +418,8 @@ def renderLevel3():
     if Level3:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
         screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
-        platForm_HorizontalMoving3.draw(screen)
-        platForm_HorizontalMoving3.update()
+        movingPlatform_group3.draw(screen)
+        movingPlatform_group3.update()
         platForm_floor3.draw(screen)
     else:
         print("function is false")
@@ -615,6 +627,26 @@ while running:
     elif current_level == 3:
         renderLevel3()
         renderStats()
+        keys = pygame.key.get_pressed()
+        direction = bobby.playerMovementControl(keys)
+        
+        if keys[pygame.K_SPACE]:
+            if bulletcooldown >= 20:
+                if direction[1] == True:
+                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                else:
+                    bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                bulletcooldown = 0
+                die.axesChucked += 1
+        
+        bulletcooldown += 1
+        if bulletcooldown >= 20:
+            bulletcooldown = 20
+        for bullet in bullet_group:
+            bullet.bulletTravel()
+
+        collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
+        collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
         
     # -------------------------------------------------------------------------------------------------
     # -------------------------------------- EVENT LOOP -----------------------------------------------
@@ -642,7 +674,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_RETURN:
-                # if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                     pygame.mixer.music.stop()
                     pygame.time.delay(100)
                     doorOpen.play()
@@ -650,9 +682,17 @@ while running:
                     Level1 = False
                     bobby.changeLevel(platForm_group2, platForm_floor2, movingPlatform_group2, vertMovingPlatform_group2)
             
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and current_level == 2:
-            Level2 = False
-            current_level += 1
+        elif event.type == pygame.KEYDOWN and current_level == 2:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            elif event.key == pygame.K_RETURN:
+                if bobby.rect.colliderect(doorOpenRect2) and len(enemies2) == 0:
+                    pygame.mixer.music.stop()
+                    pygame.time.delay(100)
+                    doorOpen.play()
+                    current_level += 1
+                    Level2 = False
+                    bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatform_group3)
 
     # -------------------------------------------------------------------------------------------------
     # -------------------------------------- DIALOUGE SECTION -----------------------------------------
@@ -697,7 +737,7 @@ while running:
             sb.showText(bobby, "stats by [LEFT] clicking the", 170, 90)
             sb.showText(bobby, "icons.", 170, 70)
             dialogueClock += 1
-        if dialogueClock == 90:
+        if dialogueClock == 100:
             playDialogue4 = False
             dialogueClock = 0
             bobby.defaultSpeed = 5
