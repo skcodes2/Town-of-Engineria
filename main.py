@@ -100,22 +100,22 @@ movingPlatform_group2 = pygame.sprite.Group()
 vertMovingPlatform_group2 = pygame.sprite.Group()
 
 # snow floor platforms
-platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(0, 470, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(972, 350, "lvl2platformImages/largeplatform.png"))
 # moving up and down platform
 vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820,450,2,100,450, "lvl1platformImages/brownplatform.png"))
-# platform for door
+# platform for middle chest
 platForm_floor2.add(GameObject.PlatForms(560, 130, "lvl2platformImages/iceplatform.png"))
 # platform for chest 
 platForm_floor2.add(GameObject.PlatForms(1000, 160, "lvl2platformImages/iceplatform.png"))
 # enemy platform
-platForm_floor2.add(GameObject.PlatForms(24, 310, "lvl2platformImages/iceplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(174, 310, "lvl2platformImages/iceplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(324, 310, "lvl2platformImages/iceplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(474, 310, "lvl2platformImages/iceplatform.png"))
-platForm_floor2.add(GameObject.PlatForms(624, 310, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(24, 280, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(174, 280, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(324, 280, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(474, 280, "lvl2platformImages/iceplatform.png"))
+platForm_floor2.add(GameObject.PlatForms(624, 280, "lvl2platformImages/iceplatform.png"))
 # left side border platforms (from bottom to top)
 platForm_floor2.add(GameObject.PlatForms(-5, 320, "lvl2platformImages/sideborderplatforms.png"))
 platForm_floor2.add(GameObject.PlatForms(-5, 40, "lvl2platformImages/sideborderplatforms.png"))
@@ -187,13 +187,15 @@ lost.set_volume(5)
 enemy_bullets1 = pygame.sprite.Group()
 # enemy coin 
 coins1 = pygame.sprite.Group()
-# initialize Enemy Groups
+# initialize level 1 Enemy Groups
 enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(900, 94, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
 
+# initialize level 2 Enemy Groups
+enemies2 = pygame.sprite.Group()
 # --------------------------------------------------------------------------------------------------
 # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
 # --------------------------------------------------------------------------------------------------
@@ -314,15 +316,18 @@ def renderLevel1():
         screen.blit(destroyedbuilding3, (335,450)) # in the lava 
         screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
         screen.blit(destroyedcar, (23,88)) # car image on left sky platform
-        #iif there are chests 
+        
+        # if there are chests 
         if Level1ChestAlive:
             screen.blit(chestClosedImage.image,chestClosedImage.rect)
-        #if there are no enemies, open the chest 
+        # if there are no enemies, open the chest 
         elif len(enemies1)==0:
             screen.blit(chestOpenImage.image,chestOpenImage.rect)
-        #if there are keys 
+        
+        # if there are keys 
         if Level1keyAlive:
             screen.blit(chestKeyImage.image, chestKeyImage.rect)
+        
         lavapool1.draw(screen)
         platForm_group1.draw(screen)
         platForm_floor1.draw(screen)
@@ -335,7 +340,6 @@ def renderLevel1():
             coin.animate()
         for bullet in bullet_group:
             bullet.bulletTravel()
-
         for bullet in enemy_bullets1:
             bullet.bulletHoming(bobby)
     else:
@@ -349,8 +353,15 @@ chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
 chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
 chestKeyRect2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 chestKeyImage2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+
+chestOpenImage3 =  GameObject.GameObject(800,107,"chestImages/openedChest.png")
+chestClosedImage3 = GameObject.GameObject(800,117,"chestImages/closedChest.png")
+chestKeyRect3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
+chestKeyImage3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
 Level2keyAlive = True
+Level2keyAlive2 = True
 Level2ChestAlive = True
+Level2ChestAlive2 = True
 Level2 = True
 # render level 2
 def renderLevel2():
@@ -358,20 +369,29 @@ def renderLevel2():
         movingPlatform_group1.empty()
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
         screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
+        
         if Level2ChestAlive:
             screen.blit(chestClosedImage2.image,chestClosedImage2.rect)
-        #if there are no enemies, open the chest 
-        elif len(enemies1)==0:
+        # if there are no enemies, open the chest 
+        elif len(enemies2)==0:
             screen.blit(chestOpenImage2.image,chestOpenImage2.rect)
-        #if there are keys
+        
+        if Level2ChestAlive2:
+            screen.blit(chestClosedImage3.image,chestClosedImage3.rect)
+        # if there are no enemies, open the chest 
+        elif len(enemies2)==0:
+            screen.blit(chestOpenImage3.image,chestOpenImage3.rect)
+        
+        # if there are keys
         if Level2keyAlive:
             screen.blit(chestKeyImage2.image, chestKeyImage2.rect)
-
+        if Level2keyAlive2:
+            screen.blit(chestKeyImage3.image, chestKeyImage3.rect)
         platForm_group2.draw(screen)
         platForm_floor2.draw(screen)
         vertMovingPlatform_group2.update()
         vertMovingPlatform_group2.draw(screen)
-        screen.blit(doorClosedImage, (590, 30))
+        screen.blit(doorClosedImage, (80, 370))
     else:
         print("function is false")
 
@@ -428,7 +448,7 @@ while running:
     # -------------------------------------------------------------------------------------------------
     if bobby.health <= 0: 
         bobby.health = 10
-        #resetting the game
+        # resetting the game
         current_level = 1
         mainScreen = True
 
@@ -511,11 +531,12 @@ while running:
         # if chest key exist on level
         if Level1keyAlive: 
             # and collides with the key rectangle and bobby has 0 key  
-            if bobby.rect.colliderect(chestKeyRect) and bobby.keys==0:
+            if bobby.rect.colliderect(chestKeyRect):
                 # stop blitting key image and increase his key amount 
                 Level1keyAlive = False
                 keyCollected.play()
                 bobby.keys+=1
+                
         # if chest is closed and enemies are killed
         if Level1ChestAlive and len(enemies1)==0:
             # and if he collides with the closed chest with a key
@@ -552,20 +573,39 @@ while running:
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
+        
         # if chest key exist on level
         if Level2keyAlive: 
-            # and collides with the key rectangle and bobby has 0 key  
-            if bobby.rect.colliderect(chestKeyRect2) and bobby.keys==0:
+            # and collides with the key rectangle
+            if bobby.rect.colliderect(chestKeyRect2):
                 # stop blitting key image and increase his key amount 
                 Level2keyAlive = False
                 keyCollected.play()
                 bobby.keys+=1
+        # if chest key exist on level
+        if Level2keyAlive2: 
+            # and collides with the key rectangle
+            if bobby.rect.colliderect(chestKeyRect3):
+                # stop blitting key image and increase his key amount 
+                Level2keyAlive2 = False
+                keyCollected.play()
+                bobby.keys+=1
+        
         # if chest is closed and enemies are killed
-        if Level2ChestAlive and len(enemies1)==0:
+        if Level2ChestAlive and len(enemies2)==0:
             # and if he collides with the closed chest with a key
             if bobby.rect.colliderect(chestClosedImage2.rect) and bobby.keys>=1:
                 # blit the opened chest 
                 Level2ChestAlive = False
+                chestcollected.play()
+                bobby.money+=20
+                bobby.keys-=1
+        # if chest is closed and enemies are killed
+        if Level2ChestAlive2 and len(enemies2)==0:
+            # and if he collides with the closed chest with a key
+            if bobby.rect.colliderect(chestClosedImage3.rect) and bobby.keys>=1:
+                # blit the opened chest 
+                Level2ChestAlive2 = False
                 chestcollected.play()
                 bobby.money+=20
                 bobby.keys-=1
@@ -602,7 +642,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_RETURN:
-                if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                # if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                     pygame.mixer.music.stop()
                     pygame.time.delay(100)
                     doorOpen.play()
