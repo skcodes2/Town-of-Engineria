@@ -136,6 +136,15 @@ platForm_floor2.add(GameObject.PlatForms(1096, 0, "lvl2platformImages/borderplat
 
 
 #-----------------------------------------------------------------------------------^^^^^ Level 2 platforms
+platForm_floor3 = pygame.sprite.Group()
+platForm_HorizontalMoving3 = pygame.sprite.Group()
+platForm_floor3.add(GameObject.PlatForms(-10,470,"lvl3platFormImages\startingPlatForm.png"))
+platForm_floor3.add(GameObject.PlatForms(0,150,"lvl3platFormImages\level3MediumPlatForm.png"))
+platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages\BossPlatForm.png"))
+platForm_floor3.add(GameObject.PlatForms(-5,300,"lvl3platFormImages\level3MediumPlatForm.png"))
+
+platForm_HorizontalMoving3.add(GameObject.MovingPlatForms(215,470,3,215,850,"lvl3platFormImages\Level3Floating.png"))
+#-----------------------------------------------------------------------------------^^^^^ Level 3 platforms
 
 
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
@@ -351,6 +360,9 @@ def renderLevel3():
     if Level3:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
         screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
+        platForm_HorizontalMoving3.draw(screen)
+        platForm_HorizontalMoving3.update()
+        platForm_floor3.draw(screen)
     else:
         print("function is false")
 
