@@ -143,13 +143,32 @@ while startGame:
     platForm_floor3 = pygame.sprite.Group()
     platForm_group3 = pygame.sprite.Group()
     movingPlatform_group3 = pygame.sprite.Group()
-    vertMovingPlatform_group3 = pygame.sprite.Group()
+    lavapool3 = pygame.sprite.Group()
+    vertMovingPlatForm1_Level3 = pygame.sprite.Group()
 
-    platForm_floor3.add(GameObject.PlatForms(-10,470,"lvl3platFormImages/startingPlatForm.png"))
-    platForm_floor3.add(GameObject.PlatForms(0,150,"lvl3platFormImages/level3MediumPlatForm.png"))
+
+    
+    platForm_group3.add(GameObject.PlatForms(130,120,"lvl3platFormImages/level3MediumPlatForm.png"))
+    platForm_floor3.add(GameObject.PlatForms(-5,50,"lvl3platFormImages/leftBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(-5,0,"lvl3platFormImages/leftBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(-5,-5,"lvl3platFormImages/topBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(475,-5,"lvl3platFormImages/topBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(950,-5,"lvl3platFormImages/topBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(1175,0,"lvl3platFormImages/rightBorder.png"))
     platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages/BossPlatForm.png"))
-    platForm_floor3.add(GameObject.PlatForms(-5,300,"lvl3platFormImages/level3MediumPlatForm.png"))
-    movingPlatform_group3.add(GameObject.MovingPlatForms(215,470,3,215,850,"lvl3platFormImages/Level3Floating.png"))
+    platForm_floor3.add(GameObject.PlatForms(-10,490,"lvl3platFormImages/startingPlatForm.png"))
+    platForm_group3.add(GameObject.PlatForms(130,300,"lvl3platFormImages/level3MediumPlatForm.png"))
+    movingPlatform_group3.add(GameObject.MovingPlatForms(215,490,3,215,850,"lvl3platFormImages/Level3Floating.png"))
+    vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(850,300,5,300,450,"lvl3platFormImages/Level3Floating.png"))
+    vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(40,300,3,120,300,"lvl3platFormImages/Level3Floating.png"))
+    lavapool3.add(GameObject.LavaPool(185,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(327,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(469,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(611,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(753,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(895,545,"lvl1platformImages/lava.png"))
+
+
 
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ BOBBY INITIALIZATION ----------------------------------------
@@ -467,7 +486,12 @@ while startGame:
             screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
             movingPlatform_group3.draw(screen)
             movingPlatform_group3.update()
+        
+            vertMovingPlatForm1_Level3.update()
+            vertMovingPlatForm1_Level3.draw(screen)
+            lavapool3.draw(screen)
             platForm_floor3.draw(screen)
+            platForm_group3.draw(screen)
         else:
             print("function is false")
 
@@ -545,6 +569,8 @@ while startGame:
                 die.totalDamageTaken += 1
                 die.lavaSpills += 1
                 bobby.setLocation(40,400)
+
+            
 
             coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
             for coin in coinCollisions:
@@ -707,6 +733,13 @@ while startGame:
                 bulletcooldown = 20
             for bullet in bullet_group:
                 bullet.bulletTravel()
+            lavaCollisions3 = pygame.sprite.spritecollide(bobby, lavapool3, False)
+            if len(lavaCollisions3) > 0:
+                lost.play()
+                bobby.loseHp(1)
+                die.totalDamageTaken += 1
+                die.lavaSpills += 1
+                bobby.setLocation(40,375)
 
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
@@ -719,9 +752,9 @@ while startGame:
                 running = False
 
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
-                # renderShop()
                 shop.isOpen=True
                 bobby = shop.renderShop()
+                
                 damage = bobby.attack
                 if current_level == 1:
                     renderLevel1()
@@ -737,7 +770,7 @@ while startGame:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                    #if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                         pygame.mixer.music.stop()
                         pygame.time.delay(100)
                         doorOpen.play()
@@ -755,7 +788,7 @@ while startGame:
                         doorOpen.play()
                         current_level += 1
                         Level2 = False
-                        bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatform_group3)
+                        bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
 
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOUGE SECTION -----------------------------------------

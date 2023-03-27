@@ -55,6 +55,7 @@ class Shop:
         self.unsuccessful_sound = pygame.mixer.Sound("SoundEffects/unsuccessful.wav")
         self.unsuccessful_sound.set_volume(0.2)
     def renderShop(self):
+        pygame.display.set_caption("Shop Menu")
         while self.isOpen:
             for event in pygame.event.get():
                 self.WorkingBobbyImageInShop = GameObject.GameObject(500,260,"ShopImages/ShopUpgradeImages/StandingAxe"+self.axeType+"Shield"+self.shieldType+"L.png")
