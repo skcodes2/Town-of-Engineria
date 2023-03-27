@@ -4,9 +4,13 @@ import Shop
 import death
 
 pygame.init()
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ SCREEN INITIALIZATION ---------------------------------------
+# --------------------------------------------------------------------------------------------------
 # set up images and icons
 pygame.display.set_caption("Main Menu")
 pygame.display.set_icon(pygame.image.load("mainScreenImages/gameicon.png"))
+
 # main screen background 
 mainScreenImage = pygame.image.load('mainScreenImages/main.png'); 
 mainScreenImageRect = mainScreenImage.get_rect()
@@ -19,18 +23,19 @@ backgroundImage_LvL2_rect = backgroundImage_LvL2.get_rect()
 # level 3 background
 backgroundImage_LvL3 = pygame.image.load("backgroundImages/lvl3background.png")
 backgroundImage_LvL3_rect = backgroundImage_LvL3.get_rect()
-
 # set size of window screen
 screen = pygame.display.set_mode((1200, 575))
 screen_rect = screen.get_rect()
 
-# floor layout for level 1 (SPRITES)
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ LEVEL ONE PLATFORMS -----------------------------------------
+# --------------------------------------------------------------------------------------------------
+# floor layout for level 1 (SPRITE GROUPS)
 platForm_group1 = pygame.sprite.Group()
 platForm_floor1 = pygame.sprite.Group()
 movingPlatform_group1 = pygame.sprite.Group()
 lavapool1 = pygame.sprite.Group()
 vertMovingPlatform_group1 = pygame.sprite.Group()
-
 
 # orange floor platform
 platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
@@ -41,7 +46,6 @@ platForm_floor1.add(GameObject.PlatForms(648, 550, "lvl1platformImages/largebrow
 platForm_floor1.add(GameObject.PlatForms(972, 550, "lvl1platformImages/largebrownstone.png"))
 # brown pillar
 platForm_floor1.add(GameObject.PlatForms(500, 350, "lvl1platformImages/brownpillar.png"))
-
 # sky platform 1
 platForm_group1.add(GameObject.PlatForms(380, 420, "lvl1platformImages/orangeplatform.png"))
 # sky platform 2
@@ -50,10 +54,8 @@ platForm_group1.add(GameObject.PlatForms(520, 250, "lvl1platformImages/brownplat
 platForm_group1.add(GameObject.PlatForms(680, 350, "lvl1platformImages/orangeplatform.png"))
 # sky platform 4
 platForm_group1.add(GameObject.PlatForms(850, 370, "lvl1platformImages/orangeplatform.png"))
-
 # moving sky platform
 movingPlatform_group1.add(GameObject.MovingPlatForms(720, 470, 3, 600, 900, "lvl1platformImages/brownplatform.png"))
-
 # left sky flat platform
 platForm_group1.add(GameObject.PlatForms(10, 190, "lvl1platformImages/leftskyplatform.png"))
 # right sky flat platform
@@ -81,7 +83,6 @@ lavapool1.add(GameObject.LavaPool(462, 530, "lvl1platformImages/lava.png"))
 lavapool1.add(GameObject.LavaPool(605, 530, "lvl1platformImages/lava.png"))
 lavapool1.add(GameObject.LavaPool(747, 530, "lvl1platformImages/lava.png"))
 lavapool1.add(GameObject.LavaPool(889, 530, "lvl1platformImages/lava.png"))
-
 # aesthetic images
 destroyedbuilding1 = pygame.image.load("lvl1platformImages/destroyedbuilding1.png")
 destroyedbuilding2 = pygame.image.load("lvl1platformImages/destroyedbuilding2.png")
@@ -89,15 +90,15 @@ destroyedbuilding3 = pygame.image.load("lvl1platformImages/destroyedbuilding3.pn
 destroyedbuilding4 = pygame.image.load("lvl1platformImages/destroyedbuilding4.png")
 destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
 
-
-#-----------------------------------------------------------------------------------^^^^^ Level 1 platforms
-
-
-# floor layout for level 2 (SPRITES)
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ LEVEL TWO PLATFORMS -----------------------------------------
+# --------------------------------------------------------------------------------------------------
+# floor layout for level 2 (SPRITE GROUPS)
 platForm_group2 = pygame.sprite.Group()
 platForm_floor2 = pygame.sprite.Group()
 movingPlatform_group2 = pygame.sprite.Group()
 vertMovingPlatform_group2 = pygame.sprite.Group()
+
 # snow floor platforms
 platForm_floor2.add(GameObject.PlatForms(0, 500, "lvl2platformImages/largeplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
@@ -109,7 +110,7 @@ vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820,450,2,100,450, 
 platForm_floor2.add(GameObject.PlatForms(560, 130, "lvl2platformImages/iceplatform.png"))
 # platform for chest 
 platForm_floor2.add(GameObject.PlatForms(1000, 160, "lvl2platformImages/iceplatform.png"))
-#enemy platform
+# enemy platform
 platForm_floor2.add(GameObject.PlatForms(24, 310, "lvl2platformImages/iceplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(174, 310, "lvl2platformImages/iceplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(324, 310, "lvl2platformImages/iceplatform.png"))
@@ -120,9 +121,9 @@ platForm_floor2.add(GameObject.PlatForms(-5, 320, "lvl2platformImages/sideborder
 platForm_floor2.add(GameObject.PlatForms(-5, 40, "lvl2platformImages/sideborderplatforms.png"))
 platForm_floor2.add(GameObject.PlatForms(-5, -225, "lvl2platformImages/sideborderplatforms.png"))
 # right side border platforms (from bottom to top)
-platForm_floor2.add(GameObject.PlatForms(1175, 307, "lvl2platformImages/sideborderplatforms.png"))
+platForm_floor2.add(GameObject.PlatForms(1175, 350, "lvl2platformImages/sideborderplatforms.png"))
 platForm_floor2.add(GameObject.PlatForms(1175, 40, "lvl2platformImages/sideborderplatforms.png"))
-platForm_floor2.add(GameObject.PlatForms(1175, -225, "lvl2platformImages/sideborderplatforms.png"))
+platForm_floor2.add(GameObject.PlatForms(1175, -230, "lvl2platformImages/sideborderplatforms.png"))
 # top side border brown stone for collisions
 platForm_floor2.add(GameObject.PlatForms(0, 0, "lvl2platformImages/borderplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(137, 0, "lvl2platformImages/borderplatform.png"))
@@ -134,83 +135,73 @@ platForm_floor2.add(GameObject.PlatForms(822, 0, "lvl2platformImages/borderplatf
 platForm_floor2.add(GameObject.PlatForms(959, 0, "lvl2platformImages/borderplatform.png"))
 platForm_floor2.add(GameObject.PlatForms(1096, 0, "lvl2platformImages/borderplatform.png"))
 
-
-#-----------------------------------------------------------------------------------^^^^^ Level 2 platforms
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ LEVEL THREE PLATFORMS ---------------------------------------
+# --------------------------------------------------------------------------------------------------
 platForm_floor3 = pygame.sprite.Group()
 platForm_HorizontalMoving3 = pygame.sprite.Group()
+
 platForm_floor3.add(GameObject.PlatForms(-10,470,"lvl3platFormImages\startingPlatForm.png"))
 platForm_floor3.add(GameObject.PlatForms(0,150,"lvl3platFormImages\level3MediumPlatForm.png"))
 platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages\BossPlatForm.png"))
 platForm_floor3.add(GameObject.PlatForms(-5,300,"lvl3platFormImages\level3MediumPlatForm.png"))
-
 platForm_HorizontalMoving3.add(GameObject.MovingPlatForms(215,470,3,215,850,"lvl3platFormImages\Level3Floating.png"))
-#-----------------------------------------------------------------------------------^^^^^ Level 3 platforms
 
-
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ BOBBY INITIALIZATION ----------------------------------------
+# --------------------------------------------------------------------------------------------------
 # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
 bobby = GameObject.Character(5, 10, 0, 75, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1, vertMovingPlatform_group1)
-#bobby axe throw sound effect
-bobbythrow = pygame.mixer.Sound("SoundEffects/axeThrow.mp3")
-
-#Coin Collected
-collected = pygame.mixer.Sound("SoundEffects/collectedCoin.mp3")
-collected.set_volume(0.5)
-#treasure collected
-chestcollected = pygame.mixer.Sound("SoundEffects/chestOpenSound.mp3")
-chestcollected.set_volume(0.5)
-#key collected 
-keyCollected = pygame.mixer.Sound("SoundEffects/keyGrab.mp3")
-keyCollected.set_volume(0.5)
-#enemy hit sound effect
-enemyHitSound = pygame.mixer.Sound("SoundEffects/enemyHitSound.mp3")
-enemyHitSound.set_volume(0.2)
-#door open sound
-doorOpen = pygame.mixer.Sound("SoundEffects/doorOpen.mp3")
-doorOpen.set_volume(0.5)
-
-#death sound 
-lost = pygame.mixer.Sound("SoundEffects/deathSound.mp3")
-lost.set_volume(5)
-
 # bullet group 
 bullet_group = pygame.sprite.Group()
 bulletcooldown = 0
+# bobby axe throw sound effect
+bobbythrow = pygame.mixer.Sound("SoundEffects/axeThrow.mp3")
+
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ SOUND EFFECTS INITIALIZATION --------------------------------
+# --------------------------------------------------------------------------------------------------
+# coin collected
+collected = pygame.mixer.Sound("SoundEffects/collectedCoin.mp3")
+collected.set_volume(0.5)
+# treasure collected
+chestcollected = pygame.mixer.Sound("SoundEffects/chestOpenSound.mp3")
+chestcollected.set_volume(0.5)
+# key collected 
+keyCollected = pygame.mixer.Sound("SoundEffects/keyGrab.mp3")
+keyCollected.set_volume(0.5)
+# enemy hit sound effect
+enemyHitSound = pygame.mixer.Sound("SoundEffects/enemyHitSound.mp3")
+enemyHitSound.set_volume(0.2)
+# door open sound
+doorOpen = pygame.mixer.Sound("SoundEffects/doorOpen.mp3")
+doorOpen.set_volume(0.5)
+# death sound 
+lost = pygame.mixer.Sound("SoundEffects/deathSound.mp3")
+lost.set_volume(5)
+
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ ENEMIES INITIALIZATION --------------------------------------
+# --------------------------------------------------------------------------------------------------
 # enemy bullet group
 enemy_bullets1 = pygame.sprite.Group()
-
-# coins
+# enemy coin 
 coins1 = pygame.sprite.Group()
-
-# Initialize Enemy Groups
+# initialize Enemy Groups
 enemies1 = pygame.sprite.Group()
 enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(900, 94, screen, enemy_bullets1, "level1", coins1))
 enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
 
-#Shop Initialization
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ SHOP INITIALIZATION -----------------------------------------
+# --------------------------------------------------------------------------------------------------
 shop = Shop.Shop(screen,bobby)
 
-#mainScreenRender
-fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
-Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(255,255,255))
-playBtn = GameObject.GameObject(510,200,"mainScreenImages/playbutton.png")
-exitBtn = GameObject.GameObject(510,260,"mainScreenImages/exitbutton.png")
-helpBtn = GameObject.GameObject(510,320,"mainScreenImages/helpbutton.png")
-playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
-exitBtnImage = pygame.image.load("mainScreenImages/exitbutton.png")
-helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
-
-mainScreen = True
-sb = GameObject.SpeechBubble(bobby.rect.x, bobby.rect.y, bobby, screen)
-#mainScreen Music
-pygame.display.set_caption("Main Menu")
-pygame.mixer.init()
-pygame.mixer.music.load("GameMusic/mainScreenMusic.mp3")
-pygame.mixer.music.set_volume(0.15)
-pygame.mixer.music.play(-1)
-
-# help render loop
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ RENDER HELP SCREEN ------------------------------------------
+# --------------------------------------------------------------------------------------------------
 def renderHelpScreen():
     help = True
     screen.fill((255,255,255))
@@ -225,6 +216,26 @@ def renderHelpScreen():
 
         pygame.display.flip()
 
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ RENDER MAIN SCREEN ------------------------------------------
+# --------------------------------------------------------------------------------------------------
+# mainScreenRender
+fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
+Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(255,255,255))
+playBtn = GameObject.GameObject(510,200,"mainScreenImages/playbutton.png")
+exitBtn = GameObject.GameObject(510,260,"mainScreenImages/exitbutton.png")
+helpBtn = GameObject.GameObject(510,320,"mainScreenImages/helpbutton.png")
+playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
+exitBtnImage = pygame.image.load("mainScreenImages/exitbutton.png")
+helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
+mainScreen = True
+sb = GameObject.SpeechBubble(bobby.rect.x, bobby.rect.y, bobby, screen)
+# mainScreen Music
+pygame.display.set_caption("Main Menu")
+pygame.mixer.init()
+pygame.mixer.music.load("GameMusic/mainScreenMusic.mp3")
+pygame.mixer.music.set_volume(0.15)
+pygame.mixer.music.play(-1)
 
 # rendering the main screen
 def renderMainScreen():
@@ -254,41 +265,42 @@ def renderMainScreen():
                 # place the render help here. 
                 renderHelpScreen()
 
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ OTHER INITIALIZATION ----------------------------------------
+# --------------------------------------------------------------------------------------------------
 # death screen stuff
 die = death.Death(screen,bobby)
 startTime = pygame.time.get_ticks()
 
+# door initialization
 doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
 doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
 doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
 
-#LEVEL 1 CHESTS AND KEYS 
+numberOfKeys=[]
+
+# instructions to move 
+playDialogue1 = True
+# instructions to defeat enemies 
+playDialogue2 = True
+# says "Good Work!"
+playDialogue3 = True
+# instructions to open shop 
+playDialogue4 = True
+dialogueClock = 0
+
+#--------------------------------------------------------------------------------------------------
+#------------------------------------ RENDER LEVEL 1 ----------------------------------------------
+#--------------------------------------------------------------------------------------------------
+# LEVEL 1 CHESTS AND KEYS 
 chestOpenImage =  GameObject.GameObject(1090,127,"chestImages/openedChest.png")
 chestClosedImage = GameObject.GameObject(1090,137,"chestImages/closedChest.png")
 chestKeyRect = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 chestKeyImage = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-
-#LEVEL 2 CHEST AND KEYS 
-chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
-chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
-chestKeyRect2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-chestKeyImage2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-numberOfKeys=[]
-
-#instructions to move 
-playDialogue1 = True
-#instructions to defeat enemies 
-playDialogue2 = True
-#says "Good Work!"
-playDialogue3 = True
-#instructions to open shop 
-playDialogue4 = True
-dialogueClock = 0
-
 Level1keyAlive = True
 Level1ChestAlive = True
 Level1 = True
-# rendering levels 
+# render level 1 
 def renderLevel1():
     if Level1:
         if not pygame.mixer.music.get_busy():
@@ -326,13 +338,21 @@ def renderLevel1():
 
         for bullet in enemy_bullets1:
             bullet.bulletHoming(bobby)
-
     else:
         print("function is false")
 
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ RENDER LEVEL 2 ----------------------------------------------
+# --------------------------------------------------------------------------------------------------
+# LEVEL 2 CHEST AND KEYS 
+chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
+chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
+chestKeyRect2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+chestKeyImage2 = GameObject.GameObject(120,150,"chestImages/chestKey.png")
 Level2keyAlive = True
 Level2ChestAlive = True
 Level2 = True
+# render level 2
 def renderLevel2():
     if Level2:
         movingPlatform_group1.empty()
@@ -355,7 +375,13 @@ def renderLevel2():
     else:
         print("function is false")
 
+#--------------------------------------------------------------------------------------------------
+#------------------------------------ RENDER LEVEL 3 ----------------------------------------------
+#--------------------------------------------------------------------------------------------------
+Level3keyAlive = True
+Level3ChestAlive = True
 Level3 = True
+# render level 3
 def renderLevel3():
     if Level3:
         pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
@@ -366,16 +392,17 @@ def renderLevel3():
     else:
         print("function is false")
 
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------ RENDER BOBBY'S STATS ----------------------------------------
+# --------------------------------------------------------------------------------------------------
 # Bobby's Stats (SPRITE) to set the images
 bobbyStats = pygame.sprite.Group()
 bobbyStats.add(GameObject.Stats(28, 17, "statsImages/heart.png"))
 bobbyStats.add(GameObject.Stats(99, 20, "statsImages/strength.png"))
 bobbyStats.add(GameObject.Stats(175, 22, "statsImages/coin.png"))
-
 # set the font of label and the color
 font = pygame.font.SysFont("arial.ttf", 24)
-
-# rendering Bobby's Stats
+# render stats 
 def renderStats():
     heart = font.render(str(bobby.health), True, (255, 255, 255))
     strength = font.render(str(bobby.attack), True, (255, 255, 255))
@@ -388,15 +415,17 @@ def renderStats():
     screen.blit(strength, (143, 27))
     screen.blit(money, (210, 27))
 
-# Game Loop 1
+# --------------------------------------------------------------------------------------------------
+# ------------------------------------------- GAME LOOP --------------------------------------------
+# --------------------------------------------------------------------------------------------------
 current_level = 1
 running = True
 while running:
     renderMainScreen()
     pygame.time.Clock().tick(100)
-    #-------------------------------------------------------------------------------------------------
-    #-------------------------------- IF BOBBY IS DEAD -----------------------------------------------
-    #-------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------
+    # -------------------------------- IF BOBBY IS DEAD -----------------------------------------------
+    # -------------------------------------------------------------------------------------------------
     if bobby.health <= 0: 
         bobby.health = 10
         #resetting the game
@@ -409,9 +438,9 @@ while running:
         secondsPlayed = int(elapsedTime%60)
         die.renderDeathScreen(minutesPlayed,secondsPlayed)
 
-    #-------------------------------------------------------------------------------------------------
-    #-------------------------------- IF BOBBY IS ON LEVEL 1 -----------------------------------------
-    #-------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------
+    # -------------------------------- IF BOBBY IS ON LEVEL 1 -----------------------------------------
+    # -------------------------------------------------------------------------------------------------
     if current_level == 1:
         renderLevel1()
         renderStats()
@@ -471,7 +500,7 @@ while running:
         collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets1, True, True)
 
         enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
-        #if enemy gets hit by bullet
+        # if enemy gets hit by bullet
         for enemy in enemiesHit.keys():
             enemyHitSound.play()
             enemy.loseHp(bobby.attack)
@@ -479,27 +508,27 @@ while running:
         if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
             sb.showsmallspeechbubble(bobby)
             sb.showText(bobby, "Press [ENTER]", 32.5, 65)
-        #if chest key exist on level
+        # if chest key exist on level
         if Level1keyAlive: 
-            #and collides with the key rectangle and bobby has 0 key  
+            # and collides with the key rectangle and bobby has 0 key  
             if bobby.rect.colliderect(chestKeyRect) and bobby.keys==0:
-                #stop blitting key image and increase his key amount 
+                # stop blitting key image and increase his key amount 
                 Level1keyAlive = False
                 keyCollected.play()
                 bobby.keys+=1
-        #if chest is closed and enemies are killed
+        # if chest is closed and enemies are killed
         if Level1ChestAlive and len(enemies1)==0:
-            #and if he collides with the closed chest with a key
+            # and if he collides with the closed chest with a key
             if bobby.rect.colliderect(chestClosedImage.rect) and bobby.keys>=1:
-                #blit the opened chest 
+                # blit the opened chest 
                 Level1ChestAlive = False
                 chestcollected.play()
                 bobby.money+=20
                 bobby.keys-=1
 
-    #-------------------------------------------------------------------------------------------------
-    #-------------------------------- IF BOBBY IS ON LEVEL 2 -----------------------------------------
-    #-------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------
+    # -------------------------------- IF BOBBY IS ON LEVEL 2 -----------------------------------------
+    # -------------------------------------------------------------------------------------------------
     elif current_level == 2:
         renderLevel2()
         renderStats()
@@ -523,33 +552,33 @@ while running:
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
-        #if chest key exist on level
+        # if chest key exist on level
         if Level2keyAlive: 
-            #and collides with the key rectangle and bobby has 0 key  
+            # and collides with the key rectangle and bobby has 0 key  
             if bobby.rect.colliderect(chestKeyRect2) and bobby.keys==0:
-                #stop blitting key image and increase his key amount 
+                # stop blitting key image and increase his key amount 
                 Level2keyAlive = False
                 keyCollected.play()
                 bobby.keys+=1
-        #if chest is closed and enemies are killed
+        # if chest is closed and enemies are killed
         if Level2ChestAlive and len(enemies1)==0:
-            #and if he collides with the closed chest with a key
+            # and if he collides with the closed chest with a key
             if bobby.rect.colliderect(chestClosedImage2.rect) and bobby.keys>=1:
-                #blit the opened chest 
+                # blit the opened chest 
                 Level2ChestAlive = False
                 chestcollected.play()
                 bobby.money+=20
                 bobby.keys-=1
-    #-------------------------------------------------------------------------------------------------
-    #-------------------------------- IF BOBBY IS ON LEVEL 3 -----------------------------------------
-    #-------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------
+    # -------------------------------- IF BOBBY IS ON LEVEL 3 -----------------------------------------
+    # -------------------------------------------------------------------------------------------------
     elif current_level == 3:
         renderLevel3()
         renderStats()
         
-    #-------------------------------------------------------------------------------------------------
-    #-------------------------------------- EVENT LOOP -----------------------------------------------
-    #-------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------
+    # -------------------------------------- EVENT LOOP -----------------------------------------------
+    # -------------------------------------------------------------------------------------------------
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -585,9 +614,9 @@ while running:
             Level2 = False
             current_level += 1
 
-    #-------------------------------------------------------------------------------------------------
-    #-------------------------------------- DIALOUGE SECTION -----------------------------------------
-    #-------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------
+    # -------------------------------------- DIALOUGE SECTION -----------------------------------------
+    # -------------------------------------------------------------------------------------------------
     if current_level == 1 and playDialogue2 == True:
         if playDialogue1 == True:
             bobby.defaultSpeed = 0
