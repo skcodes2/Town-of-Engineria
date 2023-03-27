@@ -523,7 +523,23 @@ while running:
 
         collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
         collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
-
+        #if chest key exist on level
+        if Level2keyAlive: 
+            #and collides with the key rectangle and bobby has 0 key  
+            if bobby.rect.colliderect(chestKeyRect2) and bobby.keys==0:
+                #stop blitting key image and increase his key amount 
+                Level2keyAlive = False
+                keyCollected.play()
+                bobby.keys+=1
+        #if chest is closed and enemies are killed
+        if Level2ChestAlive and len(enemies1)==0:
+            #and if he collides with the closed chest with a key
+            if bobby.rect.colliderect(chestClosedImage2.rect) and bobby.keys>=1:
+                #blit the opened chest 
+                Level2ChestAlive = False
+                chestcollected.play()
+                bobby.money+=20
+                bobby.keys-=1
     #-------------------------------------------------------------------------------------------------
     #-------------------------------- IF BOBBY IS ON LEVEL 3 -----------------------------------------
     #-------------------------------------------------------------------------------------------------
