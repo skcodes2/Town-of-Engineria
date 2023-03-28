@@ -614,6 +614,8 @@ while startGame:
             collisions3 = pygame.sprite.groupcollide(enemy_bullets1, platForm_floor1, True, False)
             collisions4 = pygame.sprite.groupcollide(enemy_bullets1, platForm_group1, True, False)
             collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets1, True, True)
+            collisions6 = pygame.sprite.groupcollide(enemy_bullets1, movingPlatform_group1, True, False)
+            collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group1, True, False)
 
             enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
             # if enemy gets hit by bullet
@@ -696,6 +698,9 @@ while startGame:
             collisions3 = pygame.sprite.groupcollide(enemy_bullets2, platForm_floor2, True, False)
             collisions4 = pygame.sprite.groupcollide(enemy_bullets2, platForm_group2, True, False)
             collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets2, True, True)
+            collisions6 = pygame.sprite.groupcollide(enemy_bullets2, vertMovingPlatform_group2, True, False)
+            collisions7 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatform_group2, True, False)
+
 
             enemiesHit = pygame.sprite.groupcollide(enemies2, bullet_group, False, True)
             # if enemy gets hit by bullet
@@ -790,6 +795,8 @@ while startGame:
 
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
+            collisions7 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatForm1_Level3, True, False)
+            collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group3, True, False)
             
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- EVENT LOOP -----------------------------------------------
