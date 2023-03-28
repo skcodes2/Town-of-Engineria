@@ -214,7 +214,7 @@ while startGame:
     coins2 = pygame.sprite.Group()
     # initialize level 1 Enemy Groups
     enemies1 = pygame.sprite.Group()
-    enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
+    enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "startingEnemy", coins1))
     enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
     enemies1.add(GameObject.Enemy(900, 94, screen, enemy_bullets1, "level1", coins1))
     enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
@@ -868,7 +868,7 @@ while startGame:
                 sb.showText(bobby, "chests and proceed to next", 20, 110)
                 sb.showText(bobby, "level.", 20, 90)
                 dialogueClock += 1
-            if dialogueClock == 1:
+            if dialogueClock == 150:
                 playDialogue2 = False
                 dialogueClock = 0
                 bobby.defaultSpeed = saved_speed

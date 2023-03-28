@@ -352,6 +352,11 @@ class Enemy(GameObject):
             self.sightRangey = 200
             self.bulletSpeed = 12
             self.health = 8
+        elif type == "startingEnemy":
+            self.sightRangex = 100
+            self.sightRangey = 100
+            self.bulletSpeed = 6
+            self.health = 3
         self.coins = coins
 
     def handleBehaviour(self, bobby):
