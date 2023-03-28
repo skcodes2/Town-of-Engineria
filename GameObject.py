@@ -288,9 +288,19 @@ class Character(GameObject):
             self.jumpingSpeed = 0
 
         horizcollisions = pygame.sprite.spritecollide(self, self.platform2, False)
+        horizcollisions1 = [sprite for sprite in horizcollisions if not (self.rect.bottom > sprite.rect.top and self.rect.bottom <= sprite.rect.top + 15)]
         isLeftCollided = False
         isRightCollided = False
-        for sprite in horizcollisions:
+        for sprite in horizcollisions1:
+            if self.rect.left <= sprite.rect.right and self.rect.left >= sprite.rect.right - 25 and self.rect.bottom in range(sprite.rect.top + 22, sprite.rect.bottom + 10):
+                self.leftSpeed = 0
+                isLeftCollided = True
+            else:
+                if isLeftCollided == True:
+                    pass
+                else:
+                    self.leftSpeed = self.defaultSpeed
+
             if self.rect.right >= sprite.rect.left and self.rect.right <= sprite.rect.left + 25 and self.rect.bottom in range(sprite.rect.top + 22, sprite.rect.bottom + 10):
                 self.rightSpeed = 0
                 isRightCollided = True
@@ -300,16 +310,7 @@ class Character(GameObject):
                 else:
                     self.rightSpeed = self.defaultSpeed
 
-            if self.rect.left <= sprite.rect.right and self.rect.left >= sprite.rect.right - 25 and self.rect.bottom in range(sprite.rect.top + 22, sprite.rect.bottom + 10):
-                self.leftSpeed = 0
-                isLeftCollided = True
-            else:
-                if isLeftCollided == True:
-                    pass
-                else:
-                    self.leftSpeed = self.defaultSpeed
-        
-        if len(horizcollisions) == 0:
+        if len(horizcollisions1) == 0:
             self.rightSpeed = self.defaultSpeed
             self.leftSpeed = self.defaultSpeed
         
@@ -337,22 +338,25 @@ class Enemy(GameObject):
         self.animateDelay = 8
         self.bulletGroup = bulletGroup
         if type == "level1":
-            self.sightRange = 300
+            self.sightRangex = 400
+            self.sightRangey = 100
             self.bulletSpeed = 6
             self.health = 3
         elif type == "level2":
-            self.sightRange = 500
+            self.sightRangex = 800
+            self.sightRangey = 150
             self.bulletSpeed = 8
             self.health = 5
         elif type == "level3":
-            self.sightRange = 800
+            self.sightRangex = 1000
+            self.sightRangey = 200
             self.bulletSpeed = 12
             self.health = 8
         self.coins = coins
 
     def handleBehaviour(self, bobby):
 
-        if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRange and abs(bobby.rect.centery - self.rect.centery <= self.sightRange) and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
+        if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
             self.animateR = 0
             if self.animateL // self.animateDelay == 0:
                 self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90)) # hard coded cuz animations arent all the same size for some reason
@@ -375,7 +379,7 @@ class Enemy(GameObject):
             if self.animateL == self.animateDelay * 5:
                 self.animateL = 0
 
-        elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRange and abs(bobby.rect.centery - self.rect.centery <= self.sightRange) and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
+        elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
             if self.animateR // self.animateDelay == 0:
                 self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0, 0, 73.8, 90))
             

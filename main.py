@@ -208,8 +208,10 @@ while startGame:
     # --------------------------------------------------------------------------------------------------
     # enemy bullet group
     enemy_bullets1 = pygame.sprite.Group()
+    enemy_bullets2 = pygame.sprite.Group()
     # enemy coin 
     coins1 = pygame.sprite.Group()
+    coins2 = pygame.sprite.Group()
     # initialize level 1 Enemy Groups
     enemies1 = pygame.sprite.Group()
     enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "level1", coins1))
@@ -219,6 +221,8 @@ while startGame:
 
     # initialize level 2 Enemy Groups
     enemies2 = pygame.sprite.Group()
+    enemies2.add(GameObject.Enemy(60, 193, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(570, 40, screen, enemy_bullets2, "level2", coins2))
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -343,6 +347,7 @@ while startGame:
     startTime = pygame.time.get_ticks()
 
     numberOfKeys=[]
+    shopEnabled = True
 
     # instructions to move 
     playDialogue1 = True
@@ -413,7 +418,7 @@ while startGame:
             for bullet in bullet_group:
                 bullet.bulletTravel()
             for bullet in enemy_bullets1:
-                bullet.bulletHoming(bobby)
+                bullet.bulletTravel()
         else:
             print("function is false")
 
@@ -470,6 +475,14 @@ while startGame:
             vertMovingPlatform_group2.update()
             vertMovingPlatform_group2.draw(screen)
             screen.blit(doorClosedImage2, (80, 370))
+            for enemy in enemies2:
+                enemy.handleBehaviour(bobby)
+            for coin in coins2:
+                coin.animate()
+            for bullet in bullet_group:
+                bullet.bulletTravel()
+            for bullet in enemy_bullets2:
+                bullet.bulletHoming(bobby)
         else:
             print("function is false")
 
@@ -536,6 +549,7 @@ while startGame:
             minutesPlayed = int(elapsedTime // 60)
             secondsPlayed = int(elapsedTime%60)
             die.renderDeathScreen(minutesPlayed,secondsPlayed)
+            dialogueClock = 0
             break
 
         # -------------------------------------------------------------------------------------------------
@@ -583,7 +597,7 @@ while startGame:
             direction = bobby.playerMovementControl(keys)
             damage =1
             if keys[pygame.K_SPACE]:
-                if bulletcooldown >= 20:
+                if bulletcooldown >= 10:
                     if direction[1] == True:
                         bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
                     else:
@@ -592,8 +606,8 @@ while startGame:
                     die.axesChucked += 1
                 
             bulletcooldown += 1
-            if bulletcooldown >= 20:
-                bulletcooldown = 20
+            if bulletcooldown >= 10:
+                bulletcooldown = 10
 
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor1, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group1, True, False)
@@ -645,9 +659,25 @@ while startGame:
             renderStats()
             keys = pygame.key.get_pressed()
             direction = bobby.playerMovementControl(keys)
+
+            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies2, False)
+            for collision in enemyCollisions:
+                lost.play() 
+                bobby.loseHp(1)
+                die.totalDamageTaken += 1
+                bobby.setLocation(1040, 287)
+
+            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets2, False)
+            for sprite in bulletCollisions:
+                lost.play()
+                bobby.loseHp(1)
+                die.totalDamageTaken += 1
+                bobby.setLocation(1040, 287)
+                sprite.kill()
+                del sprite
             
             if keys[pygame.K_SPACE]:
-                if bulletcooldown >= 20:
+                if bulletcooldown >= 10:
                     if direction[1] == True:
                         bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                     else:
@@ -656,13 +686,30 @@ while startGame:
                     die.axesChucked += 1
             
             bulletcooldown += 1
-            if bulletcooldown >= 20:
-                bulletcooldown = 20
+            if bulletcooldown >= 10:
+                bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor2, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group2, True, False)
+            collisions3 = pygame.sprite.groupcollide(enemy_bullets2, platForm_floor2, True, False)
+            collisions4 = pygame.sprite.groupcollide(enemy_bullets2, platForm_group2, True, False)
+            collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets2, True, True)
+
+            enemiesHit = pygame.sprite.groupcollide(enemies2, bullet_group, False, True)
+            # if enemy gets hit by bullet
+            for enemy in enemiesHit.keys():
+                enemyHitSound.play()
+                enemy.loseHp(bobby.attack)
+
+            coinCollisions = pygame.sprite.spritecollide(bobby, coins2, False)
+            for coin in coinCollisions:
+                collected.play()
+                bobby.gainMoney(coin.value)
+                die.totalMoneyEarned += 20 
+                coin.kill()
+                del coin
             
             if len(enemies2) == 0 and bobby.rect.colliderect(doorOpenRect2):
                 sb.showsmallspeechbubble(bobby)
@@ -751,7 +798,7 @@ while startGame:
             if event.type == pygame.QUIT:
                 running = False
 
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_p and shopEnabled == True:
                 shop.isOpen=True
                 bobby = shop.renderShop()
                 
@@ -777,6 +824,7 @@ while startGame:
                         current_level += 1
                         Level1 = False
                         bobby.changeLevel(platForm_group2, platForm_floor2, movingPlatform_group2, vertMovingPlatform_group2)
+                        dialogueClock = 0
                 
             elif event.type == pygame.KEYDOWN and current_level == 2:
                 if event.key == pygame.K_ESCAPE:
@@ -791,11 +839,14 @@ while startGame:
                         bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
 
         # -------------------------------------------------------------------------------------------------
-        # -------------------------------------- DIALOUGE SECTION -----------------------------------------
+        # -------------------------------------- DIALOGUE SECTION -----------------------------------------
         # -------------------------------------------------------------------------------------------------
         if current_level == 1 and playDialogue2 == True:
-            if playDialogue1 == True:
+            if playDialogue1 == True and dialogueClock == 0:
+                saved_speed = bobby.defaultSpeed
                 bobby.defaultSpeed = 0
+                shopEnabled = False
+            if playDialogue1 == True:
                 sb.showSpeechBubbleLevel1(bobby)
                 sb.showText(bobby, "Move and jump with [ARROW]", 20, 130)
                 sb.showText(bobby, "keys. Press [SPACE] key to", 20, 110)
@@ -810,14 +861,18 @@ while startGame:
                 sb.showText(bobby, "chests and proceed to next", 20, 110)
                 sb.showText(bobby, "level.", 20, 90)
                 dialogueClock += 1
-            if dialogueClock == 200:
+            if dialogueClock == 1:
                 playDialogue2 = False
                 dialogueClock = 0
-                bobby.defaultSpeed = 5
+                bobby.defaultSpeed = saved_speed
+                shopEnabled = True
         
         if current_level == 2 and playDialogue4 == True:
-            if playDialogue4 == True:
+            if dialogueClock == 0:
+                saved_speed = bobby.defaultSpeed
                 bobby.defaultSpeed = 0
+                shopEnabled = False
+            if playDialogue4 == True:
                 sb.showSpeechBubbleLevel2(bobby)
                 sb.showText(bobby, "Press [P] to open shop menu.", 170, 130)
                 sb.showText(bobby, "You can upgrade weapons and", 170, 110)
@@ -827,6 +882,6 @@ while startGame:
             if dialogueClock == 100:
                 playDialogue4 = False
                 dialogueClock = 0
-                bobby.defaultSpeed = 5
-
+                bobby.defaultSpeed = saved_speed
+                shopEnabled = True
         pygame.display.flip()

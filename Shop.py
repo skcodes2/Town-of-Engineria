@@ -82,7 +82,7 @@ class Shop:
                     else:
                         self.unsuccessful_sound.play()
                 if event.type == pygame.MOUSEBUTTONDOWN and self.speedBtn.rect.collidepoint(event.pos):
-                    if self.bobby.money>=10:
+                    if self.bobby.money>=10 and self.bobby.defaultSpeed < 12:
                         self.bobby.money -=10
                         self.bobby.defaultSpeed +=1
                         self.success_sound.play()
