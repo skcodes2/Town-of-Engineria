@@ -513,23 +513,29 @@ while startGame:
     # --------------------------------------------------------------------------------------------------
     # Bobby's Stats (SPRITE) to set the images
     bobbyStats = pygame.sprite.Group()
-    bobbyStats.add(GameObject.Stats(28, 17, "statsImages/heart.png"))
-    bobbyStats.add(GameObject.Stats(99, 20, "statsImages/strength.png"))
-    bobbyStats.add(GameObject.Stats(175, 22, "statsImages/coin.png"))
-    # set the font of label and the color
-    font = pygame.font.SysFont("arial.ttf", 24)
+    bobbyStats.add(GameObject.Stats(493, 2, "statsImages/heart.png"))
+    bobbyStats.add(GameObject.Stats(564, 5, "statsImages/strength.png"))
+    bobbyStats.add(GameObject.Stats(640, 7, "statsImages/coin.png"))
+    font = pygame.font.SysFont("arial.ttf", 26)
+
+    def rounded_rect(width, height, color, border_radius):
+        rect_surf = pygame.Surface((width, height), pygame.SRCALPHA)
+        pygame.draw.rect(rect_surf, color, rect_surf.get_rect(), border_radius=border_radius)
+        return rect_surf
+
     # render stats 
     def renderStats():
         heart = font.render(str(bobby.health), True, (255, 255, 255))
         strength = font.render(str(bobby.attack), True, (255, 255, 255))
         money = font.render(str(bobby.money), True, (255, 255, 255))
-        statBG = pygame.Rect(24, 15, 222, 42)
+        statBG = pygame.Rect(489, 0, 222, 42)
+        rect_surf = rounded_rect(222, 42, (*(0, 0, 0),200), 12)
+        screen.blit(rect_surf, statBG)
 
-        pygame.draw.rect(screen, (0,0,0), statBG)
         bobbyStats.draw(screen)
-        screen.blit(heart, (70, 27))
-        screen.blit(strength, (143, 27))
-        screen.blit(money, (210, 27))
+        screen.blit(heart, (535, 12))
+        screen.blit(strength, (608, 12))
+        screen.blit(money, (675, 12))
 
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------------- GAME LOOP --------------------------------------------
