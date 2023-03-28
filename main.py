@@ -61,13 +61,6 @@ while startGame:
     platForm_group1.add(GameObject.PlatForms(10, 190, "lvl1platformImages/leftskyplatform.png"))
     # right sky flat platform
     platForm_group1.add(GameObject.PlatForms(640, 180, "lvl1platformImages/rightskyplatform.png"))
-    # left side border brown stone for collisions
-    platForm_floor1.add(GameObject.PlatForms(-6, -5,"lvl1platformImages/brownborderplatform.png"))
-    platForm_floor1.add(GameObject.PlatForms(-6, 235,"lvl1platformImages/brownborderplatform.png"))
-    # right side border brown stone for collisions
-    platForm_floor1.add(GameObject.PlatForms(1175, -40, "lvl1platformImages/brownborderplatform.png"))
-    platForm_floor1.add(GameObject.PlatForms(1175, 190, "lvl1platformImages/brownborderplatform.png"))
-    platForm_floor1.add(GameObject.PlatForms(1175, 431, "lvl1platformImages/brownborderplatform.png"))
     # top side border brown stone for collisions
     platForm_floor1.add(GameObject.PlatForms(0, 0, "lvl1platformImages/brownflatplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(137, 0, "lvl1platformImages/brownflatplatform.png"))
@@ -78,6 +71,13 @@ while startGame:
     platForm_floor1.add(GameObject.PlatForms(822, 0, "lvl1platformImages/brownflatplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
+    # left side border brown stone for collisions
+    platForm_floor1.add(GameObject.PlatForms(-6, -5,"lvl1platformImages/brownborderplatform.png"))
+    platForm_floor1.add(GameObject.PlatForms(-6, 235,"lvl1platformImages/brownborderplatform.png"))
+    # right side border brown stone for collisions
+    platForm_floor1.add(GameObject.PlatForms(1175, -40, "lvl1platformImages/brownborderplatform.png"))
+    platForm_floor1.add(GameObject.PlatForms(1175, 190, "lvl1platformImages/brownborderplatform.png"))
+    platForm_floor1.add(GameObject.PlatForms(1175, 431, "lvl1platformImages/brownborderplatform.png"))
     # lavapools
     lavapool1.add(GameObject.LavaPool(320, 530, "lvl1platformImages/lava.png"))
     lavapool1.add(GameObject.LavaPool(462, 530, "lvl1platformImages/lava.png"))
@@ -107,25 +107,21 @@ while startGame:
     platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(972, 350, "lvl2platformImages/largeplatform.png"))
     # moving up and down platform
-    vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820,450,2,100,450, "lvl1platformImages/brownplatform.png"))
-    # platform for middle chest
-    platForm_floor2.add(GameObject.PlatForms(560, 130, "lvl2platformImages/iceplatform.png"))
-    # platform for chest 
-    platForm_floor2.add(GameObject.PlatForms(1000, 160, "lvl2platformImages/iceplatform.png"))
+    vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820,450,2,120,450, "lvl2platformImages/snowplatform.png"))
+    # top left sky platform
+    platForm_group2.add(GameObject.PlatForms(65, 130, "lvl2platformImages/iceplatform.png"))
+    # top middle sky platform
+    platForm_group2.add(GameObject.PlatForms(320, 130, "lvl2platformImages/iceplatform.png"))
+    # platform for enemy and key
+    platForm_group2.add(GameObject.PlatForms(560, 130, "lvl2platformImages/iceplatform.png"))
+    # platform for chest on right side
+    platForm_group2.add(GameObject.PlatForms(1000, 160, "lvl2platformImages/iceplatform.png"))
     # enemy platform
-    platForm_floor2.add(GameObject.PlatForms(24, 280, "lvl2platformImages/iceplatform.png"))
-    platForm_floor2.add(GameObject.PlatForms(174, 280, "lvl2platformImages/iceplatform.png"))
-    platForm_floor2.add(GameObject.PlatForms(324, 280, "lvl2platformImages/iceplatform.png"))
-    platForm_floor2.add(GameObject.PlatForms(474, 280, "lvl2platformImages/iceplatform.png"))
-    platForm_floor2.add(GameObject.PlatForms(624, 280, "lvl2platformImages/iceplatform.png"))
-    # left side border platforms (from bottom to top)
-    platForm_floor2.add(GameObject.PlatForms(-5, 320, "lvl2platformImages/sideborderplatforms.png"))
-    platForm_floor2.add(GameObject.PlatForms(-5, 40, "lvl2platformImages/sideborderplatforms.png"))
-    platForm_floor2.add(GameObject.PlatForms(-5, -225, "lvl2platformImages/sideborderplatforms.png"))
-    # right side border platforms (from bottom to top)
-    platForm_floor2.add(GameObject.PlatForms(1175, 350, "lvl2platformImages/sideborderplatforms.png"))
-    platForm_floor2.add(GameObject.PlatForms(1175, 40, "lvl2platformImages/sideborderplatforms.png"))
-    platForm_floor2.add(GameObject.PlatForms(1175, -230, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_group2.add(GameObject.PlatForms(24, 280, "lvl2platformImages/iceplatform.png"))
+    platForm_group2.add(GameObject.PlatForms(174, 280, "lvl2platformImages/iceplatform.png"))
+    platForm_group2.add(GameObject.PlatForms(324, 280, "lvl2platformImages/iceplatform.png"))
+    platForm_group2.add(GameObject.PlatForms(474, 280, "lvl2platformImages/iceplatform.png"))
+    platForm_group2.add(GameObject.PlatForms(624, 280, "lvl2platformImages/iceplatform.png"))
     # top side border brown stone for collisions
     platForm_floor2.add(GameObject.PlatForms(0, 0, "lvl2platformImages/borderplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(137, 0, "lvl2platformImages/borderplatform.png"))
@@ -136,12 +132,20 @@ while startGame:
     platForm_floor2.add(GameObject.PlatForms(822, 0, "lvl2platformImages/borderplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(959, 0, "lvl2platformImages/borderplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(1096, 0, "lvl2platformImages/borderplatform.png"))
+    # left side border platforms (from bottom to top)
+    platForm_floor2.add(GameObject.PlatForms(-5, 320, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_floor2.add(GameObject.PlatForms(-5, 40, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_floor2.add(GameObject.PlatForms(-5, -225, "lvl2platformImages/sideborderplatforms.png"))
+    # right side border platforms (from bottom to top)
+    platForm_floor2.add(GameObject.PlatForms(1175, 350, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_floor2.add(GameObject.PlatForms(1175, 40, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_floor2.add(GameObject.PlatForms(1175, -230, "lvl2platformImages/sideborderplatforms.png"))
 
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ LEVEL THREE PLATFORMS ---------------------------------------
     # --------------------------------------------------------------------------------------------------
-    platForm_floor3 = pygame.sprite.Group()
     platForm_group3 = pygame.sprite.Group()
+    platForm_floor3 = pygame.sprite.Group()
     movingPlatform_group3 = pygame.sprite.Group()
     lavapool3 = pygame.sprite.Group()
     vertMovingPlatForm1_Level3 = pygame.sprite.Group()
@@ -221,8 +225,10 @@ while startGame:
 
     # initialize level 2 Enemy Groups
     enemies2 = pygame.sprite.Group()
-    enemies2.add(GameObject.Enemy(60, 193, screen, enemy_bullets2, "level2", coins2))
-    enemies2.add(GameObject.Enemy(570, 40, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(100, 195, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(100, 45, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(350, 45, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(570, 45, screen, enemy_bullets2, "level2", coins2))
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -371,8 +377,8 @@ while startGame:
     # chest and key initialization
     chestOpenImage =  GameObject.GameObject(1090,127,"chestImages/openedChest.png")
     chestClosedImage = GameObject.GameObject(1090,137,"chestImages/closedChest.png")
-    chestKeyRect = GameObject.GameObject(120,150,"chestImages/chestKey.png")
-    chestKeyImage = GameObject.GameObject(120,150,"chestImages/chestKey.png")
+    chestKeyRect = GameObject.GameObject(120,140,"chestImages/chestKey.png")
+    chestKeyImage = GameObject.GameObject(120,140,"chestImages/chestKey.png")
     # boolean functions 
     Level1keyAlive = True
     Level1ChestAlive = True
@@ -433,13 +439,13 @@ while startGame:
     # chest and key 1 initialization
     chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
     chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
-    chestKeyRect2 = GameObject.GameObject(620,60,"chestImages/chestKey.png")
-    chestKeyImage2 = GameObject.GameObject(620,60,"chestImages/chestKey.png")
+    chestKeyRect2 = GameObject.GameObject(670,60,"chestImages/chestKey.png")
+    chestKeyImage2 = GameObject.GameObject(670,60,"chestImages/chestKey.png")
     # chest and key 2 initialization
     chestOpenImage3 =  GameObject.GameObject(230,417,"chestImages/openedChest.png")
     chestClosedImage3 = GameObject.GameObject(230,427,"chestImages/closedChest.png")
-    chestKeyRect3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
-    chestKeyImage3 = GameObject.GameObject(120,190,"chestImages/chestKey.png")
+    chestKeyRect3 = GameObject.GameObject(50,220,"chestImages/chestKey.png")
+    chestKeyImage3 = GameObject.GameObject(50,220,"chestImages/chestKey.png")
     # boolean functions
     Level2keyAlive = True
     Level2keyAlive2 = True
@@ -544,7 +550,7 @@ while startGame:
     running = True
     while running:
         renderMainScreen()
-        pygame.time.Clock().tick(100)
+        pygame.time.Clock().tick(130)
         # -------------------------------------------------------------------------------------------------
         # -------------------------------- IF BOBBY IS DEAD -----------------------------------------------
         # -------------------------------------------------------------------------------------------------
@@ -801,7 +807,7 @@ while startGame:
 
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
-            collisions7 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatForm1_Level3, True, False)
+            collisions6 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatForm1_Level3, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group3, True, False)
             
         # -------------------------------------------------------------------------------------------------
@@ -830,7 +836,7 @@ while startGame:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    #if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                    if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                         pygame.mixer.music.stop()
                         pygame.time.delay(100)
                         doorOpen.play()
