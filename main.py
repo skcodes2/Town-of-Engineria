@@ -232,9 +232,13 @@ while startGame:
     enemies2.add(GameObject.Enemy(350, 55, screen, enemy_bullets2, "level2", coins2))
     enemies2.add(GameObject.Enemy(570, 55, screen, enemy_bullets2, "level2", coins2))
 
+    # initialize level 3 Enemy Groups
     enemies3 = pygame.sprite.Group()
     enemies3.add(GameObject.Enemy(200, 225, screen, enemy_bullets3, "level3", coins3))
+    enemies3.add(GameObject.Enemy(280, 225, screen, enemy_bullets3, "level3", coins3))
     enemies3.add(GameObject.Enemy(700, 45, screen, enemy_bullets3, "level3", coins3))
+    enemies3.add(GameObject.Enemy(620, 45, screen, enemy_bullets3, "level3", coins3))
+
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
     # --------------------------------------------------------------------------------------------------
