@@ -299,6 +299,12 @@ class Character(GameObject):
             self, self.platform1, False)
         vertcollisions2 = pygame.sprite.spritecollide(
             self, self.platform2, False)
+        
+        for platform in vertcollisions2:
+            if self.rect.top < platform.rect.bottom and self.rect.top >= platform.rect.bottom - 15 and self.inAir == True:
+                self.currentPosition[1] = platform.rect.bottom + 1
+                self.jumpingSpeed = 0
+        
         vertcollisions += vertMovingPlatCollisions
         vertcollisions += vertcollisions2
         vertcollisions += movingVertCollisions
