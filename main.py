@@ -213,9 +213,11 @@ while startGame:
     # enemy bullet group
     enemy_bullets1 = pygame.sprite.Group()
     enemy_bullets2 = pygame.sprite.Group()
+    enemy_bullets3 = pygame.sprite.Group()
     # enemy coin 
     coins1 = pygame.sprite.Group()
     coins2 = pygame.sprite.Group()
+    coins3 = pygame.sprite.Group()
     # initialize level 1 Enemy Groups
     enemies1 = pygame.sprite.Group()
     enemies1.add(GameObject.Enemy(385, 334, screen, enemy_bullets1, "startingEnemy", coins1))
@@ -225,10 +227,14 @@ while startGame:
 
     # initialize level 2 Enemy Groups
     enemies2 = pygame.sprite.Group()
-    enemies2.add(GameObject.Enemy(100, 195, screen, enemy_bullets2, "level2", coins2))
-    enemies2.add(GameObject.Enemy(100, 45, screen, enemy_bullets2, "level2", coins2))
-    enemies2.add(GameObject.Enemy(350, 45, screen, enemy_bullets2, "level2", coins2))
-    enemies2.add(GameObject.Enemy(570, 45, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(100, 205, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(100, 55, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(350, 55, screen, enemy_bullets2, "level2", coins2))
+    enemies2.add(GameObject.Enemy(570, 55, screen, enemy_bullets2, "level2", coins2))
+
+    enemies3 = pygame.sprite.Group()
+    enemies3.add(GameObject.Enemy(200, 225, screen, enemy_bullets3, "level3", coins3))
+    enemies3.add(GameObject.Enemy(700, 45, screen, enemy_bullets3, "level3", coins3))
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -511,6 +517,14 @@ while startGame:
             lavapool3.draw(screen)
             platForm_floor3.draw(screen)
             platForm_group3.draw(screen)
+            for enemy in enemies3:
+                enemy.handleBehaviour(bobby)
+            for coin in coins3:
+                coin.animate()
+            for bullet in bullet_group:
+                bullet.bulletTravel()
+            for bullet in enemy_bullets3:
+                bullet.bulletHoming(bobby)
         else:
             print("function is false")
 
@@ -782,9 +796,25 @@ while startGame:
             renderStats()
             keys = pygame.key.get_pressed()
             direction = bobby.playerMovementControl(keys)
+
+            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies3, False)
+            for collision in enemyCollisions:
+                lost.play() 
+                bobby.loseHp(1)
+                die.totalDamageTaken += 1
+                bobby.setLocation(40, 375)
+
+            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets3, False)
+            for sprite in bulletCollisions:
+                lost.play()
+                bobby.loseHp(1)
+                die.totalDamageTaken += 1
+                bobby.setLocation(40, 375)
+                sprite.kill()
+                del sprite
             
             if keys[pygame.K_SPACE]:
-                if bulletcooldown >= 20:
+                if bulletcooldown >= 10:
                     if direction[1] == True:
                         bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                     else:
@@ -793,8 +823,8 @@ while startGame:
                     die.axesChucked += 1
             
             bulletcooldown += 1
-            if bulletcooldown >= 20:
-                bulletcooldown = 20
+            if bulletcooldown >= 10:
+                bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
             lavaCollisions3 = pygame.sprite.spritecollide(bobby, lavapool3, False)
@@ -804,11 +834,30 @@ while startGame:
                 die.totalDamageTaken += 1
                 die.lavaSpills += 1
                 bobby.setLocation(40,375)
+            
+            coinCollisions = pygame.sprite.spritecollide(bobby, coins3, False)
+            for coin in coinCollisions:
+                collected.play()
+                bobby.gainMoney(coin.value)
+                die.totalMoneyEarned += 20 
+                coin.kill()
+                del coin
+            
+            enemiesHit = pygame.sprite.groupcollide(enemies3, bullet_group, False, True)
+            # if enemy gets hit by bullet
+            for enemy in enemiesHit.keys():
+                enemyHitSound.play()
+                enemy.loseHp(bobby.attack)
 
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
+            collisions3 = pygame.sprite.groupcollide(enemy_bullets3, platForm_floor3, True, False)
+            collisions4 = pygame.sprite.groupcollide(enemy_bullets3, platForm_group3, True, False)
+            collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets3, True, True)
             collisions6 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatForm1_Level3, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group3, True, False)
+            collisions8 = pygame.sprite.groupcollide(enemy_bullets3, movingPlatform_group3, True, False)
+            collisions9 = pygame.sprite.groupcollide(enemy_bullets3, vertMovingPlatForm1_Level3, True, False)
             
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- EVENT LOOP -----------------------------------------------

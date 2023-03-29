@@ -36,13 +36,17 @@ class Bullet(GameObject):
             self.animate = 0
 
 class EnemyBullet(GameObject):
-    def __init__(self, speed, damage, goingLeft, x, y, screen):
+    def __init__(self, speed, damage, goingLeft, x, y, screen, type):
         super().__init__(x, y, "enemyAnimation/rockthrow.png")
         self.speed = speed
         self.damage = damage
         self.goingLeft = goingLeft
         self.currentLocation = [x,y]
-        self.travel = pygame.image.load("enemyAnimation/rockthrow.png")
+        self.type = type
+        if self.type == 'rock':
+            self.travel = pygame.image.load("enemyAnimation/rockthrow.png")
+        elif self.type == 'axe':
+            self.travel = pygame.image.load("enemyAnimation/enemy2axeAnimation.png")
         self.screen = screen
         self.animate = 0
         self.age = 0
@@ -67,37 +71,70 @@ class EnemyBullet(GameObject):
             self.animate = 0
         
     def bulletHoming(self, bobby):
-        if self.goingLeft == True and self.age < 8:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
-            self.rect.height -= 5
-            self.rect.y += 3
-            self.currentLocation[0] -= self.speed
-        elif self.goingLeft == False and self.age < 8:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
-            self.rect.height -= 5
-            self.rect.y += 3
-            self.currentLocation[0] += self.speed
-        else:
-            self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
-            self.rect.height -= 5
-            self.rect.y += 3
-            if bobby.rect.centerx + 20 <= self.rect.centerx:
+        if self.type == 'rock':
+            if self.goingLeft == True and self.age < 8:
+                self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+                self.rect.height -= 5
+                self.rect.y += 3
                 self.currentLocation[0] -= self.speed
-            elif bobby.rect.centerx - 20 >= self.rect.centerx:
+            elif self.goingLeft == False and self.age < 8:
+                self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+                self.rect.height -= 5
+                self.rect.y += 3
                 self.currentLocation[0] += self.speed
             else:
-                pass
-            
-            if bobby.rect.centery + 20 <= self.rect.centery:
-                self.currentLocation[1] -= self.speed
-            elif bobby.rect.centery - 20 >= self.rect.centery:
-                self.currentLocation[1] += self.speed
+                self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 24, 0, 20, 20))
+                self.rect.height -= 5
+                self.rect.y += 3
+                if bobby.rect.centerx + 20 <= self.rect.centerx:
+                    self.currentLocation[0] -= self.speed
+                elif bobby.rect.centerx - 20 >= self.rect.centerx:
+                    self.currentLocation[0] += self.speed
+                else:
+                    pass
+                
+                if bobby.rect.centery + 20 <= self.rect.centery:
+                    self.currentLocation[1] -= self.speed
+                elif bobby.rect.centery - 20 >= self.rect.centery:
+                    self.currentLocation[1] += self.speed
+                else:
+                    pass
+            self.animate += 1
+            self.age += 1
+            if self.animate == 24:
+                self.animate = 0
+        else:
+            if self.goingLeft == True and self.age < 8:
+                self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 34.375, 0, 31, 40))
+                self.rect.height -= 8
+                self.rect.y += 8
+                self.currentLocation[0] -= self.speed
+            elif self.goingLeft == False and self.age < 8:
+                self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 34.375, 0, 31, 40))
+                self.rect.height -= 8
+                self.rect.y += 8
+                self.currentLocation[0] += self.speed
             else:
-                pass
-        self.animate += 1
-        self.age += 1
-        if self.animate == 24:
-            self.animate = 0
+                self.rect = self.screen.blit(self.travel, tuple(self.currentLocation), (self.animate // 3 * 34.375, 0, 31, 40))
+                self.rect.height -= 8
+                self.rect.y += 8
+                if bobby.rect.centerx + 20 <= self.rect.centerx:
+                    self.currentLocation[0] -= self.speed
+                elif bobby.rect.centerx - 20 >= self.rect.centerx:
+                    self.currentLocation[0] += self.speed
+                else:
+                    pass
+                
+                if bobby.rect.centery + 20 <= self.rect.centery:
+                    self.currentLocation[1] -= self.speed
+                elif bobby.rect.centery - 20 >= self.rect.centery:
+                    self.currentLocation[1] += self.speed
+                else:
+                    pass
+            self.animate += 1
+            self.age += 1
+            if self.animate == 24:
+                self.animate = 0
 
 class SpeechBubble(GameObject):
     def __init__(self, x, y, bobby, screen):
@@ -335,81 +372,158 @@ class Enemy(GameObject):
         self.currentLocation = [x,y]
         self.animateL = 0
         self.animateR = 0
-        self.animateDelay = 8
+        self.animateDelay = 10
         self.bulletGroup = bulletGroup
+        self.type = type
         if type == "level1":
             self.sightRangex = 400
             self.sightRangey = 100
             self.bulletSpeed = 6
             self.health = 3
+            self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
+            self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
+            self.animateDelay = 8
         elif type == "level2":
             self.sightRangex = 800
             self.sightRangey = 150
-            self.bulletSpeed = 8
+            self.bulletSpeed = 4
             self.health = 5
+            self.attackR = pygame.image.load("enemyAnimation/enemy2attackR.png")
+            self.attackL = pygame.image.load("enemyAnimation/enemy2attackL.png")
+            self.animateDelay = 4
         elif type == "level3":
             self.sightRangex = 1000
-            self.sightRangey = 200
-            self.bulletSpeed = 12
+            self.sightRangey = 100
+            self.bulletSpeed = 8
             self.health = 8
+            self.attackR = pygame.image.load("enemyAnimation/enemy3attackR.png")
+            self.attackL = pygame.image.load("enemyAnimation/enemy3attackL.png")
+            self.animateDelay = 3
         elif type == "startingEnemy":
-            self.sightRangex = 100
+            self.sightRangex = 200
             self.sightRangey = 100
             self.bulletSpeed = 6
             self.health = 3
+            self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
+            self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
+            self.animateDelay = 8
         self.coins = coins
 
     def handleBehaviour(self, bobby):
-
-        if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
-            self.animateR = 0
-            if self.animateL // self.animateDelay == 0:
-                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90)) # hard coded cuz animations arent all the same size for some reason
-            
-            elif self.animateL // self.animateDelay == 1:
-                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (215, 0, 73.8, 90))
-            
-            elif self.animateL // self.animateDelay == 2:
-                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (140, 0, 73.8, 90))
-
-            elif self.animateL // self.animateDelay == 3:
-                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (80, 0, 60, 90))
-
-            elif self.animateL // self.animateDelay == 4:
-                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (0, 0, 78, 90))
-
-            self.animateL += 1
-            if self.animateL == self.animateDelay * 4 + 2:
-                self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, True, self.rect.x - 16, self.rect.y + 60, self.screen))
-            if self.animateL == self.animateDelay * 5:
-                self.animateL = 0
-
-        elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
-            if self.animateR // self.animateDelay == 0:
-                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0, 0, 73.8, 90))
-            
-            elif self.animateR // self.animateDelay == 1:
-                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (80, 0, 73.8, 90))
-            
-            elif self.animateR // self.animateDelay == 2:
-                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (155, 0, 73.8, 90))
-
-            elif self.animateR // self.animateDelay == 3:
-                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (230, 0, 60, 90))
-
-            elif self.animateR // self.animateDelay == 4:
-                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (290, 0, 78, 90))
-
-            self.animateR += 1
-            if self.animateR == self.animateDelay * 4 + 2:
-                self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 60, self.screen))
-            if self.animateR == self.animateDelay * 5:
+        if self.type == "level1" or self.type == "startingEnemy":
+            if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
                 self.animateR = 0
+                if self.animateL // self.animateDelay == 0:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90)) # hard coded cuz animations arent all the same size for some reason
+                
+                elif self.animateL // self.animateDelay == 1:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (215, 0, 73.8, 90))
+                
+                elif self.animateL // self.animateDelay == 2:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (140, 0, 73.8, 90))
 
-        elif bobby.rect.centerx < self.rect.centerx:
-            self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90))
-        else:
-            self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,73.8,90))
+                elif self.animateL // self.animateDelay == 3:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (80, 0, 60, 90))
+
+                elif self.animateL // self.animateDelay == 4:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (0, 0, 78, 90))
+
+                self.animateL += 1
+                if self.animateL == self.animateDelay * 4 + 2:
+                    self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, True, self.rect.x - 16, self.rect.y + 60, self.screen, 'rock'))
+                if self.animateL == self.animateDelay * 5:
+                    self.animateL = 0
+
+            elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
+                if self.animateR // self.animateDelay == 0:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0, 0, 73.8, 90))
+                
+                elif self.animateR // self.animateDelay == 1:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (80, 0, 73.8, 90))
+                
+                elif self.animateR // self.animateDelay == 2:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (155, 0, 73.8, 90))
+
+                elif self.animateR // self.animateDelay == 3:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (230, 0, 60, 90))
+
+                elif self.animateR // self.animateDelay == 4:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (290, 0, 78, 90))
+
+                self.animateR += 1
+                if self.animateR == self.animateDelay * 4 + 2:
+                    self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 60, self.screen, 'rock'))
+                if self.animateR == self.animateDelay * 5:
+                    self.animateR = 0
+
+            elif bobby.rect.centerx < self.rect.centerx:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (295.2, 0, 73.8, 90))
+            else:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,73.8,90))
+        
+        if self.type == "level2":
+            if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
+                self.animateR = 0
+                if self.animateL < self.animateDelay * 5:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (606 - (72 * (self.animateL // self.animateDelay)), 0, 71, 80)) # hard coded cuz animations arent all the same size for some reason
+
+                elif self.animateL < self.animateDelay * 9:
+                    self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (323 - (82 * (self.animateL // self.animateDelay - 4)), 0, 75, 80))
+
+                self.animateL += 1
+                if self.animateL == self.animateDelay * 6 + 2:
+                    self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, True, self.rect.x - 16, self.rect.y + 20, self.screen, 'axe'))
+                if self.animateL == self.animateDelay * 9:
+                    self.animateL = 0
+
+            elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
+                if self.animateR < self.animateDelay * 3:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (75 * (self.animateR // self.animateDelay), 0, 75, 80))
+                
+                elif self.animateR < self.animateDelay * 5:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (150 + 72 * (self.animateR // self.animateDelay - 2), 0, 71, 80))
+
+                elif self.animateR < self.animateDelay * 9:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (285 + (82 * (self.animateR // self.animateDelay - 4)), 0, 75, 80))
+                self.animateR += 1
+                if self.animateR == self.animateDelay * 6 + 2:
+                    self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 20, self.screen, 'axe'))
+                if self.animateR == self.animateDelay * 9:
+                    self.animateR = 0
+
+            elif bobby.rect.centerx < self.rect.centerx:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (605, 0, 75, 80))
+            else:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,75,80))
+
+        if self.type == "level3":
+            if (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx < self.rect.centerx) or self.animateL != 0:
+                self.animateR = 0
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (645 - (93 * (self.animateL // self.animateDelay)), 0, 75, 79))
+
+                self.animateL += 1
+                if self.animateL == self.animateDelay * 5 + 2:
+                    self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, True, self.rect.x - 16, self.rect.y + 25, self.screen, 'axe'))
+                if self.animateL == self.animateDelay * 8:
+                    self.animateL = 0
+
+            elif (abs(bobby.rect.centerx - self.rect.centerx) <= self.sightRangex and abs(bobby.rect.centery - self.rect.centery) <= self.sightRangey and bobby.rect.centerx >= self.rect.centerx) or self.animateR != 0:
+                if self.animateR < self.animateDelay * 4:    
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (87 * (self.animateR // self.animateDelay), 0, 80, 79))
+
+                else:
+                    self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (355 + 90 * (self.animateR // self.animateDelay - 4), 0, 80, 79))
+
+                self.animateR += 1
+                if self.animateR == self.animateDelay * 5 + 2:
+                    self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, False, self.rect.x + 78, self.rect.y + 25, self.screen, 'axe'))
+                if self.animateR == self.animateDelay * 8:
+                    self.animateR = 0
+
+            elif bobby.rect.centerx < self.rect.centerx:
+                self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (645, 0, 75, 79))
+            else:
+                self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,75,79))
         
         self.rect.x += 15
         self.rect.y += 10
@@ -417,9 +531,18 @@ class Enemy(GameObject):
         self.rect.height -= 10
 
         if self.health <= 0:
-            self.coins.add(coin(self.rect.x + 10, self.rect.y + 52, 20, self.screen))
-            self.kill()
-            del self
+            if self.type == "level1" or self.type == "startingEnemy":
+                self.coins.add(coin(self.rect.x + 10, self.rect.y + 52, 5, self.screen))
+                self.kill()
+                del self
+            elif self.type == "level2":
+                self.coins.add(coin(self.rect.x + 10, self.rect.y + 43, 10, self.screen))
+                self.kill()
+                del self
+            else:
+                self.coins.add(coin(self.rect.x + 10, self.rect.y + 43, 20, self.screen))
+                self.kill()
+                del self
 
 
     def loseHp(self, damage):
