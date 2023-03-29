@@ -31,7 +31,7 @@ class Death:
 
     def renderDeathScreen(self,mp,sp):
         self.screen.fill((0,0,0))
-        self.totalElapsedTime = self.deathScreenText.render("Time played              " + str(mp) + ":" + str(sp),True,(255,255,255))
+        self.totalElapsedTime = self.deathScreenText.render("Time played              " + str(mp) + ":" + sp,True,(255,255,255))
 
         self.totalMoneyEarnedText = self.deathScreenText.render("{:<20}{:<25}".format("Money earned", self.totalMoneyEarned), True, (255, 255, 255))
         self.totalDamageTakenText = self.deathScreenText.render("{:<20} {:<25}".format("Damage taken", self.totalDamageTaken), True, (255, 255, 255))

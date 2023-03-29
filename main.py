@@ -256,6 +256,7 @@ while startGame:
 
         title1 = titles.render("Storyline", True, (0, 0, 0))
         title2 = titles.render("Game Controls", True, (0, 0, 0))
+        title3 = titles.render("Game Rules", True, (0, 0, 0))
 
         text1 = "In the town of Enginerea, where people are destined to become master builders, there lived a man named Bobby the Builder."
         text2 = "From an early age, Bobby had a passion for building and designing. He spent countless years perfecting his craft and "
@@ -264,12 +265,27 @@ while startGame:
         text5 = "its former glory. However, in his endeavor to rebuild the town hall, he must face-off against countless other master "
         text6 = "builders who want to take the title of the Supreme Builder."
 
+        text7 = "- Defeat every enemy in each level"
+        text8 = "- Collect keys to open chests and receive money"
+        text9 = "- Enter the doors to proceed to the next level once all enemies have been defeated"
+        text10 = "- Beat all three levels and the final boss"
+        text11 = "- Rebuild the town hall to its former glory and become the supreme town builder!"
+
+
         rendered_text1 = texts.render(text1, True, (0, 0, 0))
         rendered_text2 = texts.render(text2, True, (0, 0, 0))
         rendered_text3 = texts.render(text3, True, (0, 0, 0))
         rendered_text4 = texts.render(text4, True, (0, 0, 0))
         rendered_text5 = texts.render(text5, True, (0, 0, 0))
         rendered_text6 = texts.render(text6, True, (0, 0, 0))
+        rendered_text7 = texts.render(text7, True, (0, 0, 0))
+        rendered_text8 = texts.render(text8, True, (0, 0, 0))
+        rendered_text9 = texts.render(text9, True, (0, 0, 0))
+        rendered_text10 = texts.render(text10, True, (0, 0, 0))
+        rendered_text11 = texts.render(text11, True, (0, 0, 0))
+
+
+
         gcText1 = texts.render("[LEFT ARROW KEY] player moves left",True,(0,0,0))
         gcText2 = texts.render("[RIGHT ARROW KEY] player moves right",True,(0,0,0))
         gcText3 = texts.render("[UP ARROW KEY] player jumps",True,(0,0,0))
@@ -277,21 +293,28 @@ while startGame:
         gcText5 = texts.render("[P KEY] open shop menu",True,(0,0,0))
 
         screen.blit(title1, (40, 40))
-        screen.blit(title2, (40, 300))
+        screen.blit(title2, (40, 400))
+        screen.blit(title3, (40, 230))
+
+        screen.blit(rendered_text1, (40, 80))
+        screen.blit(rendered_text2, (40, 100))
+        screen.blit(rendered_text3, (40, 120))
+        screen.blit(rendered_text4, (40, 140))
+        screen.blit(rendered_text5, (40, 160))
+        screen.blit(rendered_text6, (40, 180))
+
+        screen.blit(rendered_text7, (40, 270))
+        screen.blit(rendered_text8, (40, 290))
+        screen.blit(rendered_text9, (40, 310))
+        screen.blit(rendered_text10, (40, 330))
+        screen.blit(rendered_text11, (40, 350))
 
 
-        screen.blit(rendered_text1, (40, 100))
-        screen.blit(rendered_text2, (40, 120))
-        screen.blit(rendered_text3, (40, 140))
-        screen.blit(rendered_text4, (40, 160))
-        screen.blit(rendered_text5, (40, 180))
-        screen.blit(rendered_text6, (40, 200))
-
-        screen.blit(gcText1, (40, 360))
-        screen.blit(gcText2, (40, 380))
-        screen.blit(gcText3, (40, 400))
-        screen.blit(gcText4, (40, 420))
-        screen.blit(gcText5, (40, 440))
+        screen.blit(gcText1, (40, 440))
+        screen.blit(gcText2, (40, 460))
+        screen.blit(gcText3, (40, 480))
+        screen.blit(gcText4, (40, 500))
+        screen.blit(gcText5, (40, 520))
 
 
 
@@ -505,6 +528,11 @@ while startGame:
     #--------------------------------------------------------------------------------------------------
     #------------------------------------ RENDER LEVEL 3 ----------------------------------------------
     #--------------------------------------------------------------------------------------------------
+    doorOpenRect3 = GameObject.GameObject(1080,60,"lvl1platformImages/doorOpen.png")
+    doorClosedImage3 = pygame.image.load("lvl1platformImages/doorClosed.png")
+    doorOpenImage3 = pygame.image.load("lvl1platformImages/doorOpen.png")
+    
+    
     Level3keyAlive = True
     Level3ChestAlive = True
     Level3 = True
@@ -521,6 +549,9 @@ while startGame:
             lavapool3.draw(screen)
             platForm_floor3.draw(screen)
             platForm_group3.draw(screen)
+
+            screen.blit(doorClosedImage3, (1080, 60))
+
             for enemy in enemies3:
                 enemy.handleBehaviour(bobby)
             for coin in coins3:
@@ -531,6 +562,24 @@ while startGame:
                 bullet.bulletHoming(bobby)
         else:
             print("function is false")
+
+    #--------------------------------------------------------------------------------------------------
+    #------------------------------------ RENDER LEVEL 4 ----------------------------------------------
+    #--------------------------------------------------------------------------------------------------
+
+    level4 = True
+    def renderLevel4():
+            if level4:
+                screen.fill((255,255,255))
+
+                pygame.display.set_caption("Bobby: The Town of Enginerea | Rebuilding the Townhall")
+                if not pygame.mixer.music.get_busy():
+                    pygame.mixer.music.play(-1)
+                
+                    
+            else:
+                print("function is false")
+
 
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER BOBBY'S STATS ----------------------------------------
@@ -578,7 +627,9 @@ while startGame:
             elapsedTime = (endTime - startTime)/1000 #time in seconds.
             minutesPlayed = int(elapsedTime // 60)
             secondsPlayed = int(elapsedTime%60)
-            die.renderDeathScreen(minutesPlayed,secondsPlayed)
+            if secondsPlayed <10: 
+                secondsPlayed  = "0" + str(secondsPlayed) 
+            die.renderDeathScreen(minutesPlayed,str(secondsPlayed))
             dialogueClock = 0
             break
 
@@ -600,7 +651,7 @@ while startGame:
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
             for sprite in bulletCollisions:
                 lost.play()
-                bobby.loseHp(1)
+                bobby.loseHpWithArmour(2)
                 die.totalDamageTaken += 1
                 bobby.setLocation(40, 400)
                 sprite.kill()
@@ -614,8 +665,7 @@ while startGame:
                 die.lavaSpills += 1
                 bobby.setLocation(40,400)
 
-            
-
+        
             coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
             for coin in coinCollisions:
                 collected.play()
@@ -646,8 +696,8 @@ while startGame:
             collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets1, True, True)
             collisions6 = pygame.sprite.groupcollide(enemy_bullets1, movingPlatform_group1, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group1, True, False)
-
             enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
+            
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
@@ -702,7 +752,7 @@ while startGame:
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets2, False)
             for sprite in bulletCollisions:
                 lost.play()
-                bobby.loseHp(1)
+                bobby.loseHpWithArmour(4)
                 die.totalDamageTaken += 1
                 bobby.setLocation(1040, 287)
                 sprite.kill()
@@ -811,7 +861,7 @@ while startGame:
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets3, False)
             for sprite in bulletCollisions:
                 lost.play()
-                bobby.loseHp(1)
+                bobby.loseHpWithArmour(6)
                 die.totalDamageTaken += 1
                 bobby.setLocation(40, 375)
                 sprite.kill()
@@ -853,6 +903,13 @@ while startGame:
                 enemyHitSound.play()
                 enemy.loseHp(bobby.attack)
 
+            if len(enemies3) == 0 and bobby.rect.colliderect(doorOpenRect3):
+                sb.showsmallspeechbubble(bobby)
+                sb.showText(bobby, "Press [ENTER]", 32.5, 65)
+
+            if len(enemies3) == 0: 
+                doorClosedImage3 = doorOpenImage3
+
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
             collisions3 = pygame.sprite.groupcollide(enemy_bullets3, platForm_floor3, True, False)
@@ -862,7 +919,13 @@ while startGame:
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group3, True, False)
             collisions8 = pygame.sprite.groupcollide(enemy_bullets3, movingPlatform_group3, True, False)
             collisions9 = pygame.sprite.groupcollide(enemy_bullets3, vertMovingPlatForm1_Level3, True, False)
-            
+        # -------------------------------------------------------------------------------------------------
+        # -------------------------------- IF BOBBY IS ON LEVEL 4 -----------------------------------------
+        # -------------------------------------------------------------------------------------------------            
+        elif current_level == 4: 
+            renderLevel4()
+            renderStats()
+
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- EVENT LOOP -----------------------------------------------
         # -------------------------------------------------------------------------------------------------
@@ -909,6 +972,18 @@ while startGame:
                         current_level += 1
                         Level2 = False
                         bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
+            
+            elif event.type == pygame.KEYDOWN and current_level == 3:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                elif event.key == pygame.K_RETURN:
+                    if bobby.rect.colliderect(doorOpenRect3) and len(enemies3) == 0:
+                        pygame.mixer.music.stop()
+                        pygame.time.delay(100)
+                        doorOpen.play()
+                        current_level += 1
+                        Level3 = False
+                        #bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
 
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOGUE SECTION -----------------------------------------

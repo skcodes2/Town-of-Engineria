@@ -196,8 +196,16 @@ class Character(GameObject):
         self.inAir = False
         self.standingLeft = False
 
-    def loseHp(self, damage):
+    def loseHp(self,damage):
         self.health = self.health - damage
+
+    def loseHpWithArmour(self, damage):
+        damage -= self.armour
+        if damage < 0: # so that he doesn't gain hp if the armour is stronger than the damage of the bullet. 
+            damage = 0
+        self.health = self.health - damage
+
+        
         # self.rect = self.screen.blit(self.death, tuple(self.currentPosition), (75*(self.nexImage // 2), 0, 76, 60))
         # self.nexImage += 1
         # if(self.nexImage == 2):
