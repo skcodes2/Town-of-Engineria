@@ -75,7 +75,7 @@ while startGame:
     platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
     # left side border brown stone for collisions
-    platForm_floor1.add(GameObject.PlatForms(-6, -5,"lvl1platformImages/brownborderplatform.png"))
+    platForm_floor1.add(GameObject.PlatForms(-6, -70,"lvl1platformImages/brownborderplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(-6, 235,"lvl1platformImages/brownborderplatform.png"))
     # right side border brown stone for collisions
     platForm_floor1.add(GameObject.PlatForms(1175, -40, "lvl1platformImages/brownborderplatform.png"))
@@ -136,8 +136,8 @@ while startGame:
     platForm_floor2.add(GameObject.PlatForms(959, 0, "lvl2platformImages/borderplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(1096, 0, "lvl2platformImages/borderplatform.png"))
     # left side border platforms (from bottom to top)
-    platForm_floor2.add(GameObject.PlatForms(-5, 320, "lvl2platformImages/sideborderplatforms.png"))
-    platForm_floor2.add(GameObject.PlatForms(-5, 40, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_floor2.add(GameObject.PlatForms(-5, -30, "lvl2platformImages/sideborderplatforms.png"))
+    platForm_floor2.add(GameObject.PlatForms(-5, 281, "lvl2platformImages/sideborderplatforms.png"))
     platForm_floor2.add(GameObject.PlatForms(-5, -225, "lvl2platformImages/sideborderplatforms.png"))
     # right side border platforms (from bottom to top)
     platForm_floor2.add(GameObject.PlatForms(1175, 350, "lvl2platformImages/sideborderplatforms.png"))
@@ -150,28 +150,36 @@ while startGame:
     platForm_group3 = pygame.sprite.Group()
     platForm_floor3 = pygame.sprite.Group()
     movingPlatform_group3 = pygame.sprite.Group()
-    lavapool3 = pygame.sprite.Group()
     vertMovingPlatForm1_Level3 = pygame.sprite.Group()
+    lavapool3 = pygame.sprite.Group()
 
+    # start platform
+    platForm_floor3.add(GameObject.PlatForms(-10,490,"lvl3platFormImages/startingPlatForm.png"))
+    # middle 2 long platforms 
     platForm_group3.add(GameObject.PlatForms(130,120,"lvl3platFormImages/level3MediumPlatForm.png"))
-    platForm_floor3.add(GameObject.PlatForms(-5,50,"lvl3platFormImages/leftBorder.png"))
-    platForm_floor3.add(GameObject.PlatForms(-5,0,"lvl3platFormImages/leftBorder.png"))
+    platForm_group3.add(GameObject.PlatForms(130,300,"lvl3platFormImages/level3MediumPlatForm.png"))
+    # boss platform
+    platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages/BossPlatForm.png"))
+    # top border
     platForm_floor3.add(GameObject.PlatForms(-5,-5,"lvl3platFormImages/topBorder.png"))
     platForm_floor3.add(GameObject.PlatForms(475,-5,"lvl3platFormImages/topBorder.png"))
     platForm_floor3.add(GameObject.PlatForms(950,-5,"lvl3platFormImages/topBorder.png"))
+    # left border
+    platForm_floor3.add(GameObject.PlatForms(-6,435,"lvl3platFormImages/leftBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(-5,-5,"lvl3platFormImages/leftBorder.png"))
+    # right border 
     platForm_floor3.add(GameObject.PlatForms(1175,0,"lvl3platFormImages/rightBorder.png"))
-    platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages/BossPlatForm.png"))
-    platForm_floor3.add(GameObject.PlatForms(-10,490,"lvl3platFormImages/startingPlatForm.png"))
-    platForm_group3.add(GameObject.PlatForms(130,300,"lvl3platFormImages/level3MediumPlatForm.png"))
+    # moving platforms 
     movingPlatform_group3.add(GameObject.MovingPlatForms(215,490,3,215,850,"lvl3platFormImages/Level3Floating.png"))
     vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(850,300,5,300,450,"lvl3platFormImages/Level3Floating.png"))
     vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(40,300,3,120,300,"lvl3platFormImages/Level3Floating.png"))
-    lavapool3.add(GameObject.LavaPool(185,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(327,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(469,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(611,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(753,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(895,545,"lvl1platformImages/lava.png"))
+    # lava pool
+    lavapool3.add(GameObject.LavaPool(180,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(322,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(464,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(606,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(748,545,"lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(890,545,"lvl1platformImages/lava.png"))
 
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ BOBBY INITIALIZATION ----------------------------------------
@@ -543,7 +551,7 @@ while startGame:
             platForm_floor3.draw(screen)
             platForm_group3.draw(screen)
 
-            screen.blit(doorClosedImage3, (1080, 60))
+            screen.blit(doorClosedImage3, (1050, 55))
 
             for enemy in enemies3:
                 enemy.handleBehaviour(bobby)
