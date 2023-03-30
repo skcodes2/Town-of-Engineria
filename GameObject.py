@@ -394,6 +394,7 @@ class Enemy(GameObject):
             self.sightRangey = 100
             self.bulletSpeed = 6
             self.health = 3
+            self.maxHealth = 3
             self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
             self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
             self.animateDelay = 8
@@ -402,6 +403,7 @@ class Enemy(GameObject):
             self.sightRangey = 150
             self.bulletSpeed = 4
             self.health = 5
+            self.maxHealth = 5
             self.attackR = pygame.image.load("enemyAnimation/enemy2attackR.png")
             self.attackL = pygame.image.load("enemyAnimation/enemy2attackL.png")
             self.animateDelay = 4
@@ -410,6 +412,7 @@ class Enemy(GameObject):
             self.sightRangey = 100
             self.bulletSpeed = 8
             self.health = 8
+            self.maxHealth = 8
             self.attackR = pygame.image.load("enemyAnimation/enemy3attackR.png")
             self.attackL = pygame.image.load("enemyAnimation/enemy3attackL.png")
             self.animateDelay = 3
@@ -418,10 +421,26 @@ class Enemy(GameObject):
             self.sightRangey = 100
             self.bulletSpeed = 6
             self.health = 3
+            self.maxHealth = 3
             self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
             self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
             self.animateDelay = 8
         self.coins = coins
+        self.health_bar_length = 40
+        self.health_bar_height = 5
+        self.health_bar_pos = (self.rect.x + 22, self.rect.y + 5)
+
+    def draw_health_bar(self):
+       # current healthbar width
+       health_bar_width = int(self.health / self.maxHealth * self.health_bar_length)
+       # black part of the health bar
+       pygame.draw.rect(self.screen, (0, 0, 0), (self.health_bar_pos[0], self.health_bar_pos[1], self.health_bar_length, self.health_bar_height))
+       # red part of the health bar
+       pygame.draw.rect(self.screen, (200, 70, 70), (self.health_bar_pos[0], self.health_bar_pos[1], health_bar_width, self.health_bar_height))
+
+
+    def update(self):
+       self.draw_health_bar()
 
     def handleBehaviour(self, bobby):
         if self.type == "level1" or self.type == "startingEnemy":

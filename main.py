@@ -453,6 +453,7 @@ while startGame:
             movingPlatform_group1.draw(screen)
             for enemy in enemies1:
                 enemy.handleBehaviour(bobby)
+                enemy.update()
             for coin in coins1:
                 coin.animate()
             for bullet in bullet_group:
@@ -517,6 +518,7 @@ while startGame:
             screen.blit(doorClosedImage2, (80, 370))
             for enemy in enemies2:
                 enemy.handleBehaviour(bobby)
+                enemy.update()
             for coin in coins2:
                 coin.animate()
             for bullet in bullet_group:
@@ -555,6 +557,7 @@ while startGame:
 
             for enemy in enemies3:
                 enemy.handleBehaviour(bobby)
+                enemy.update()
             for coin in coins3:
                 coin.animate()
             for bullet in bullet_group:
