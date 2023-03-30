@@ -642,6 +642,7 @@ while startGame:
                         bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
+                    win.axesChucked += 1
                 
             bulletcooldown += 1
             if bulletcooldown >= 10:
@@ -654,6 +655,7 @@ while startGame:
                 lost.play() 
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(60, 400)
 
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
@@ -661,6 +663,7 @@ while startGame:
                 lost.play()
                 bobby.loseHpWithArmour(2)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(60, 400)
                 sprite.kill()
                 del sprite
@@ -670,7 +673,9 @@ while startGame:
                 lost.play()
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 die.lavaSpills += 1
+                win.lavaSpills += 1
                 bobby.setLocation(60,400)
 
             coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
@@ -715,6 +720,8 @@ while startGame:
                     Level1ChestAlive = False
                     chestcollected.play()
                     bobby.money+=20
+                    die.totalMoneyEarned += 20
+                    win.totalMoneyEarned += 20
                     bobby.keys-=1
             if len(enemies1) == 0 and playDialogue3 == True:
                 doorClosedImage = doorOpenImage
@@ -742,6 +749,7 @@ while startGame:
                         bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
+                    win.axesChucked += 1
             
             bulletcooldown += 1
             if bulletcooldown >= 10:
@@ -754,6 +762,7 @@ while startGame:
                 lost.play() 
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(1040, 287)
 
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets2, False)
@@ -761,6 +770,7 @@ while startGame:
                 lost.play()
                 bobby.loseHpWithArmour(4)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(1040, 287)
                 sprite.kill()
                 del sprite
@@ -769,7 +779,8 @@ while startGame:
             for coin in coinCollisions:
                 collected.play()
                 bobby.gainMoney(coin.value)
-                die.totalMoneyEarned += 20 
+                die.totalMoneyEarned += coin.value
+                win.totalMoneyEarned += coin.value
                 coin.kill()
                 del coin
 
@@ -815,6 +826,8 @@ while startGame:
                     Level2ChestAlive = False
                     chestcollected.play()
                     bobby.money+=20
+                    die.totalMoneyEarned += 20
+                    win.totalMoneyEarned += 20
                     bobby.keys-=1
             # if chest is closed and enemies are killed
             if Level2ChestAlive2 and len(enemies2)==0:
@@ -850,6 +863,7 @@ while startGame:
                         bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
+                    win.axesChucked += 1
             
             bulletcooldown += 1
             if bulletcooldown >= 10:
@@ -862,6 +876,7 @@ while startGame:
                 lost.play() 
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(60, 375)
 
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets3, False)
@@ -869,6 +884,7 @@ while startGame:
                 lost.play()
                 bobby.loseHpWithArmour(6)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(60, 375)
                 sprite.kill()
                 del sprite
@@ -878,6 +894,7 @@ while startGame:
                 lost.play()
                 bobby.loseHpWithArmour(6)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 bobby.setLocation(60, 375)
                 sprite.kill()
                 del sprite
@@ -887,7 +904,9 @@ while startGame:
                 lost.play()
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
+                win.totalDamageTaken += 1
                 die.lavaSpills += 1
+                win.lavaSpills += 1
                 bobby.setLocation(60,375)
             
             coinCollisions = pygame.sprite.spritecollide(bobby, coins3, False)
@@ -921,12 +940,6 @@ while startGame:
 
             if len(enemies3) == 0: 
                 doorClosedImage3 = doorOpenImage3
-
-        # -------------------------------------------------------------------------------------------------
-        # -------------------------------- IF BOBBY IS ON LEVEL 4 -----------------------------------------
-        # -------------------------------------------------------------------------------------------------            
-        elif current_level == 4: 
-            renderStats()
 
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- EVENT LOOP -----------------------------------------------
@@ -984,7 +997,14 @@ while startGame:
                         pygame.time.delay(100)
                         doorOpen.play()
                         Level3 = False
-                        win.renderDeathScreen()
+                        endTime = pygame.time.get_ticks()
+                        elapsedTime = (endTime - startTime)/1000 #time in seconds.
+                        minutesPlayed = int(elapsedTime // 60)
+                        secondsPlayed = int(elapsedTime%60)
+                        if secondsPlayed <10: 
+                            secondsPlayed  = "0" + str(secondsPlayed) 
+                        pygame.display.set_caption("Bobby: The Town of Enginerea | YOU WIN!")
+                        win.renderDeathScreen(minutesPlayed,str(secondsPlayed))
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOGUE SECTION -----------------------------------------
         # -------------------------------------------------------------------------------------------------

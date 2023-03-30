@@ -23,7 +23,7 @@ class Death:
             self.deathScreenTitle = self.deathScreenTitle.render("YOU DIED!",True,(255,255,255))
             self.deadBobby = pygame.image.load("bobbyBaseAnimation/bobbyDeath.png")
         else: 
-            self.deathScreenTitle = self.deathScreenTitle.render("TOWN HALL COMPLETE",True,(255,255,255))
+            self.winTitle = self.deathScreenTitle.render("TOWN HALL COMPLETE",True,(255,255,255))
             self.townHall = pygame.image.load("backgroundImages/vikingHouse.png")
 
 
@@ -51,11 +51,13 @@ class Death:
         #self.exitBtn = GameObject.GameObject(510,260,"mainScreenImages/exitbutton.png")
 
 
-        self.screen.blit(self.deathScreenTitle, (400,40))
         if self.isDead: 
             self.screen.blit(self.deadBobby,(480,200))
+            self.screen.blit(self.deathScreenTitle, (400,40))
+
         else: 
             self.screen.blit(self.townHall,(450,200))
+            self.screen.blit(self.winTitle, (200,40))
 
 
         self.screen.blit(self.matchStatsTitle,(100,140))
