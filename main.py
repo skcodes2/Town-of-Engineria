@@ -221,6 +221,7 @@ while startGame:
     enemy_bullets1 = pygame.sprite.Group()
     enemy_bullets2 = pygame.sprite.Group()
     enemy_bullets3 = pygame.sprite.Group()
+    boss_bullets = pygame.sprite.Group()
     # enemy coin 
     coins1 = pygame.sprite.Group()
     coins2 = pygame.sprite.Group()
@@ -245,6 +246,7 @@ while startGame:
     enemies3.add(GameObject.Enemy(280, 225, screen, enemy_bullets3, "level3", coins3))
     enemies3.add(GameObject.Enemy(700, 45, screen, enemy_bullets3, "level3", coins3))
     enemies3.add(GameObject.Enemy(620, 45, screen, enemy_bullets3, "level3", coins3))
+    enemies3.add(GameObject.Enemy(1035, 55, screen, boss_bullets, "boss", coins3))
 
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
@@ -563,6 +565,8 @@ while startGame:
             for bullet in bullet_group:
                 bullet.bulletTravel()
             for bullet in enemy_bullets3:
+                bullet.bulletHoming(bobby)
+            for bullet in boss_bullets:
                 bullet.bulletHoming(bobby)
         else:
             print("function is false")
@@ -885,6 +889,15 @@ while startGame:
                 sprite.kill()
                 del sprite
             
+            bulletCollisions1 = pygame.sprite.spritecollide(bobby, boss_bullets, False)
+            for sprite in bulletCollisions1:
+                lost.play()
+                bobby.loseHpWithArmour(6)
+                die.totalDamageTaken += 1
+                bobby.setLocation(60, 375)
+                sprite.kill()
+                del sprite
+            
             lavaCollisions3 = pygame.sprite.spritecollide(bobby, lavapool3, False)
             if len(lavaCollisions3) > 0:
                 lost.play()
@@ -910,6 +923,7 @@ while startGame:
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group3, True, False)
             collisions8 = pygame.sprite.groupcollide(enemy_bullets3, movingPlatform_group3, True, False)
             collisions9 = pygame.sprite.groupcollide(enemy_bullets3, vertMovingPlatForm1_Level3, True, False)
+            collisions10 = pygame.sprite.groupcollide(boss_bullets, bullet_group, True, True)
 
             enemiesHit = pygame.sprite.groupcollide(enemies3, bullet_group, False, True)
             # if enemy gets hit by bullet

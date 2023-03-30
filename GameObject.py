@@ -425,6 +425,12 @@ class Enemy(GameObject):
             self.attackR = pygame.image.load("enemyAnimation/enemyattackR.png")
             self.attackL = pygame.image.load("enemyAnimation/enemyattackL.png")
             self.animateDelay = 8
+        elif type == "boss":
+            self.bulletSpeed = 2
+            self.health = 20
+            self.maxHealth = 20
+            self.attackL = pygame.image.load("enemyAnimation/enemyBOSS3attackL.png")
+            self.animateDelay = 15
         self.coins = coins
         self.health_bar_length = 40
         self.health_bar_height = 5
@@ -558,6 +564,14 @@ class Enemy(GameObject):
             else:
                 self.rect = self.screen.blit(self.attackR, tuple(self.currentLocation), (0,0,75,79))
         
+        if self.type == "boss":
+            self.rect = self.screen.blit(self.attackL, tuple(self.currentLocation), (800 - (115 * (self.animateL // self.animateDelay)), 0, 103, 100))
+            self.animateL += 1
+            if self.animateL == self.animateDelay * 5 + 2:
+                self.bulletGroup.add(EnemyBullet(self.bulletSpeed, 1, True, self.rect.x - 16, self.rect.y + 25, self.screen, 'axe'))
+            if self.animateL == self.animateDelay * 8:
+                self.animateL = 0
+        
         self.rect.x += 15
         self.rect.y += 10
         self.rect.width -= 15
@@ -572,8 +586,12 @@ class Enemy(GameObject):
                 self.coins.add(coin(self.rect.x + 10, self.rect.y + 43, 10, self.screen))
                 self.kill()
                 del self
-            else:
+            elif self.type == "level3":
                 self.coins.add(coin(self.rect.x + 10, self.rect.y + 43, 20, self.screen))
+                self.kill()
+                del self
+            else:
+                self.coins.add(coin(self.rect.x + 15, self.rect.y + 65, 100, self.screen))
                 self.kill()
                 del self
 
