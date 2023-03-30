@@ -2,7 +2,7 @@ import pygame,GameObject
 
 class Death:
     
-    def __init__(self,screen,playerObject):
+    def __init__(self,screen,playerObject,isDead):
         self.screen = screen
         self.bobby = playerObject
 
@@ -11,14 +11,23 @@ class Death:
         self.totalDamageTaken = 0
         self.axesChucked = 0
         self.lavaSpills = 0
+        self.isDead = isDead
 
         # images and fonts for death screen
         self.deathScreenTitle = pygame.font.Font("Fonts/mainScreen.ttf",70)
         self.deathScreenSubtitle = pygame.font.Font("Fonts/mainScreen.ttf",50)
         self.deathScreenText = pygame.font.Font("Fonts/mainScreen.ttf",25)
 
-        self.deadBobby = pygame.image.load("bobbyBaseAnimation/bobbyDeath.png")
-        self.deathScreenTitle = self.deathScreenTitle.render("YOU DIED!",True,(255,255,255))
+
+        if  self.isDead: 
+            self.deathScreenTitle = self.deathScreenTitle.render("YOU DIED!",True,(255,255,255))
+            self.deadBobby = pygame.image.load("bobbyBaseAnimation/bobbyDeath.png")
+        else: 
+            self.deathScreenTitle = self.deathScreenTitle.render("TOWN HALL COMPLETE",True,(255,255,255))
+            self.townHall = pygame.image.load("backgroundImages/vikingHouse.png")
+
+
+
         self.matchStatsTitle = self.deathScreenSubtitle.render("Match Stats",True,(255,255,255))
         self.optionsTitle = self.deathScreenSubtitle.render("Options",True,(255,255,255))
         self.playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
@@ -43,7 +52,12 @@ class Death:
 
 
         self.screen.blit(self.deathScreenTitle, (400,40))
-        self.screen.blit(self.deadBobby,(480,200))
+        if self.isDead: 
+            self.screen.blit(self.deadBobby,(480,200))
+        else: 
+            self.screen.blit(self.townHall,(450,200))
+
+
         self.screen.blit(self.matchStatsTitle,(100,140))
         self.screen.blit(self.optionsTitle,(800,140))
 

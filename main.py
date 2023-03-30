@@ -385,9 +385,9 @@ while startGame:
     # ------------------------------------ OTHER INITIALIZATION ----------------------------------------
     # --------------------------------------------------------------------------------------------------
     # death screen stuff
-    die = death.Death(screen,bobby)
+    die = death.Death(screen,bobby,True)
     startTime = pygame.time.get_ticks()
-
+    win = death.Death(screen,bobby,False)
     numberOfKeys=[]
     shopEnabled = True
 
@@ -571,22 +571,6 @@ while startGame:
         else:
             print("function is false")
 
-    #--------------------------------------------------------------------------------------------------
-    #------------------------------------ RENDER LEVEL 4 ----------------------------------------------
-    #--------------------------------------------------------------------------------------------------
-
-    level4 = True
-    def renderLevel4():
-            if level4:
-                screen.fill((255,255,255))
-
-                pygame.display.set_caption("Bobby: The Town of Enginerea | Rebuilding the Townhall")
-                if not pygame.mixer.music.get_busy():
-                    pygame.mixer.music.play(-1)
-                
-                    
-            else:
-                print("function is false")
 
 
     # --------------------------------------------------------------------------------------------------
@@ -1000,10 +984,8 @@ while startGame:
                         pygame.mixer.music.stop()
                         pygame.time.delay(100)
                         doorOpen.play()
-                        current_level += 1
                         Level3 = False
-                        #bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
-
+                        win.renderDeathScreen()
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOGUE SECTION -----------------------------------------
         # -------------------------------------------------------------------------------------------------
