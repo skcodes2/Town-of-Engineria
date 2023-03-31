@@ -637,7 +637,8 @@ while startGame:
             for coin in coinCollisions:
                 collected.play()
                 bobby.gainMoney(coin.value)
-                die.totalMoneyEarned += 20
+                die.totalMoneyEarned += coin.value
+                win.totalMoneyEarned += coin.value
                 coin.kill()
                 del coin
 
@@ -865,7 +866,8 @@ while startGame:
             for coin in coinCollisions:
                 collected.play()
                 bobby.gainMoney(coin.value)
-                die.totalMoneyEarned += 20
+                die.totalMoneyEarned += coin.value
+                win.totalMoneyEarned += coin.value
                 coin.kill()
                 del coin
 
