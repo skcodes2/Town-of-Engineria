@@ -11,11 +11,10 @@ while startGame:
     # set up images and icons
     pygame.display.set_caption("Main Menu")
     pygame.display.set_icon(pygame.image.load("mainScreenImages/gameicon.png"))
-
-    # main screen background 
+    # main screen background
     mainScreenImage = pygame.image.load("mainScreenImages/main.png")
     mainScreenImageRect = mainScreenImage.get_rect()
-    # help screen background 
+    # help screen background
     helpScreenImage = pygame.image.load("mainScreenImages/helpScreen.png")
     helpScreenImageRect = mainScreenImage.get_rect()
     # level 1 background
@@ -30,7 +29,6 @@ while startGame:
     # set size of window screen
     screen = pygame.display.set_mode((1200, 575))
     screen_rect = screen.get_rect()
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ LEVEL ONE PLATFORMS -----------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -40,7 +38,6 @@ while startGame:
     movingPlatform_group1 = pygame.sprite.Group()
     lavapool1 = pygame.sprite.Group()
     vertMovingPlatform_group1 = pygame.sprite.Group()
-
     # orange floor platform
     platForm_floor1.add(GameObject.PlatForms(987, 337, "lvl1platformImages/largeorangestone.png"))
     # brown floor platforms
@@ -94,7 +91,6 @@ while startGame:
     destroyedbuilding4 = pygame.image.load("lvl1platformImages/destroyedbuilding4.png")
     destroyedcar = pygame.image.load("lvl1platformImages/destroyedcar.png")
     tree = pygame.image.load("lvl1platformImages/deadtree.png")
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ LEVEL TWO PLATFORMS -----------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -103,14 +99,13 @@ while startGame:
     platForm_floor2 = pygame.sprite.Group()
     movingPlatform_group2 = pygame.sprite.Group()
     vertMovingPlatform_group2 = pygame.sprite.Group()
-
     # snow floor platforms
     platForm_floor2.add(GameObject.PlatForms(0, 470, "lvl2platformImages/largeplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(324, 500, "lvl2platformImages/largeplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(648, 500, "lvl2platformImages/largeplatform.png"))
     platForm_floor2.add(GameObject.PlatForms(972, 350, "lvl2platformImages/largeplatform.png"))
     # moving up and down platform
-    vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820,450,2,120,450, "lvl2platformImages/snowplatform.png"))
+    vertMovingPlatform_group2.add(GameObject.VertMovingPlatForms(820, 450, 2, 120, 450, "lvl2platformImages/snowplatform.png"))
     # top left sky platform
     platForm_group2.add(GameObject.PlatForms(65, 130, "lvl2platformImages/iceplatform.png"))
     # top middle sky platform
@@ -143,7 +138,6 @@ while startGame:
     platForm_floor2.add(GameObject.PlatForms(1175, 350, "lvl2platformImages/sideborderplatforms.png"))
     platForm_floor2.add(GameObject.PlatForms(1175, 40, "lvl2platformImages/sideborderplatforms.png"))
     platForm_floor2.add(GameObject.PlatForms(1175, -230, "lvl2platformImages/sideborderplatforms.png"))
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ LEVEL THREE PLATFORMS ---------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -152,46 +146,43 @@ while startGame:
     movingPlatform_group3 = pygame.sprite.Group()
     vertMovingPlatForm1_Level3 = pygame.sprite.Group()
     lavapool3 = pygame.sprite.Group()
-
     # start platform
-    platForm_floor3.add(GameObject.PlatForms(-10,490,"lvl3platFormImages/startingPlatForm.png"))
-    # middle 2 long platforms 
-    platForm_group3.add(GameObject.PlatForms(130,120,"lvl3platFormImages/level3MediumPlatForm.png"))
-    platForm_group3.add(GameObject.PlatForms(130,300,"lvl3platFormImages/level3MediumPlatForm.png"))
+    platForm_floor3.add(GameObject.PlatForms(-10, 490, "lvl3platFormImages/startingPlatForm.png"))
+    # middle 2 long platforms
+    platForm_group3.add(GameObject.PlatForms(130, 120, "lvl3platFormImages/level3MediumPlatForm.png"))
+    platForm_group3.add(GameObject.PlatForms(130, 300, "lvl3platFormImages/level3MediumPlatForm.png"))
     # boss platform
-    platForm_floor3.add(GameObject.PlatForms(930,150,"lvl3platFormImages/BossPlatForm.png"))
+    platForm_floor3.add(GameObject.PlatForms(930, 150, "lvl3platFormImages/BossPlatForm.png"))
     # top border
-    platForm_floor3.add(GameObject.PlatForms(-5,-5,"lvl3platFormImages/topBorder.png"))
-    platForm_floor3.add(GameObject.PlatForms(475,-5,"lvl3platFormImages/topBorder.png"))
-    platForm_floor3.add(GameObject.PlatForms(950,-5,"lvl3platFormImages/topBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(-5, -5, "lvl3platFormImages/topBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(475, -5, "lvl3platFormImages/topBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(950, -5, "lvl3platFormImages/topBorder.png"))
     # left border
-    platForm_floor3.add(GameObject.PlatForms(-6,435,"lvl3platFormImages/leftBorder.png"))
-    platForm_floor3.add(GameObject.PlatForms(-5,-5,"lvl3platFormImages/leftBorder.png"))
-    # right border 
-    platForm_floor3.add(GameObject.PlatForms(1175,0,"lvl3platFormImages/rightBorder.png"))
-    # moving platforms 
-    movingPlatform_group3.add(GameObject.MovingPlatForms(215,490,3,215,850,"lvl3platFormImages/Level3Floating.png"))
-    vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(850,300,5,300,450,"lvl3platFormImages/Level3Floating.png"))
-    vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(40,300,3,120,300,"lvl3platFormImages/Level3Floating.png"))
+    platForm_floor3.add(GameObject.PlatForms(-6, 435, "lvl3platFormImages/leftBorder.png"))
+    platForm_floor3.add(GameObject.PlatForms(-5, -5, "lvl3platFormImages/leftBorder.png"))
+    # right border
+    platForm_floor3.add(GameObject.PlatForms(1175, 0, "lvl3platFormImages/rightBorder.png"))
+    # moving platforms
+    movingPlatform_group3.add(GameObject.MovingPlatForms(215, 490, 3, 215, 850, "lvl3platFormImages/Level3Floating.png"))
+    vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(850, 300, 5, 300, 450, "lvl3platFormImages/Level3Floating.png"))
+    vertMovingPlatForm1_Level3.add(GameObject.VertMovingPlatForms(40, 300, 3, 120, 300, "lvl3platFormImages/Level3Floating.png"))
     # lava pool
-    lavapool3.add(GameObject.LavaPool(180,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(322,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(464,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(606,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(748,545,"lvl1platformImages/lava.png"))
-    lavapool3.add(GameObject.LavaPool(890,545,"lvl1platformImages/lava.png"))
-
+    lavapool3.add(GameObject.LavaPool(180, 545, "lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(322, 545, "lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(464, 545, "lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(606, 545, "lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(748, 545, "lvl1platformImages/lava.png"))
+    lavapool3.add(GameObject.LavaPool(890, 545, "lvl1platformImages/lava.png"))
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ BOBBY INITIALIZATION ----------------------------------------
     # --------------------------------------------------------------------------------------------------
     # Main Character (BOBBY) (speed, health, armour, x, y, image, screen, plat1, plat2)
     bobby = GameObject.Character(5, 10, 0, 60, 380, "Axe1/axe1R.png", screen, platForm_group1, platForm_floor1, movingPlatform_group1, vertMovingPlatform_group1)
-    # bullet group 
+    # bullet group
     bullet_group = pygame.sprite.Group()
     bulletcooldown = 0
     # bobby axe throw sound effect
     bobbythrow = pygame.mixer.Sound("SoundEffects/axeThrow.mp3")
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SOUND EFFECTS INITIALIZATION --------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -201,7 +192,7 @@ while startGame:
     # treasure collected
     chestcollected = pygame.mixer.Sound("SoundEffects/chestOpenSound.mp3")
     chestcollected.set_volume(0.5)
-    # key collected 
+    # key collected
     keyCollected = pygame.mixer.Sound("SoundEffects/keyGrab.mp3")
     keyCollected.set_volume(0.5)
     # enemy hit sound effect
@@ -210,10 +201,9 @@ while startGame:
     # door open sound
     doorOpen = pygame.mixer.Sound("SoundEffects/doorOpen.mp3")
     doorOpen.set_volume(0.5)
-    # death sound 
+    # death sound
     lost = pygame.mixer.Sound("SoundEffects/deathSound.mp3")
     lost.set_volume(5)
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ ENEMIES INITIALIZATION --------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -222,7 +212,7 @@ while startGame:
     enemy_bullets2 = pygame.sprite.Group()
     enemy_bullets3 = pygame.sprite.Group()
     boss_bullets = pygame.sprite.Group()
-    # enemy coin 
+    # enemy coin
     coins1 = pygame.sprite.Group()
     coins2 = pygame.sprite.Group()
     coins3 = pygame.sprite.Group()
@@ -247,39 +237,32 @@ while startGame:
     enemies3.add(GameObject.Enemy(700, 45, screen, enemy_bullets3, "level3", coins3))
     enemies3.add(GameObject.Enemy(620, 45, screen, enemy_bullets3, "level3", coins3))
     enemies3.add(GameObject.Enemy(1035, 55, screen, boss_bullets, "boss", coins3))
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ SHOP INITIALIZATION -----------------------------------------
     # --------------------------------------------------------------------------------------------------
-    shop = Shop.Shop(screen,bobby)
-
+    shop = Shop.Shop(screen, bobby)
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER HELP SCREEN ------------------------------------------
     # --------------------------------------------------------------------------------------------------
     def renderHelpScreen():
         help = True
         screen.blit(helpScreenImage, helpScreenImageRect)
-
-        titles = pygame.font.Font("Fonts/Stats.ttf",25)
-        texts = pygame.font.Font("Fonts/Stats.ttf",15)
-
+        titles = pygame.font.Font("Fonts/Stats.ttf", 25)
+        texts = pygame.font.Font("Fonts/Stats.ttf", 15)
         title1 = titles.render("Storyline", True, (255, 255, 255))
         title2 = titles.render("Game Controls", True, (255, 255, 255))
         title3 = titles.render("Game Rules", True, (255, 255, 255))
-
         text1 = "In the town of Enginerea, where people are destined to become master builders, there lived a man named Bobby the Builder."
         text2 = "From an early age, Bobby had a passion for building and designing. He spent countless years perfecting his craft and "
         text3 = "becoming the Supreme Builder of the town. One day, a terrible earthquake struck Enginerea resulting in severe damage to "
         text4 = "many of the town buildings including the Town hall. It is the job of the Supreme Builder to rebuild the town hall to "
         text5 = "its former glory. However, in his endeavor to rebuild the town hall, he must face-off against countless other master "
         text6 = "builders who want to take the title of the Supreme Builder."
-
         text7 = "- Defeat every enemy in each level"
         text8 = "- Collect keys to open chests and receive money"
         text9 = "- Enter the doors to proceed to the next level once all enemies have been defeated"
         text10 = "- Beat all three levels and the final boss"
         text11 = "- Rebuild the town hall to its former glory and become the supreme town builder :)"
-
         rendered_text1 = texts.render(text1, True, (255, 255, 255))
         rendered_text2 = texts.render(text2, True, (255, 255, 255))
         rendered_text3 = texts.render(text3, True, (255, 255, 255))
@@ -291,12 +274,15 @@ while startGame:
         rendered_text9 = texts.render(text9, True, (255, 255, 255))
         rendered_text10 = texts.render(text10, True, (255, 255, 255))
         rendered_text11 = texts.render(text11, True, (255, 255, 255))
-
-        gcText1 = texts.render("[LEFT ARROW KEY] player moves left",True,(255, 255, 255))
-        gcText2 = texts.render("[RIGHT ARROW KEY] player moves right",True,(255, 255, 255))
-        gcText3 = texts.render("[UP ARROW KEY] player jumps",True,(255, 255, 255))
-        gcText4 = texts.render("[SPACE BAR] player shoots an axe",True,(255, 255, 255))
-        gcText5 = texts.render("[P KEY] open shop menu",True,(255, 255, 255))
+        gcText1 = texts.render(
+            "[LEFT ARROW KEY] player moves left", True, (255, 255, 255))
+        gcText2 = texts.render(
+            "[RIGHT ARROW KEY] player moves right", True, (255, 255, 255))
+        gcText3 = texts.render(
+            "[UP ARROW KEY] player jumps", True, (255, 255, 255))
+        gcText4 = texts.render(
+            "[SPACE BAR] player shoots an axe", True, (255, 255, 255))
+        gcText5 = texts.render("[P KEY] open shop menu", True, (255, 255, 255))
 
         screen.blit(title1, (40, 40))
         screen.blit(title2, (40, 400))
@@ -320,27 +306,23 @@ while startGame:
         screen.blit(gcText3, (40, 480))
         screen.blit(gcText4, (40, 500))
         screen.blit(gcText5, (40, 520))
-
         while help:
             pygame.display.set_caption("Help Menu")
             if not pygame.mixer.music.get_busy():
                 pygame.mixer.music.play(-1)
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     help = False
-
             pygame.display.flip()
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER MAIN SCREEN ------------------------------------------
     # --------------------------------------------------------------------------------------------------
     # mainScreenRender
-    fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf",50)
-    Title = fontForMainScreen.render("Bobby: The Town of Enginerea",True,(255,255,255))
-    playBtn = GameObject.GameObject(510,200,"mainScreenImages/playbutton.png")
-    exitBtn = GameObject.GameObject(510,260,"mainScreenImages/exitbutton.png")
-    helpBtn = GameObject.GameObject(510,320,"mainScreenImages/helpbutton.png")
+    fontForMainScreen = pygame.font.Font("Fonts/mainScreen.ttf", 50)
+    Title = fontForMainScreen.render("Bobby: The Town of Enginerea", True, (255, 255, 255))
+    playBtn = GameObject.GameObject(510, 200, "mainScreenImages/playbutton.png")
+    exitBtn = GameObject.GameObject(510, 260, "mainScreenImages/exitbutton.png")
+    helpBtn = GameObject.GameObject(510, 320, "mainScreenImages/helpbutton.png")
     playBtnImage = pygame.image.load("mainScreenImages/playbutton.png")
     exitBtnImage = pygame.image.load("mainScreenImages/exitbutton.png")
     helpBtnImage = pygame.image.load("mainScreenImages/helpbutton.png")
@@ -352,7 +334,6 @@ while startGame:
     pygame.mixer.music.load("GameMusic/mainScreenMusic.mp3")
     pygame.mixer.music.set_volume(0.15)
     pygame.mixer.music.play(-1)
-
     # rendering the main screen
     def renderMainScreen():
         global mainScreen
@@ -360,93 +341,87 @@ while startGame:
             pygame.display.set_caption("Main Menu")
             if not pygame.mixer.music.get_busy():
                 pygame.mixer.music.play(-1)
-
-            screen.blit(mainScreenImage,mainScreenImageRect)
-            screen.blit(Title, (180,55))
-            screen.blit(playBtnImage, (510,200))
-            screen.blit(exitBtnImage, (510,260))
-            screen.blit(helpBtnImage, (505,320))
+            screen.blit(mainScreenImage, mainScreenImageRect)
+            screen.blit(Title, (180, 55))
+            screen.blit(playBtnImage, (510, 200))
+            screen.blit(exitBtnImage, (510, 260))
+            screen.blit(helpBtnImage, (505, 320))
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     quit()
-                if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos): 
+                if event.type == pygame.MOUSEBUTTONDOWN and playBtn.rect.collidepoint(event.pos):
                     pygame.mixer.music.stop()
                     pygame.time.delay(200)
                     pygame.mixer.music.load("GameMusic/level1music.mp3")
                     mainScreen = False
-                if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos): 
+                if event.type == pygame.MOUSEBUTTONDOWN and exitBtn.rect.collidepoint(event.pos):
                     quit()
-                if event.type == pygame.MOUSEBUTTONDOWN and helpBtn.rect.collidepoint(event.pos): 
-                    # place the render help here. 
+                if event.type == pygame.MOUSEBUTTONDOWN and helpBtn.rect.collidepoint(event.pos):
+                    # place the render help here.
                     renderHelpScreen()
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ OTHER INITIALIZATION ----------------------------------------
     # --------------------------------------------------------------------------------------------------
     # death screen stuff
-    die = death.Death(screen,bobby,True)
+    die = death.Death(screen, bobby, True)
     startTime = pygame.time.get_ticks()
-    win = death.Death(screen,bobby,False)
-    numberOfKeys=[]
+    win = death.Death(screen, bobby, False)
+    numberOfKeys = []
     shopEnabled = True
-
-    # instructions to move 
+    # instructions to move
     playDialogue1 = True
-    # instructions to defeat enemies 
+    # instructions to defeat enemies
     playDialogue2 = True
     # says "Good Work!"
     playDialogue3 = True
-    # instructions to open shop 
+    # instructions to open shop
     playDialogue4 = True
     playDialogue5 = True
     dialogueClock = 0
-
-    #--------------------------------------------------------------------------------------------------
-    #------------------------------------ RENDER LEVEL 1 ----------------------------------------------
-    #--------------------------------------------------------------------------------------------------
-    # LEVEL 1 CHESTS AND KEYS 
+    # --------------------------------------------------------------------------------------------------
+    # ------------------------------------ RENDER LEVEL 1 ----------------------------------------------
+    # --------------------------------------------------------------------------------------------------
+    # LEVEL 1 CHESTS AND KEYS
     # door initialization
-    doorOpenRect = GameObject.GameObject(1040,237,"lvl1platformImages/doorOpen.png")
+    doorOpenRect = GameObject.GameObject(1040, 237, "lvl1platformImages/doorOpen.png")
     doorClosedImage = pygame.image.load("lvl1platformImages/doorClosed.png")
     doorOpenImage = pygame.image.load("lvl1platformImages/doorOpen.png")
     # chest and key initialization
-    chestOpenImage =  GameObject.GameObject(1090,127,"chestImages/openedChest.png")
-    chestClosedImage = GameObject.GameObject(1090,137,"chestImages/closedChest.png")
-    chestKeyRect = GameObject.GameObject(120,140,"chestImages/chestKey.png")
-    chestKeyImage = GameObject.GameObject(120,140,"chestImages/chestKey.png")
-    # boolean functions 
+    chestOpenImage = GameObject.GameObject(1090, 127, "chestImages/openedChest.png")
+    chestClosedImage = GameObject.GameObject(1090, 137, "chestImages/closedChest.png")
+    chestKeyRect = GameObject.GameObject(120, 140, "chestImages/chestKey.png")
+    chestKeyImage = GameObject.GameObject(120, 140, "chestImages/chestKey.png")
+    # boolean functions
     Level1keyAlive = True
     Level1ChestAlive = True
     Level1 = True
-    # render level 1 
+    # render level 1
     def renderLevel1():
         if Level1:
             if not pygame.mixer.music.get_busy():
                 pygame.mixer.music.play(-1)
-
-            pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
+            pygame.display.set_caption(
+                "Bobby: The Town of Enginerea | LEVEL 1")
             numberOfKeys.append(chestKeyImage)
             screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
-            screen.blit(destroyedbuilding1, (35,165)) # next to booby
-            screen.blit(destroyedbuilding2, (625,-135)) # top right corner 
-            screen.blit(destroyedbuilding3, (335,450)) # in the lava 
-            screen.blit(destroyedbuilding4, (30,-209)) # top left corner 
-            screen.blit(destroyedcar, (23,88)) # car image on left sky platform
-            screen.blit(tree, (160,302))
-            screen.blit(tree, (700,15))
-            
-            # if there are chests 
+            screen.blit(destroyedbuilding1, (35, 165))  # next to booby
+            screen.blit(destroyedbuilding2, (625, -135))  # top right corner
+            screen.blit(destroyedbuilding3, (335, 450))  # in the lava
+            screen.blit(destroyedbuilding4, (30, -209))  # top left corner
+            # car image on left sky platform
+            screen.blit(destroyedcar, (23, 88))
+            screen.blit(tree, (160, 302))
+            screen.blit(tree, (700, 15))
+            # if there are chests
             if Level1ChestAlive:
-                screen.blit(chestClosedImage.image,chestClosedImage.rect)
-            # if there are no enemies, open the chest 
-            elif len(enemies1)==0:
-                screen.blit(chestOpenImage.image,chestOpenImage.rect)
-            
-            # if there are keys 
+                screen.blit(chestClosedImage.image, chestClosedImage.rect)
+            # if there are no enemies, open the chest
+            elif len(enemies1) == 0:
+                screen.blit(chestOpenImage.image, chestOpenImage.rect)
+            # if there are keys
             if Level1keyAlive:
                 screen.blit(chestKeyImage.image, chestKeyImage.rect)
-            
             lavapool1.draw(screen)
             platForm_group1.draw(screen)
             platForm_floor1.draw(screen)
@@ -464,25 +439,24 @@ while startGame:
                 bullet.bulletTravel()
         else:
             print("function is false")
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER LEVEL 2 ----------------------------------------------
     # --------------------------------------------------------------------------------------------------
-    # LEVEL 2 CHEST AND KEYS 
+    # LEVEL 2 CHEST AND KEYS
     # door initialization
-    doorOpenRect2 = GameObject.GameObject(80,370,"lvl1platformImages/doorOpen.png")
+    doorOpenRect2 = GameObject.GameObject(80, 370, "lvl1platformImages/doorOpen.png")
     doorClosedImage2 = pygame.image.load("lvl1platformImages/doorClosed.png")
     doorOpenImage2 = pygame.image.load("lvl1platformImages/doorOpen.png")
     # chest and key 1 initialization
-    chestOpenImage2 =  GameObject.GameObject(1050,107,"chestImages/openedChest.png")
-    chestClosedImage2 = GameObject.GameObject(1050,117,"chestImages/closedChest.png")
-    chestKeyRect2 = GameObject.GameObject(670,60,"chestImages/chestKey.png")
-    chestKeyImage2 = GameObject.GameObject(670,60,"chestImages/chestKey.png")
+    chestOpenImage2 = GameObject.GameObject(1050, 107, "chestImages/openedChest.png")
+    chestClosedImage2 = GameObject.GameObject(1050, 117, "chestImages/closedChest.png")
+    chestKeyRect2 = GameObject.GameObject(670, 60, "chestImages/chestKey.png")
+    chestKeyImage2 = GameObject.GameObject(670, 60, "chestImages/chestKey.png")
     # chest and key 2 initialization
-    chestOpenImage3 =  GameObject.GameObject(230,417,"chestImages/openedChest.png")
-    chestClosedImage3 = GameObject.GameObject(230,427,"chestImages/closedChest.png")
-    chestKeyRect3 = GameObject.GameObject(50,220,"chestImages/chestKey.png")
-    chestKeyImage3 = GameObject.GameObject(50,220,"chestImages/chestKey.png")
+    chestOpenImage3 = GameObject.GameObject(230, 417, "chestImages/openedChest.png")
+    chestClosedImage3 = GameObject.GameObject(230, 427, "chestImages/closedChest.png")
+    chestKeyRect3 = GameObject.GameObject(50, 220, "chestImages/chestKey.png")
+    chestKeyImage3 = GameObject.GameObject(50, 220, "chestImages/chestKey.png")
     # boolean functions
     Level2keyAlive = True
     Level2keyAlive2 = True
@@ -493,21 +467,19 @@ while startGame:
     def renderLevel2():
         if Level2:
             movingPlatform_group1.empty()
-            pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
+            pygame.display.set_caption(
+                "Bobby: The Town of Enginerea | LEVEL 2")
             screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
-            
             if Level2ChestAlive:
-                screen.blit(chestClosedImage2.image,chestClosedImage2.rect)
-            # if there are no enemies, open the chest 
-            elif len(enemies2)==0:
-                screen.blit(chestOpenImage2.image,chestOpenImage2.rect)
-            
+                screen.blit(chestClosedImage2.image, chestClosedImage2.rect)
+            # if there are no enemies, open the chest
+            elif len(enemies2) == 0:
+                screen.blit(chestOpenImage2.image, chestOpenImage2.rect)
             if Level2ChestAlive2:
-                screen.blit(chestClosedImage3.image,chestClosedImage3.rect)
-            # if there are no enemies, open the chest 
-            elif len(enemies2)==0:
-                screen.blit(chestOpenImage3.image,chestOpenImage3.rect)
-            
+                screen.blit(chestClosedImage3.image, chestClosedImage3.rect)
+            # if there are no enemies, open the chest
+            elif len(enemies2) == 0:
+                screen.blit(chestOpenImage3.image, chestOpenImage3.rect)
             # if there are keys
             if Level2keyAlive:
                 screen.blit(chestKeyImage2.image, chestKeyImage2.rect)
@@ -529,15 +501,12 @@ while startGame:
                 bullet.bulletHoming(bobby)
         else:
             print("function is false")
-
-    #--------------------------------------------------------------------------------------------------
-    #------------------------------------ RENDER LEVEL 3 ----------------------------------------------
-    #--------------------------------------------------------------------------------------------------
-    doorOpenRect3 = GameObject.GameObject(1080,60,"lvl1platformImages/doorOpen.png")
+    # --------------------------------------------------------------------------------------------------
+    # ------------------------------------ RENDER LEVEL 3 ----------------------------------------------
+    # --------------------------------------------------------------------------------------------------
+    doorOpenRect3 = GameObject.GameObject(1080, 60, "lvl1platformImages/doorOpen.png")
     doorClosedImage3 = pygame.image.load("lvl1platformImages/doorClosed.png")
     doorOpenImage3 = pygame.image.load("lvl1platformImages/doorOpen.png")
-    
-    
     Level3keyAlive = True
     Level3ChestAlive = True
     Level3 = True
@@ -548,15 +517,12 @@ while startGame:
             screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
             movingPlatform_group3.draw(screen)
             movingPlatform_group3.update()
-        
             vertMovingPlatForm1_Level3.update()
             vertMovingPlatForm1_Level3.draw(screen)
             lavapool3.draw(screen)
             platForm_floor3.draw(screen)
             platForm_group3.draw(screen)
-
             screen.blit(doorClosedImage3, (1050, 55))
-
             for enemy in enemies3:
                 enemy.handleBehaviour(bobby)
                 enemy.update()
@@ -570,9 +536,6 @@ while startGame:
                 bullet.bulletHoming(bobby)
         else:
             print("function is false")
-
-
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER BOBBY'S STATS ----------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -582,26 +545,23 @@ while startGame:
     bobbyStats.add(GameObject.Stats(564, 5, "statsImages/strength.png"))
     bobbyStats.add(GameObject.Stats(640, 7, "statsImages/coin.png"))
     font = pygame.font.SysFont("arial.ttf", 26)
-
     def rounded_rect(width, height, color, border_radius):
         rect_surf = pygame.Surface((width, height), pygame.SRCALPHA)
-        pygame.draw.rect(rect_surf, color, rect_surf.get_rect(), border_radius=border_radius)
+        pygame.draw.rect(rect_surf, color, rect_surf.get_rect(),
+                         border_radius=border_radius)
         return rect_surf
-
-    # render stats 
+    # render stats
     def renderStats():
         heart = font.render(str(bobby.health), True, (255, 255, 255))
         strength = font.render(str(bobby.attack), True, (255, 255, 255))
         money = font.render(str(bobby.money), True, (255, 255, 255))
         statBG = pygame.Rect(489, 0, 222, 42)
-        rect_surf = rounded_rect(222, 42, (*(0, 0, 0),200), 12)
+        rect_surf = rounded_rect(222, 42, (*(0, 0, 0), 200), 12)
         screen.blit(rect_surf, statBG)
-
         bobbyStats.draw(screen)
         screen.blit(heart, (535, 12))
         screen.blit(strength, (608, 12))
         screen.blit(money, (675, 12))
-
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------------- GAME LOOP --------------------------------------------
     # --------------------------------------------------------------------------------------------------
@@ -614,21 +574,19 @@ while startGame:
         # -------------------------------------------------------------------------------------------------
         # -------------------------------- IF BOBBY IS DEAD -----------------------------------------------
         # -------------------------------------------------------------------------------------------------
-        if bobby.health <= 0: 
+        if bobby.health <= 0:
             # resetting the game
             endTime = pygame.time.get_ticks()
-            elapsedTime = (endTime - startTime)/1000 #time in seconds.
+            elapsedTime = (endTime - startTime)/1000  # time in seconds.
             minutesPlayed = int(elapsedTime // 60)
-            secondsPlayed = int(elapsedTime%60)
-            if secondsPlayed <10: 
-                secondsPlayed  = "0" + str(secondsPlayed) 
-            die.renderDeathScreen(minutesPlayed,str(secondsPlayed))
+            secondsPlayed = int(elapsedTime % 60)
+            if secondsPlayed < 10:
+                secondsPlayed = "0" + str(secondsPlayed)
+            die.renderDeathScreen(minutesPlayed, str(secondsPlayed))
             dialogueClock = 0
             break
-        if breakFromWin: 
+        if breakFromWin:
             break
-        
-
         # -------------------------------------------------------------------------------------------------
         # -------------------------------- IF BOBBY IS ON LEVEL 1 -----------------------------------------
         # -------------------------------------------------------------------------------------------------
@@ -641,28 +599,31 @@ while startGame:
             if keys[pygame.K_SPACE]:
                 if bulletcooldown >= 10:
                     if direction[1] == True:
-                        bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
+                        bullet_group.add(GameObject.Bullet(
+                            8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
                     else:
-                        bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
+                        bullet_group.add(GameObject.Bullet(
+                            8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
                     win.axesChucked += 1
-                
             bulletcooldown += 1
             if bulletcooldown >= 10:
                 bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
-            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
+            enemyCollisions = pygame.sprite.spritecollide(
+                bobby, enemies1, False)
             for collision in enemyCollisions:
-                lost.play() 
+                lost.play()
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
                 win.totalDamageTaken += 1
                 bobby.setLocation(60, 400)
 
-            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
+            bulletCollisions = pygame.sprite.spritecollide(
+                bobby, enemy_bullets1, False)
             for sprite in bulletCollisions:
                 lost.play()
                 bobby.loseHpWithArmour(2)
@@ -672,7 +633,8 @@ while startGame:
                 sprite.kill()
                 del sprite
 
-            lavaCollisions = pygame.sprite.spritecollide(bobby, lavapool1, False)
+            lavaCollisions = pygame.sprite.spritecollide(
+                bobby, lavapool1, False)
             if len(lavaCollisions) > 0:
                 lost.play()
                 bobby.loseHp(1)
@@ -680,13 +642,13 @@ while startGame:
                 win.totalDamageTaken += 1
                 die.lavaSpills += 1
                 win.lavaSpills += 1
-                bobby.setLocation(60,400)
+                bobby.setLocation(60, 400)
 
             coinCollisions = pygame.sprite.spritecollide(bobby, coins1, False)
             for coin in coinCollisions:
                 collected.play()
                 bobby.gainMoney(coin.value)
-                die.totalMoneyEarned += 20 
+                die.totalMoneyEarned += 20
                 coin.kill()
                 del coin
 
@@ -697,36 +659,37 @@ while startGame:
             collisions5 = pygame.sprite.groupcollide(bullet_group, enemy_bullets1, True, True)
             collisions6 = pygame.sprite.groupcollide(enemy_bullets1, movingPlatform_group1, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group1, True, False)
-            
-            enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True) 
+
+            enemiesHit = pygame.sprite.groupcollide(
+                enemies1, bullet_group, False, True)
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
                 enemy.loseHp(bobby.attack)
-                
+
             if len(enemies1) == 0 and bobby.rect.colliderect(doorOpenRect):
                 sb.showsmallspeechbubble(bobby)
                 sb.showText(bobby, "Press [ENTER]", 32.5, 65)
             # if chest key exist on level
-            if Level1keyAlive: 
-                # and collides with the key rectangle and bobby has 0 key  
+            if Level1keyAlive:
+                # and collides with the key rectangle and bobby has 0 key
                 if bobby.rect.colliderect(chestKeyRect):
-                    # stop blitting key image and increase his key amount 
+                    # stop blitting key image and increase his key amount
                     Level1keyAlive = False
                     keyCollected.play()
-                    bobby.keys+=1
-                    
+                    bobby.keys += 1
+
             # if chest is closed and enemies are killed
-            if Level1ChestAlive and len(enemies1)==0:
+            if Level1ChestAlive and len(enemies1) == 0:
                 # and if he collides with the closed chest with a key
-                if bobby.rect.colliderect(chestClosedImage.rect) and bobby.keys>=1:
-                    # blit the opened chest 
+                if bobby.rect.colliderect(chestClosedImage.rect) and bobby.keys >= 1:
+                    # blit the opened chest
                     Level1ChestAlive = False
                     chestcollected.play()
-                    bobby.money+=20
+                    bobby.money += 20
                     die.totalMoneyEarned += 20
                     win.totalMoneyEarned += 20
-                    bobby.keys-=1
+                    bobby.keys -= 1
             if len(enemies1) == 0 and playDialogue3 == True:
                 doorClosedImage = doorOpenImage
                 sb.showsmallspeechbubble(bobby)
@@ -735,7 +698,6 @@ while startGame:
                 if dialogueClock == 50:
                     playDialogue3 = False
                     dialogueClock = 0
-
         # -------------------------------------------------------------------------------------------------
         # -------------------------------- IF BOBBY IS ON LEVEL 2 -----------------------------------------
         # -------------------------------------------------------------------------------------------------
@@ -744,32 +706,35 @@ while startGame:
             renderStats()
             keys = pygame.key.get_pressed()
             direction = bobby.playerMovementControl(keys)
-
             if keys[pygame.K_SPACE]:
                 if bulletcooldown >= 10:
                     if direction[1] == True:
-                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(
+                            8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                     else:
-                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(
+                            8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
                     win.axesChucked += 1
-            
+
             bulletcooldown += 1
             if bulletcooldown >= 10:
                 bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
-            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies2, False)
+            enemyCollisions = pygame.sprite.spritecollide(
+                bobby, enemies2, False)
             for collision in enemyCollisions:
-                lost.play() 
+                lost.play()
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
                 win.totalDamageTaken += 1
                 bobby.setLocation(1040, 287)
 
-            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets2, False)
+            bulletCollisions = pygame.sprite.spritecollide(
+                bobby, enemy_bullets2, False)
             for sprite in bulletCollisions:
                 lost.play()
                 bobby.loseHpWithArmour(4)
@@ -796,52 +761,53 @@ while startGame:
             collisions6 = pygame.sprite.groupcollide(enemy_bullets2, vertMovingPlatform_group2, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatform_group2, True, False)
 
-            enemiesHit = pygame.sprite.groupcollide(enemies2, bullet_group, False, True)
+            enemiesHit = pygame.sprite.groupcollide(
+                enemies2, bullet_group, False, True)
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
                 enemy.loseHp(bobby.attack)
-            
+
             if len(enemies2) == 0 and bobby.rect.colliderect(doorOpenRect2):
                 sb.showsmallspeechbubble(bobby)
                 sb.showText(bobby, "Press [ENTER]", 32.5, 65)
             # if chest key exist on level
-            if Level2keyAlive: 
+            if Level2keyAlive:
                 # and collides with the key rectangle
                 if bobby.rect.colliderect(chestKeyRect2):
-                    # stop blitting key image and increase his key amount 
+                    # stop blitting key image and increase his key amount
                     Level2keyAlive = False
                     keyCollected.play()
-                    bobby.keys+=1
+                    bobby.keys += 1
             # if chest key exist on level
-            if Level2keyAlive2: 
+            if Level2keyAlive2:
                 # and collides with the key rectangle
                 if bobby.rect.colliderect(chestKeyRect3):
-                    # stop blitting key image and increase his key amount 
+                    # stop blitting key image and increase his key amount
                     Level2keyAlive2 = False
                     keyCollected.play()
-                    bobby.keys+=1
-            
+                    bobby.keys += 1
+
             # if chest is closed and enemies are killed
-            if Level2ChestAlive and len(enemies2)==0:
+            if Level2ChestAlive and len(enemies2) == 0:
                 # and if he collides with the closed chest with a key
-                if bobby.rect.colliderect(chestClosedImage2.rect) and bobby.keys>=1:
-                    # blit the opened chest 
+                if bobby.rect.colliderect(chestClosedImage2.rect) and bobby.keys >= 1:
+                    # blit the opened chest
                     Level2ChestAlive = False
                     chestcollected.play()
-                    bobby.money+=20
+                    bobby.money += 20
                     die.totalMoneyEarned += 20
                     win.totalMoneyEarned += 20
-                    bobby.keys-=1
+                    bobby.keys -= 1
             # if chest is closed and enemies are killed
-            if Level2ChestAlive2 and len(enemies2)==0:
+            if Level2ChestAlive2 and len(enemies2) == 0:
                 # and if he collides with the closed chest with a key
-                if bobby.rect.colliderect(chestClosedImage3.rect) and bobby.keys>=1:
-                    # blit the opened chest 
+                if bobby.rect.colliderect(chestClosedImage3.rect) and bobby.keys >= 1:
+                    # blit the opened chest
                     Level2ChestAlive2 = False
                     chestcollected.play()
-                    bobby.money+=20
-                    bobby.keys-=1
+                    bobby.money += 20
+                    bobby.keys -= 1
             if len(enemies2) == 0 and playDialogue5 == True:
                 doorClosedImage2 = doorOpenImage2
                 sb.showsmallspeechbubble(bobby)
@@ -858,32 +824,35 @@ while startGame:
             renderStats()
             keys = pygame.key.get_pressed()
             direction = bobby.playerMovementControl(keys)
-
             if keys[pygame.K_SPACE]:
                 if bulletcooldown >= 10:
                     if direction[1] == True:
-                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(
+                            8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                     else:
-                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(
+                            8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
                     win.axesChucked += 1
-            
+
             bulletcooldown += 1
             if bulletcooldown >= 10:
                 bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
-            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies3, False)
+            enemyCollisions = pygame.sprite.spritecollide(
+                bobby, enemies3, False)
             for collision in enemyCollisions:
-                lost.play() 
+                lost.play()
                 bobby.loseHp(1)
                 die.totalDamageTaken += 1
                 win.totalDamageTaken += 1
                 bobby.setLocation(60, 375)
 
-            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets3, False)
+            bulletCollisions = pygame.sprite.spritecollide(
+                bobby, enemy_bullets3, False)
             for sprite in bulletCollisions:
                 lost.play()
                 bobby.loseHpWithArmour(6)
@@ -892,8 +861,9 @@ while startGame:
                 bobby.setLocation(60, 375)
                 sprite.kill()
                 del sprite
-            
-            bulletCollisions1 = pygame.sprite.spritecollide(bobby, boss_bullets, False)
+
+            bulletCollisions1 = pygame.sprite.spritecollide(
+                bobby, boss_bullets, False)
             for sprite in bulletCollisions1:
                 lost.play()
                 bobby.loseHpWithArmour(6)
@@ -902,8 +872,9 @@ while startGame:
                 bobby.setLocation(60, 375)
                 sprite.kill()
                 del sprite
-            
-            lavaCollisions3 = pygame.sprite.spritecollide(bobby, lavapool3, False)
+
+            lavaCollisions3 = pygame.sprite.spritecollide(
+                bobby, lavapool3, False)
             if len(lavaCollisions3) > 0:
                 lost.play()
                 bobby.loseHp(1)
@@ -911,16 +882,16 @@ while startGame:
                 win.totalDamageTaken += 1
                 die.lavaSpills += 1
                 win.lavaSpills += 1
-                bobby.setLocation(60,375)
-            
+                bobby.setLocation(60, 375)
+
             coinCollisions = pygame.sprite.spritecollide(bobby, coins3, False)
             for coin in coinCollisions:
                 collected.play()
                 bobby.gainMoney(coin.value)
-                die.totalMoneyEarned += 20 
+                die.totalMoneyEarned += 20
                 coin.kill()
                 del coin
-            
+
             collisions1 = pygame.sprite.groupcollide(bullet_group, platForm_floor3, True, False)
             collisions2 = pygame.sprite.groupcollide(bullet_group, platForm_group3, True, False)
             collisions3 = pygame.sprite.groupcollide(enemy_bullets3, platForm_floor3, True, False)
@@ -932,7 +903,8 @@ while startGame:
             collisions9 = pygame.sprite.groupcollide(enemy_bullets3, vertMovingPlatForm1_Level3, True, False)
             collisions10 = pygame.sprite.groupcollide(boss_bullets, bullet_group, True, True)
 
-            enemiesHit = pygame.sprite.groupcollide(enemies3, bullet_group, False, True)
+            enemiesHit = pygame.sprite.groupcollide(
+                enemies3, bullet_group, False, True)
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
@@ -942,20 +914,17 @@ while startGame:
                 sb.showsmallspeechbubble(bobby)
                 sb.showText(bobby, "Press [ENTER]", 32.5, 65)
 
-            if len(enemies3) == 0: 
+            if len(enemies3) == 0:
                 doorClosedImage3 = doorOpenImage3
-
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- EVENT LOOP -----------------------------------------------
         # -------------------------------------------------------------------------------------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_p and shopEnabled == True:
-                shop.isOpen=True
+                shop.isOpen = True
                 bobby = shop.renderShop()
-                
                 damage = bobby.attack
                 if current_level == 1:
                     renderLevel1()
@@ -966,52 +935,52 @@ while startGame:
                 if current_level == 3:
                     renderLevel3()
                     renderStats()
-
             elif event.type == pygame.KEYDOWN and current_level == 1:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    #if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
-                        pygame.mixer.music.stop()
-                        pygame.time.delay(100)
-                        doorOpen.play()
-                        current_level += 1
-                        Level1 = False
-                        bobby.changeLevel(platForm_group2, platForm_floor2, movingPlatform_group2, vertMovingPlatform_group2)
-                        dialogueClock = 0
-                
+                    # if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                    pygame.mixer.music.stop()
+                    pygame.time.delay(100)
+                    doorOpen.play()
+                    current_level += 1
+                    Level1 = False
+                    bobby.changeLevel(platForm_group2, platForm_floor2,
+                                      movingPlatform_group2, vertMovingPlatform_group2)
+                    dialogueClock = 0
             elif event.type == pygame.KEYDOWN and current_level == 2:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    #if bobby.rect.colliderect(doorOpenRect2) and len(enemies2) == 0:
-                        pygame.mixer.music.stop()
-                        pygame.time.delay(100)
-                        doorOpen.play()
-                        current_level += 1
-                        Level2 = False
-                        bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
-            
+                    # if bobby.rect.colliderect(doorOpenRect2) and len(enemies2) == 0:
+                    pygame.mixer.music.stop()
+                    pygame.time.delay(100)
+                    doorOpen.play()
+                    current_level += 1
+                    Level2 = False
+                    bobby.changeLevel(platForm_group3, platForm_floor3,
+                                      movingPlatform_group3, vertMovingPlatForm1_Level3)
             elif event.type == pygame.KEYDOWN and current_level == 3:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    #if bobby.rect.colliderect(doorOpenRect3) and len(enemies3) == 0:
-                        pygame.mixer.music.stop()
-                        pygame.time.delay(100)
-                        doorOpen.play()
-                        Level3 = False
-                        endTime = pygame.time.get_ticks()
-                        elapsedTime = (endTime - startTime)/1000 #time in seconds.
-                        minutesPlayed = int(elapsedTime // 60)
-                        secondsPlayed = int(elapsedTime%60)
-                        if secondsPlayed <10: 
-                            secondsPlayed  = "0" + str(secondsPlayed) 
-                        pygame.display.set_caption("Bobby: The Town of Enginerea | YOU WIN!")
-                        win.renderDeathScreen(minutesPlayed,str(secondsPlayed))
-                        breakFromWin = True
-                        break
-
+                    # if bobby.rect.colliderect(doorOpenRect3) and len(enemies3) == 0:
+                    pygame.mixer.music.stop()
+                    pygame.time.delay(100)
+                    doorOpen.play()
+                    Level3 = False
+                    endTime = pygame.time.get_ticks()
+                    # time in seconds.
+                    elapsedTime = (endTime - startTime)/1000
+                    minutesPlayed = int(elapsedTime // 60)
+                    secondsPlayed = int(elapsedTime % 60)
+                    if secondsPlayed < 10:
+                        secondsPlayed = "0" + str(secondsPlayed)
+                    pygame.display.set_caption(
+                        "Bobby: The Town of Enginerea | YOU WIN!")
+                    win.renderDeathScreen(minutesPlayed, str(secondsPlayed))
+                    breakFromWin = True
+                    break
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOGUE SECTION -----------------------------------------
         # -------------------------------------------------------------------------------------------------
@@ -1040,7 +1009,7 @@ while startGame:
                 dialogueClock = 0
                 bobby.defaultSpeed = saved_speed
                 shopEnabled = True
-        
+
         if current_level == 2 and playDialogue4 == True:
             if dialogueClock == 0:
                 saved_speed = bobby.defaultSpeed
