@@ -72,8 +72,8 @@ while startGame:
     platForm_floor1.add(GameObject.PlatForms(959, 0, "lvl1platformImages/brownflatplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(1096, 0, "lvl1platformImages/brownflatplatform.png"))
     # left side border brown stone for collisions
-    platForm_floor1.add(GameObject.PlatForms(-6, -70,"lvl1platformImages/brownborderplatform.png"))
-    platForm_floor1.add(GameObject.PlatForms(-6, 235,"lvl1platformImages/brownborderplatform.png"))
+    platForm_floor1.add(GameObject.PlatForms(-6, -70, "lvl1platformImages/brownborderplatform.png"))
+    platForm_floor1.add(GameObject.PlatForms(-6, 235, "lvl1platformImages/brownborderplatform.png"))
     # right side border brown stone for collisions
     platForm_floor1.add(GameObject.PlatForms(1175, -40, "lvl1platformImages/brownborderplatform.png"))
     platForm_floor1.add(GameObject.PlatForms(1175, 190, "lvl1platformImages/brownborderplatform.png"))
@@ -222,14 +222,12 @@ while startGame:
     enemies1.add(GameObject.Enemy(855, 284, screen, enemy_bullets1, "level1", coins1))
     enemies1.add(GameObject.Enemy(900, 94, screen, enemy_bullets1, "level1", coins1))
     enemies1.add(GameObject.Enemy(90, 44, screen, enemy_bullets1, "level1", coins1))
-
     # initialize level 2 Enemy Groups
     enemies2 = pygame.sprite.Group()
     enemies2.add(GameObject.Enemy(100, 205, screen, enemy_bullets2, "level2", coins2))
     enemies2.add(GameObject.Enemy(100, 55, screen, enemy_bullets2, "level2", coins2))
     enemies2.add(GameObject.Enemy(350, 55, screen, enemy_bullets2, "level2", coins2))
     enemies2.add(GameObject.Enemy(570, 55, screen, enemy_bullets2, "level2", coins2))
-
     # initialize level 3 Enemy Groups
     enemies3 = pygame.sprite.Group()
     enemies3.add(GameObject.Enemy(200, 225, screen, enemy_bullets3, "level3", coins3))
@@ -274,14 +272,10 @@ while startGame:
         rendered_text9 = texts.render(text9, True, (255, 255, 255))
         rendered_text10 = texts.render(text10, True, (255, 255, 255))
         rendered_text11 = texts.render(text11, True, (255, 255, 255))
-        gcText1 = texts.render(
-            "[LEFT ARROW KEY] player moves left", True, (255, 255, 255))
-        gcText2 = texts.render(
-            "[RIGHT ARROW KEY] player moves right", True, (255, 255, 255))
-        gcText3 = texts.render(
-            "[UP ARROW KEY] player jumps", True, (255, 255, 255))
-        gcText4 = texts.render(
-            "[SPACE BAR] player shoots an axe", True, (255, 255, 255))
+        gcText1 = texts.render("[LEFT ARROW KEY] player moves left", True, (255, 255, 255))
+        gcText2 = texts.render("[RIGHT ARROW KEY] player moves right", True, (255, 255, 255))
+        gcText3 = texts.render("[UP ARROW KEY] player jumps", True, (255, 255, 255))
+        gcText4 = texts.render("[SPACE BAR] player shoots an axe", True, (255, 255, 255))
         gcText5 = texts.render("[P KEY] open shop menu", True, (255, 255, 255))
 
         screen.blit(title1, (40, 40))
@@ -401,8 +395,7 @@ while startGame:
         if Level1:
             if not pygame.mixer.music.get_busy():
                 pygame.mixer.music.play(-1)
-            pygame.display.set_caption(
-                "Bobby: The Town of Enginerea | LEVEL 1")
+            pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 1")
             numberOfKeys.append(chestKeyImage)
             screen.blit(backgroundImage_LvL1, backgroundImage_Lvl1_rect)
             screen.blit(destroyedbuilding1, (35, 165))  # next to booby
@@ -467,8 +460,7 @@ while startGame:
     def renderLevel2():
         if Level2:
             movingPlatform_group1.empty()
-            pygame.display.set_caption(
-                "Bobby: The Town of Enginerea | LEVEL 2")
+            pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
             screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
             if Level2ChestAlive:
                 screen.blit(chestClosedImage2.image, chestClosedImage2.rect)
@@ -547,8 +539,7 @@ while startGame:
     font = pygame.font.SysFont("arial.ttf", 26)
     def rounded_rect(width, height, color, border_radius):
         rect_surf = pygame.Surface((width, height), pygame.SRCALPHA)
-        pygame.draw.rect(rect_surf, color, rect_surf.get_rect(),
-                         border_radius=border_radius)
+        pygame.draw.rect(rect_surf, color, rect_surf.get_rect(), border_radius=border_radius)
         return rect_surf
     # render stats
     def renderStats():
@@ -599,22 +590,20 @@ while startGame:
             if keys[pygame.K_SPACE]:
                 if bulletcooldown >= 10:
                     if direction[1] == True:
-                        bullet_group.add(GameObject.Bullet(
-                            8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
+                        bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x - 25, direction[0].y + 20, screen))
                     else:
-                        bullet_group.add(GameObject.Bullet(
-                            8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
+                        bullet_group.add(GameObject.Bullet(8, damage, direction[1], direction[0].x + 35, direction[0].y + 20, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
                     win.axesChucked += 1
             bulletcooldown += 1
+            
             if bulletcooldown >= 10:
                 bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
-            enemyCollisions = pygame.sprite.spritecollide(
-                bobby, enemies1, False)
+            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies1, False)
             for collision in enemyCollisions:
                 lost.play()
                 bobby.loseHp(1)
@@ -622,8 +611,7 @@ while startGame:
                 win.totalDamageTaken += 1
                 bobby.setLocation(60, 400)
 
-            bulletCollisions = pygame.sprite.spritecollide(
-                bobby, enemy_bullets1, False)
+            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
             for sprite in bulletCollisions:
                 lost.play()
                 bobby.loseHpWithArmour(2)
@@ -633,8 +621,7 @@ while startGame:
                 sprite.kill()
                 del sprite
 
-            lavaCollisions = pygame.sprite.spritecollide(
-                bobby, lavapool1, False)
+            lavaCollisions = pygame.sprite.spritecollide(bobby, lavapool1, False)
             if len(lavaCollisions) > 0:
                 lost.play()
                 bobby.loseHp(1)
@@ -660,8 +647,7 @@ while startGame:
             collisions6 = pygame.sprite.groupcollide(enemy_bullets1, movingPlatform_group1, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, movingPlatform_group1, True, False)
 
-            enemiesHit = pygame.sprite.groupcollide(
-                enemies1, bullet_group, False, True)
+            enemiesHit = pygame.sprite.groupcollide(enemies1, bullet_group, False, True)
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
@@ -709,23 +695,20 @@ while startGame:
             if keys[pygame.K_SPACE]:
                 if bulletcooldown >= 10:
                     if direction[1] == True:
-                        bullet_group.add(GameObject.Bullet(
-                            8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                     else:
-                        bullet_group.add(GameObject.Bullet(
-                            8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
                     win.axesChucked += 1
-
             bulletcooldown += 1
+            
             if bulletcooldown >= 10:
                 bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
-            enemyCollisions = pygame.sprite.spritecollide(
-                bobby, enemies2, False)
+            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies2, False)
             for collision in enemyCollisions:
                 lost.play()
                 bobby.loseHp(1)
@@ -733,8 +716,7 @@ while startGame:
                 win.totalDamageTaken += 1
                 bobby.setLocation(1040, 287)
 
-            bulletCollisions = pygame.sprite.spritecollide(
-                bobby, enemy_bullets2, False)
+            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets2, False)
             for sprite in bulletCollisions:
                 lost.play()
                 bobby.loseHpWithArmour(4)
@@ -761,8 +743,7 @@ while startGame:
             collisions6 = pygame.sprite.groupcollide(enemy_bullets2, vertMovingPlatform_group2, True, False)
             collisions7 = pygame.sprite.groupcollide(bullet_group, vertMovingPlatform_group2, True, False)
 
-            enemiesHit = pygame.sprite.groupcollide(
-                enemies2, bullet_group, False, True)
+            enemiesHit = pygame.sprite.groupcollide(enemies2, bullet_group, False, True)
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
@@ -827,23 +808,20 @@ while startGame:
             if keys[pygame.K_SPACE]:
                 if bulletcooldown >= 10:
                     if direction[1] == True:
-                        bullet_group.add(GameObject.Bullet(
-                            8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x - 25, direction[0].y + 18, screen))
                     else:
-                        bullet_group.add(GameObject.Bullet(
-                            8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
+                        bullet_group.add(GameObject.Bullet(8, 1, direction[1], direction[0].x + 35, direction[0].y + 18, screen))
                     bulletcooldown = 0
                     die.axesChucked += 1
                     win.axesChucked += 1
-
             bulletcooldown += 1
+            
             if bulletcooldown >= 10:
                 bulletcooldown = 10
             for bullet in bullet_group:
                 bullet.bulletTravel()
 
-            enemyCollisions = pygame.sprite.spritecollide(
-                bobby, enemies3, False)
+            enemyCollisions = pygame.sprite.spritecollide(bobby, enemies3, False)
             for collision in enemyCollisions:
                 lost.play()
                 bobby.loseHp(1)
@@ -851,8 +829,7 @@ while startGame:
                 win.totalDamageTaken += 1
                 bobby.setLocation(60, 375)
 
-            bulletCollisions = pygame.sprite.spritecollide(
-                bobby, enemy_bullets3, False)
+            bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets3, False)
             for sprite in bulletCollisions:
                 lost.play()
                 bobby.loseHpWithArmour(6)
@@ -862,8 +839,7 @@ while startGame:
                 sprite.kill()
                 del sprite
 
-            bulletCollisions1 = pygame.sprite.spritecollide(
-                bobby, boss_bullets, False)
+            bulletCollisions1 = pygame.sprite.spritecollide(bobby, boss_bullets, False)
             for sprite in bulletCollisions1:
                 lost.play()
                 bobby.loseHpWithArmour(6)
@@ -873,8 +849,7 @@ while startGame:
                 sprite.kill()
                 del sprite
 
-            lavaCollisions3 = pygame.sprite.spritecollide(
-                bobby, lavapool3, False)
+            lavaCollisions3 = pygame.sprite.spritecollide(bobby, lavapool3, False)
             if len(lavaCollisions3) > 0:
                 lost.play()
                 bobby.loseHp(1)
@@ -903,8 +878,7 @@ while startGame:
             collisions9 = pygame.sprite.groupcollide(enemy_bullets3, vertMovingPlatForm1_Level3, True, False)
             collisions10 = pygame.sprite.groupcollide(boss_bullets, bullet_group, True, True)
 
-            enemiesHit = pygame.sprite.groupcollide(
-                enemies3, bullet_group, False, True)
+            enemiesHit = pygame.sprite.groupcollide(enemies3, bullet_group, False, True)
             # if enemy gets hit by bullet
             for enemy in enemiesHit.keys():
                 enemyHitSound.play()
@@ -939,48 +913,44 @@ while startGame:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    # if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
-                    pygame.mixer.music.stop()
-                    pygame.time.delay(100)
-                    doorOpen.play()
-                    current_level += 1
-                    Level1 = False
-                    bobby.changeLevel(platForm_group2, platForm_floor2,
-                                      movingPlatform_group2, vertMovingPlatform_group2)
-                    dialogueClock = 0
+                    if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
+                        pygame.mixer.music.stop()
+                        pygame.time.delay(100)
+                        doorOpen.play()
+                        current_level += 1
+                        Level1 = False
+                        bobby.changeLevel(platForm_group2, platForm_floor2, movingPlatform_group2, vertMovingPlatform_group2)
             elif event.type == pygame.KEYDOWN and current_level == 2:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    # if bobby.rect.colliderect(doorOpenRect2) and len(enemies2) == 0:
-                    pygame.mixer.music.stop()
-                    pygame.time.delay(100)
-                    doorOpen.play()
-                    current_level += 1
-                    Level2 = False
-                    bobby.changeLevel(platForm_group3, platForm_floor3,
-                                      movingPlatform_group3, vertMovingPlatForm1_Level3)
+                    if bobby.rect.colliderect(doorOpenRect2) and len(enemies2) == 0:
+                        pygame.mixer.music.stop()
+                        pygame.time.delay(100)
+                        doorOpen.play()
+                        current_level += 1
+                        Level2 = False
+                        bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
             elif event.type == pygame.KEYDOWN and current_level == 3:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_RETURN:
-                    # if bobby.rect.colliderect(doorOpenRect3) and len(enemies3) == 0:
-                    pygame.mixer.music.stop()
-                    pygame.time.delay(100)
-                    doorOpen.play()
-                    Level3 = False
-                    endTime = pygame.time.get_ticks()
-                    # time in seconds.
-                    elapsedTime = (endTime - startTime)/1000
-                    minutesPlayed = int(elapsedTime // 60)
-                    secondsPlayed = int(elapsedTime % 60)
-                    if secondsPlayed < 10:
-                        secondsPlayed = "0" + str(secondsPlayed)
-                    pygame.display.set_caption(
-                        "Bobby: The Town of Enginerea | YOU WIN!")
-                    win.renderDeathScreen(minutesPlayed, str(secondsPlayed))
-                    breakFromWin = True
-                    break
+                    if bobby.rect.colliderect(doorOpenRect3) and len(enemies3) == 0:
+                        pygame.mixer.music.stop()
+                        pygame.time.delay(100)
+                        doorOpen.play()
+                        Level3 = False
+                        endTime = pygame.time.get_ticks()
+                        # time in seconds.
+                        elapsedTime = (endTime - startTime)/1000
+                        minutesPlayed = int(elapsedTime // 60)
+                        secondsPlayed = int(elapsedTime % 60)
+                        if secondsPlayed < 10:
+                            secondsPlayed = "0" + str(secondsPlayed)
+                        pygame.display.set_caption("Bobby: The Town of Enginerea | YOU WIN!")
+                        win.renderDeathScreen(minutesPlayed, str(secondsPlayed))
+                        breakFromWin = True
+                        break
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOGUE SECTION -----------------------------------------
         # -------------------------------------------------------------------------------------------------
