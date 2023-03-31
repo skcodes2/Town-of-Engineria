@@ -605,6 +605,7 @@ while startGame:
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------------- GAME LOOP --------------------------------------------
     # --------------------------------------------------------------------------------------------------
+    breakFromWin = False
     current_level = 1
     running = True
     while running:
@@ -624,6 +625,9 @@ while startGame:
             die.renderDeathScreen(minutesPlayed,str(secondsPlayed))
             dialogueClock = 0
             break
+        if breakFromWin: 
+            break
+        
 
         # -------------------------------------------------------------------------------------------------
         # -------------------------------- IF BOBBY IS ON LEVEL 1 -----------------------------------------
@@ -1005,6 +1009,9 @@ while startGame:
                             secondsPlayed  = "0" + str(secondsPlayed) 
                         pygame.display.set_caption("Bobby: The Town of Enginerea | YOU WIN!")
                         win.renderDeathScreen(minutesPlayed,str(secondsPlayed))
+                        breakFromWin = True
+                        break
+
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- DIALOGUE SECTION -----------------------------------------
         # -------------------------------------------------------------------------------------------------
