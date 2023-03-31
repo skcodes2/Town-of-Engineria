@@ -616,9 +616,9 @@ while startGame:
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets1, False)
             for sprite in bulletCollisions:
                 lost.play()
-                bobby.loseHpWithArmour(2)
-                die.totalDamageTaken += 1
-                win.totalDamageTaken += 1
+                damageTotal = bobby.loseHpWithArmour(2)
+                die.totalDamageTaken += damageTotal
+                win.totalDamageTaken += damageTotal
                 bobby.setLocation(60, 400)
                 sprite.kill()
                 del sprite
@@ -722,9 +722,10 @@ while startGame:
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets2, False)
             for sprite in bulletCollisions:
                 lost.play()
-                bobby.loseHpWithArmour(4)
-                die.totalDamageTaken += 1
-                win.totalDamageTaken += 1
+                #bobby.loseHpWithArmour(4)
+                damageTotal = bobby.loseHpWithArmour(4)
+                die.totalDamageTaken += damageTotal
+                win.totalDamageTaken += damageTotal
                 bobby.setLocation(1040, 287)
                 sprite.kill()
                 del sprite
@@ -835,9 +836,9 @@ while startGame:
             bulletCollisions = pygame.sprite.spritecollide(bobby, enemy_bullets3, False)
             for sprite in bulletCollisions:
                 lost.play()
-                bobby.loseHpWithArmour(6)
-                die.totalDamageTaken += 1
-                win.totalDamageTaken += 1
+                damageTotal = bobby.loseHpWithArmour(6)
+                die.totalDamageTaken += damageTotal
+                win.totalDamageTaken += damageTotal
                 bobby.setLocation(60, 375)
                 sprite.kill()
                 del sprite

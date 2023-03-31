@@ -221,6 +221,7 @@ class Character(GameObject):
         if damage < 0:  # so that he doesn't gain hp if the armour is stronger than the damage of the bullet.
             damage = 0
         self.health = self.health - damage
+        return damage
 
     def gainMoney(self, money):
         self.money += money
