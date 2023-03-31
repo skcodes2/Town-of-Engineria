@@ -919,6 +919,7 @@ while startGame:
                         doorOpen.play()
                         current_level += 1
                         Level1 = False
+                        dialogueClock = 0
                         bobby.changeLevel(platForm_group2, platForm_floor2, movingPlatform_group2, vertMovingPlatform_group2)
             elif event.type == pygame.KEYDOWN and current_level == 2:
                 if event.key == pygame.K_ESCAPE:
@@ -930,6 +931,7 @@ while startGame:
                         doorOpen.play()
                         current_level += 1
                         Level2 = False
+                        dialogueClock = 0
                         bobby.changeLevel(platForm_group3, platForm_floor3, movingPlatform_group3, vertMovingPlatForm1_Level3)
             elif event.type == pygame.KEYDOWN and current_level == 3:
                 if event.key == pygame.K_ESCAPE:
