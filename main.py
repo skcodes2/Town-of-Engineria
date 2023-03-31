@@ -372,6 +372,8 @@ while startGame:
     # instructions to open shop
     playDialogue4 = True
     playDialogue5 = True
+    # good work for level 3
+    playDialogue6 = True
     dialogueClock = 0
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER LEVEL 1 ----------------------------------------------
@@ -496,7 +498,7 @@ while startGame:
     # --------------------------------------------------------------------------------------------------
     # ------------------------------------ RENDER LEVEL 3 ----------------------------------------------
     # --------------------------------------------------------------------------------------------------
-    doorOpenRect3 = GameObject.GameObject(1080, 60, "lvl1platformImages/doorOpen.png")
+    doorOpenRect3 = GameObject.GameObject(1050, 55, "lvl1platformImages/doorOpen.png")
     doorClosedImage3 = pygame.image.load("lvl1platformImages/doorClosed.png")
     doorOpenImage3 = pygame.image.load("lvl1platformImages/doorOpen.png")
     Level3keyAlive = True
@@ -888,8 +890,14 @@ while startGame:
                 sb.showsmallspeechbubble(bobby)
                 sb.showText(bobby, "Press [ENTER]", 32.5, 65)
 
-            if len(enemies3) == 0:
+            if len(enemies3) == 0 and playDialogue6 == True:
                 doorClosedImage3 = doorOpenImage3
+                sb.showsmallspeechbubble(bobby)
+                sb.showText(bobby, "Good work!", 20, 65)
+                dialogueClock += 1
+                if dialogueClock == 50:
+                    playDialogue6 = False
+                    dialogueClock = 0
         # -------------------------------------------------------------------------------------------------
         # -------------------------------------- EVENT LOOP -----------------------------------------------
         # -------------------------------------------------------------------------------------------------
