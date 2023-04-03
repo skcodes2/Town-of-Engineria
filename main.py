@@ -461,6 +461,8 @@ while startGame:
     # render level 2
     def renderLevel2():
         if Level2:
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.play(-1)
             movingPlatform_group1.empty()
             pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 2")
             screen.blit(backgroundImage_LvL2, backgroundImage_LvL2_rect)
@@ -507,6 +509,8 @@ while startGame:
     # render level 3
     def renderLevel3():
         if Level3:
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.play(-1)
             pygame.display.set_caption("Bobby: The Town of Enginerea | LEVEL 3")
             screen.blit(backgroundImage_LvL3, backgroundImage_LvL3_rect)
             movingPlatform_group3.draw(screen)
@@ -568,6 +572,9 @@ while startGame:
         # -------------------------------- IF BOBBY IS DEAD -----------------------------------------------
         # -------------------------------------------------------------------------------------------------
         if bobby.health <= 0:
+            pygame.mixer.music.stop()
+            pygame.time.delay(200)
+            pygame.mixer.music.load("GameMusic/deathmusic.mp3")
             # resetting the game
             endTime = pygame.time.get_ticks()
             elapsedTime = (endTime - startTime)/1000  # time in seconds.
@@ -926,7 +933,8 @@ while startGame:
                 elif event.key == pygame.K_RETURN:
                     if bobby.rect.colliderect(doorOpenRect) and len(enemies1) == 0:
                         pygame.mixer.music.stop()
-                        pygame.time.delay(100)
+                        pygame.time.delay(200)
+                        pygame.mixer.music.load("GameMusic/level2music.mp3")
                         doorOpen.play()
                         current_level += 1
                         Level1 = False
@@ -938,7 +946,8 @@ while startGame:
                 elif event.key == pygame.K_RETURN:
                     if bobby.rect.colliderect(doorOpenRect2) and len(enemies2) == 0:
                         pygame.mixer.music.stop()
-                        pygame.time.delay(100)
+                        pygame.time.delay(200)
+                        pygame.mixer.music.load("GameMusic/level3music.mp3")
                         doorOpen.play()
                         current_level += 1
                         Level2 = False
@@ -949,9 +958,10 @@ while startGame:
                     running = False
                 elif event.key == pygame.K_RETURN:
                     if bobby.rect.colliderect(doorOpenRect3) and len(enemies3) == 0:
-                        pygame.mixer.music.stop()
-                        pygame.time.delay(100)
                         doorOpen.play()
+                        pygame.mixer.music.stop()
+                        pygame.time.delay(200)
+                        pygame.mixer.music.load("GameMusic/winmusic.mp3")
                         Level3 = False
                         endTime = pygame.time.get_ticks()
                         # time in seconds.

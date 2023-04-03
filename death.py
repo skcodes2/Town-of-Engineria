@@ -38,6 +38,7 @@ class Death:
         self.exitBtnRect = self.exitBtn.rect
 
     def renderDeathScreen(self, mp, sp):
+        pygame.display.set_caption("Bobby: The Town of Enginerea | YOU DIED!")
         self.screen.fill((0, 0, 0))
         self.totalElapsedTime = self.deathScreenText.render("Time played              " + str(mp) + ":" + sp, True, (255, 255, 255))
 
@@ -67,6 +68,9 @@ class Death:
 
         running = True
         while running:
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.play(-1)
+                pygame.mixer.music.set_volume(0.7)
             self.screen.blit(self.playBtn.image, self.playBtn.rect)
             self.screen.blit(self.exitBtn.image, self.exitBtn.rect)
             for event in pygame.event.get():
