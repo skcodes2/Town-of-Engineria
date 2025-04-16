@@ -1,6 +1,6 @@
 # Team 01
 
-Authors: Raymond Li, Eric Tan, Seth Langendoen, Sarabjot Kahlon
+Authors: Raymond Li, Eric Tan, Seth Langendoen, Sabi Kahlon
 
 **Storyline**:
 
